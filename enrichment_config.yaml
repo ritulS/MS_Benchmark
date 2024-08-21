@@ -1,0 +1,11 @@
+---
+
+Databases: # In percentages
+  MongoDB: 30
+  Redis: 30
+  Postgres: 40
+
+SL_type_split:
+  Relay: 30
+  High: 20
+  Low: 10
