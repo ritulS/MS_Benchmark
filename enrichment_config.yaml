@@ -11,9 +11,9 @@ Databases:
 
 WorkloadConfig:
   record_count: 100          # eg: 1000
-  record_size_dist: 'uniform'      # eg: uniform, random
+  record_size_dist: 'uniform'      # eg: uniform, lognormal
   data_access_pattern: 'zipfian'    # eg: zipfian, uniform
-  rw_ratio: 0.5
+  rw_ratio: 0.5               # eg: 0.5
   async_sync_ratio: 0.1
 
 # Make sure these add up to 100
