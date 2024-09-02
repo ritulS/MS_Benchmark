@@ -28,3 +28,11 @@ SLTypeSplit:
 
 
 
+MongoDB: 
+  count: 30 
+Redis: 
+  count: 30
+Postgres: 
+  count: 40
+Python: 
+  count: 40
