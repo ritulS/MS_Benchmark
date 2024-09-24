@@ -1,0 +1,38 @@
+services:
+  MongoDB-0_07b77b43e193e1822fe7903a7f0332fbbbfe97f94747aefbd48e79ca55570490:
+    container_name: MongoDB-0_07b77b43e193e1822fe7903a7f0332fbbbfe97f94747aefbd48e79ca55570490
+    image: mongo:latest
+    ports:
+    - ''
+  Postgres-0_b1bb46c61ea1e41012326ea3609f4200ab2aebe0aa9ddbbe6aab1c149ae48d1a:
+    container_name: Postgres-0_b1bb46c61ea1e41012326ea3609f4200ab2aebe0aa9ddbbe6aab1c149ae48d1a
+    image: postgres:latest
+    ports:
+    - ''
+  Python-0_22e1101be4d958757934cb69779e7c8537db5b5e41a2acbab2d5117e0a873d0f:
+    container_name: Python-0_22e1101be4d958757934cb69779e7c8537db5b5e41a2acbab2d5117e0a873d0f
+    image: python:latest
+    ports:
+    - ''
+    volumes:
+    - ./sl_server.py:/app/sl_server.py
+  Python-1_6655de1e1f8b90d9f49e942d595b112742780854f994bc84ff7c492f5c8cbe31:
+    container_name: Python-1_6655de1e1f8b90d9f49e942d595b112742780854f994bc84ff7c492f5c8cbe31
+    image: python:latest
+    ports:
+    - ''
+    volumes:
+    - ./sl_server.py:/app/sl_server.py
+  Python-2_42313632d5ad9cbfaa24df3bb914757c238de8255561f088fb205c7c27dc85a7:
+    container_name: Python-2_42313632d5ad9cbfaa24df3bb914757c238de8255561f088fb205c7c27dc85a7
+    image: python:latest
+    ports:
+    - ''
+    volumes:
+    - ./sl_server.py:/app/sl_server.py
+  Redis-0_c7e083a01111cb7ff37f4cb5af936be370d75a5d828dfa52a31d1c960d87045a:
+    container_name: Redis-0_c7e083a01111cb7ff37f4cb5af936be370d75a5d828dfa52a31d1c960d87045a
+    image: redis:latest
+    ports:
+    - ''
+version: '3.8'

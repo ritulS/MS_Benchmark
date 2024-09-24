@@ -1,0 +1,3 @@
+{"sf_split": {"MongoDB": {"count": 1, "nodes_list": ["07b77b43e193e1822fe7903a7f0332fbbbfe97f94747aefbd48e79ca55570490"]}, "Redis": {"count": 1, "nodes_list": ["c7e083a01111cb7ff37f4cb5af936be370d75a5d828dfa52a31d1c960d87045a"]}, "Postgres": {"count": 1, "nodes_list": ["b1bb46c61ea1e41012326ea3609f4200ab2aebe0aa9ddbbe6aab1c149ae48d1a"]}}, 
+
+"sl_split": {"Relay": {"count": 1, "nodes_list": ["22e1101be4d958757934cb69779e7c8537db5b5e41a2acbab2d5117e0a873d0f"]}, "High": {"count": 1, "nodes_list": ["6655de1e1f8b90d9f49e942d595b112742780854f994bc84ff7c492f5c8cbe31"]}, "Low": {"count": 1, "nodes_list": ["42313632d5ad9cbfaa24df3bb914757c238de8255561f088fb205c7c27dc85a7"]}}}

@@ -1,4 +1,5 @@
 import json
+import yaml
 
 # Read inputs
 def load_dict_from_json(file_path):
@@ -14,11 +15,9 @@ conts_to_setup = {
 }
 
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
-node_split = load_dict_from_json('enrichment_runs/test_run/node_split_output.json')
-conts_to_setup['MongoDB'] = node_split['sf_split']['MongoDB']
-conts_to_setup['Redis'] = node_split['sf_split']['Redis']
-conts_to_setup['Postgres'] = node_split['sf_split']['Postgres']
+node_split = load_dict_from_json('node_split_output_test.json')
 
+# extract sl node info: count, sl nodeids
 total_sl_count = 0
 total_sl_nodes_list = []
 for sl_type in node_split['sl_split']:
@@ -26,43 +25,61 @@ for sl_type in node_split['sl_split']:
     total_sl_nodes_list.extend(node_split['sl_split'][sl_type]['nodes_list'])
 
 conts_to_setup['Python'] = {'count': total_sl_count, 'nodes_list': total_sl_nodes_list}
+conts_to_setup['MongoDB'] = node_split['sf_split']['MongoDB']
+conts_to_setup['Redis'] = node_split['sf_split']['Redis']
+conts_to_setup['Postgres'] = node_split['sf_split']['Postgres']
+
 for service in conts_to_setup:
     print(service, "=> Conts to setup: ",conts_to_setup[service]['count'])
 
-# dc_template = {
-#     'version': '3',
-#     'services': {}
-# }
+print(conts_to_setup.keys())
+def gen_docker_compose_data(conts_to_setup):
+    docker_compose_data = {
+    "version": "3.8",
+    "services": {}
+    }
+    for service in conts_to_setup:
+        service_node_count = conts_to_setup[service]['count']
+        nodes_for_service = conts_to_setup[service]['nodes_list']
+        # print(f"{service}-{i}")
+        if service == 'Python':
+            for j in range(service_node_count):
+                cont_name = f"Python-{j}_{nodes_for_service[j]}" # eg: Python-0_(nodeid)
+                docker_compose_data['services'][cont_name] = {
+                    'image': f"python:latest",
+                    'container_name': cont_name,
+                    'volumes':[
+                        './sl_server.py:/app/sl_server.py'  
+                    ],
+                    'ports': [f""] # TBC
+                }
+        elif service == 'Redis':
+            for j in range(service_node_count):
+                cont_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
+                docker_compose_data['services'][cont_name] = {
+                    'image': f"redis:latest",
+                    'container_name': cont_name,
+                    'ports': [f""] # TBC
+                }
+        elif service == 'MongoDB':
+            for j in range(service_node_count):
+                cont_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
+                docker_compose_data['services'][cont_name] = {
+                    'image': f"mongo:latest",
+                    'container_name': cont_name,
+                    'ports': [f""] # TBC
+                }
+        elif service == 'Postgres':
+            for j in range(service_node_count):
+                cont_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
+                docker_compose_data['services'][cont_name] = {
+                    'image': f"postgres:latest",
+                    'container_name': cont_name,
+                    'ports': [f""] # TBC
+                }   
+    
+    return yaml.dump(docker_compose_data)
 
-# for service in cont_to_setup:
-#     service_nodes = cont_to_setup[service]
-#     for i in range(1, len(service_nodes) + 1):
-#         if service == 'Python':
-#             cont_name = f'{service}{service_nodes[i - 1]}'
-#             dc_template['services'][cont_name] = {
-#                 'image': f'{service}:latest',
-#                 'container_name': cont_name,
-#                 'ports': [f'{i}:{i}']
-#             }
-#         elif service == 'Mongodb':
-#             cont_name = f'{service}{service_nodes[i - 1]}'
-#             dc_template['services'][cont_name] = {
-#                 'image': f'{service}:4.2',
-#                 'container_name': cont_name,
-#                 'ports': [f'{i}:{i}']
-#             }
-#         elif service == 'Redis':
-#             cont_name = f'{service}{service_nodes[i - 1]}'
-#             dc_template['services'][cont_name] = {
-#                 'image': f'{service}:6.0',
-#                 'container_name': cont_name,
-#                 'ports': [f'{i}:{i}']
-#             }
-#         elif service == 'Postgres':
-#             cont_name = f'{service}{service_nodes[i - 1]}'
-#             dc_template['services'][cont_name] = {
-#                 'image': f'{service}:12',
-#                 'container_name': cont_name,
-#                 'ports': [f'{i}:{i}']
-#             }
-
+docker_compose_content = gen_docker_compose_data(conts_to_setup)
+with open('docker-compose.yml', 'w') as f:
+    f.write(docker_compose_content)
