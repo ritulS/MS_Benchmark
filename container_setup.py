@@ -15,7 +15,7 @@ conts_to_setup = {
 }
 
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
-node_split = load_dict_from_json('node_split_output_test.json')
+node_split = load_dict_from_json('node_split_output_test_2sf_8sl.json')
 
 # extract sl node info: count, sl nodeids
 total_sl_count = 0
@@ -51,7 +51,7 @@ def gen_docker_compose_data(conts_to_setup):
                     'volumes':[
                         './sl_server.py:/app/sl_server.py'  
                     ],
-                    'ports': [f""] # TBC
+                    'ports': ['5000:5000'] # TBC
                 }
         elif service == 'Redis':
             for j in range(service_node_count):
@@ -59,7 +59,7 @@ def gen_docker_compose_data(conts_to_setup):
                 docker_compose_data['services'][cont_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
-                    'ports': [f""] # TBC
+                    'ports': ['6379:6379'] # TBC
                 }
         elif service == 'MongoDB':
             for j in range(service_node_count):
@@ -67,7 +67,7 @@ def gen_docker_compose_data(conts_to_setup):
                 docker_compose_data['services'][cont_name] = {
                     'image': f"mongo:latest",
                     'container_name': cont_name,
-                    'ports': [f""] # TBC
+                    'ports': ['27017:27017'] # TBC
                 }
         elif service == 'Postgres':
             for j in range(service_node_count):
@@ -75,7 +75,7 @@ def gen_docker_compose_data(conts_to_setup):
                 docker_compose_data['services'][cont_name] = {
                     'image': f"postgres:latest",
                     'container_name': cont_name,
-                    'ports': [f""] # TBC
+                    'ports': ['5432:5432'] # TBC
                 }   
     
     return yaml.dump(docker_compose_data)

@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+# Copy the application code to the container
+COPY . /app
+
+# Set the working directory
+WORKDIR /app
+
+# Install dependencies from requirements.txt
+RUN pip install -r requirements.txt
+
+# Expose the port on which the application will listen
+EXPOSE 8000
+
+# Define the command to run when the container starts
+CMD ["python", "sl_server.py"]

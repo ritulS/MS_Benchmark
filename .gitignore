@@ -3,3 +3,5 @@ node_details_data.pkl
 traces/
 all_trace*
 enrichment_runs/
+testing_sl/
+node_split_output*
