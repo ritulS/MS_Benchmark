@@ -1,68 +1,109 @@
+version: '3.8'
 services:
-  Postgres-0_4b71e10a0c055f8f52c722d0ddd26c8235137f4a11b31ecc925254a66bf3d738:
-    container_name: Postgres-0_4b71e10a0c055f8f52c722d0ddd26c8235137f4a11b31ecc925254a66bf3d738
-    image: postgres:latest
-    ports:
-    - 5432:5432
-  Python-0_35114acfb54c54fb9618f23cd28bbc57c765f597df140977d7030dcc52775ed4:
-    container_name: Python-0_35114acfb54c54fb9618f23cd28bbc57c765f597df140977d7030dcc52775ed4
+  MewbieClient:
     image: python:latest
-    ports:
-    - 5000:5000
+    container_name: mewbie_client
     volumes:
-    - ./sl_server.py:/app/sl_server.py
-  Python-1_7695b43b41732a0f15d3799c8eed2852665fe8da29fd700c383550fc16e521a3:
-    container_name: Python-1_7695b43b41732a0f15d3799c8eed2852665fe8da29fd700c383550fc16e521a3
-    image: python:latest
-    ports:
-    - 5000:5000
-    volumes:
-    - ./sl_server.py:/app/sl_server.py
-  Python-2_b1dbd3a649a3cc790fa12573c9c1aa00988e07a8818a2214208b9697238c1b11:
-    container_name: Python-2_b1dbd3a649a3cc790fa12573c9c1aa00988e07a8818a2214208b9697238c1b11
-    image: python:latest
-    ports:
-    - 5000:5000
-    volumes:
-    - ./sl_server.py:/app/sl_server.py
-  Python-3_UNKNOWN:
-    container_name: Python-3_UNKNOWN
-    image: python:latest
-    ports:
-    - 5000:5000
-    volumes:
-    - ./sl_server.py:/app/sl_server.py
-  Python-4_61c5783ad62386f08a1a27482bb472b8aba3e3ea3042e975f8819c197d99ebe8:
-    container_name: Python-4_61c5783ad62386f08a1a27482bb472b8aba3e3ea3042e975f8819c197d99ebe8
-    image: python:latest
-    ports:
-    - 5000:5000
-    volumes:
-    - ./sl_server.py:/app/sl_server.py
-  Python-5_af42b5e3e0eb334d38619733586d78d1414f6549f24d31b39a5294454638bc59:
-    container_name: Python-5_af42b5e3e0eb334d38619733586d78d1414f6549f24d31b39a5294454638bc59
-    image: python:latest
-    ports:
-    - 5000:5000
-    volumes:
-    - ./sl_server.py:/app/sl_server.py
-  Python-6_a61ab50a28452385eef873aa281003c7064a50733908d89a3cfca077fe8c8d44:
-    container_name: Python-6_a61ab50a28452385eef873aa281003c7064a50733908d89a3cfca077fe8c8d44
-    image: python:latest
-    ports:
-    - 5000:5000
-    volumes:
-    - ./sl_server.py:/app/sl_server.py
-  Python-7_8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf782:
-    container_name: Python-7_8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf782
-    image: python:latest
-    ports:
-    - 5000:5000
-    volumes:
-    - ./sl_server.py:/app/sl_server.py
+    - ./mewbie_client.py:/app/mewbie_client.py
+    - ./client_requirements.txt:/app/client_requirements.txt
+    - ./trace_details_data.pkl:/app/trace_details_data.pkl
+    - ./enrichment_runs/test_run/all_trace_packets.json:/app/all_trace_packets.json
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=mewbie_client
+    command: sh -c "pip install -r client_requirements.txt && tail -f /dev/null"
   Redis-0_95a9c24648c4754da55afdd47e854bff99381b430f915769c6370ba196af2fd0:
-    container_name: Redis-0_95a9c24648c4754da55afdd47e854bff99381b430f915769c6370ba196af2fd0
     image: redis:latest
+    container_name: 95a9c24648c4754da55afdd47e854bff99381b430f915769c6370ba196af2fd0
     ports:
     - 6379:6379
-version: '3.8'
+  Postgres-0_4b71e10a0c055f8f52c722d0ddd26c8235137f4a11b31ecc925254a66bf3d738:
+    image: postgres:latest
+    container_name: 4b71e10a0c055f8f52c722d0ddd26c8235137f4a11b31ecc925254a66bf3d738
+    ports:
+    - 5432:5432
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Python-0_UNKNOWN:
+    image: python:latest
+    container_name: UNKNOWN
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-0_UNKNOWN
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+  Python-1_b1dbd3a649a3cc790fa12573c9c1aa00988e07a8818a2214208b9697238c1b11:
+    image: python:latest
+    container_name: b1dbd3a649a3cc790fa12573c9c1aa00988e07a8818a2214208b9697238c1b11
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-1_b1dbd3a649a3cc790fa12573c9c1aa00988e07a8818a2214208b9697238c1b11
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+  Python-2_af42b5e3e0eb334d38619733586d78d1414f6549f24d31b39a5294454638bc59:
+    image: python:latest
+    container_name: af42b5e3e0eb334d38619733586d78d1414f6549f24d31b39a5294454638bc59
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-2_af42b5e3e0eb334d38619733586d78d1414f6549f24d31b39a5294454638bc59
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+  Python-3_a61ab50a28452385eef873aa281003c7064a50733908d89a3cfca077fe8c8d44:
+    image: python:latest
+    container_name: a61ab50a28452385eef873aa281003c7064a50733908d89a3cfca077fe8c8d44
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-3_a61ab50a28452385eef873aa281003c7064a50733908d89a3cfca077fe8c8d44
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+  Python-4_8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf782:
+    image: python:latest
+    container_name: 8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf782
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-4_8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf782
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+  Python-5_7695b43b41732a0f15d3799c8eed2852665fe8da29fd700c383550fc16e521a3:
+    image: python:latest
+    container_name: 7695b43b41732a0f15d3799c8eed2852665fe8da29fd700c383550fc16e521a3
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-5_7695b43b41732a0f15d3799c8eed2852665fe8da29fd700c383550fc16e521a3
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+  Python-6_35114acfb54c54fb9618f23cd28bbc57c765f597df140977d7030dcc52775ed4:
+    image: python:latest
+    container_name: 35114acfb54c54fb9618f23cd28bbc57c765f597df140977d7030dcc52775ed4
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-6_35114acfb54c54fb9618f23cd28bbc57c765f597df140977d7030dcc52775ed4
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+  Python-7_61c5783ad62386f08a1a27482bb472b8aba3e3ea3042e975f8819c197d99ebe8:
+    image: python:latest
+    container_name: 61c5783ad62386f08a1a27482bb472b8aba3e3ea3042e975f8819c197d99ebe8
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=Python-7_61c5783ad62386f08a1a27482bb472b8aba3e3ea3042e975f8819c197d99ebe8
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"

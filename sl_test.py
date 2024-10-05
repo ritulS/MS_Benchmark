@@ -4,6 +4,7 @@ import asyncio
 import asyncpg
 import requests
 import string
+import os
 import random
 import json
 import motor.motor_asyncio
@@ -38,10 +39,8 @@ def get_container_id():
                 return line.strip().split('/')[-1]
 
 def get_container_name():
-    client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-    container_id = get_container_id()
-    container = client.containers.get(container_id)
-    return container.name
+    return os.environ['CONTAINER_NAME']
+
 this_nid = get_container_name()
 
 ##################### SHIM FUNCS #################################
@@ -116,8 +115,8 @@ async def call_handler(request):
         node_calls_dict = data.get('node_call_dict')
         data_ops_dict = data.get('data_ops_dict')
 
-        this_nid = '0'
-        async_sync_ratio = 0
+        #this_nid = '0'
+        # async_sync_ratio = 0
         dm_nodes_to_call = node_calls_dict[this_nid]
         print(dm_nodes_to_call)
         print(data_ops_dict)

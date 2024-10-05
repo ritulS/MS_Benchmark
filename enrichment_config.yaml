@@ -12,27 +12,10 @@ Databases:
 WorkloadConfig:
   record_count: 1000          # eg: 1000 
   record_size_dist: 'uniform'      # eg: uniform, lognormal
-  data_access_pattern: 'zipfian'    # eg: zipfian, uniform
-  rw_ratio: 0.5               # eg: 0.5
-  async_sync_ratio: 0.1
+  data_access_pattern: 'zipfian'    # eg: uniform, zipfian
+  rw_ratio: 1               # eg: 0.5
+  async_sync_ratio: 0.5
 
 # Make sure these add up to 100
-SLTypeSplit:
-  Relay:
-    percentage: 30
-  High:
-    percentage: 20
-  Low:
-    percentage: 50
 
 
-
-
-MongoDB: 
-  count: 30 
-Redis: 
-  count: 30
-Postgres: 
-  count: 40
-Python: 
-  count: 40

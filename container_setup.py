@@ -15,7 +15,7 @@ conts_to_setup = {
 }
 
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
-node_split = load_dict_from_json('node_split_output_test_2sf_8sl.json')
+node_split = load_dict_from_json('./enrichment_runs/test_run/node_split_output.json')
 
 # extract sl node info: count, sl nodeids
 total_sl_count = 0
@@ -38,47 +38,81 @@ def gen_docker_compose_data(conts_to_setup):
     "version": "3.8",
     "services": {}
     }
+
+    # Client container setup
+    docker_compose_data['services']['MewbieClient'] = {
+        'image': f"python:latest",
+        'container_name': 'mewbie_client',
+        'volumes':[
+            './mewbie_client.py:/app/mewbie_client.py',
+            './client_requirements.txt:/app/client_requirements.txt',
+            './trace_details_data.pkl:/app/trace_details_data.pkl',
+            './enrichment_runs/test_run/all_trace_packets.json:/app/all_trace_packets.json'
+        ],
+        'working_dir': '/app',
+        'environment': [
+            'CONTAINER_NAME={}'.format('mewbie_client')
+        ],
+        'command':
+            'sh -c "pip install -r client_requirements.txt && tail -f /dev/null"'
+    }
     for service in conts_to_setup:
         service_node_count = conts_to_setup[service]['count']
         nodes_for_service = conts_to_setup[service]['nodes_list']
         # print(f"{service}-{i}")
         if service == 'Python':
             for j in range(service_node_count):
-                cont_name = f"Python-{j}_{nodes_for_service[j]}" # eg: Python-0_(nodeid)
-                docker_compose_data['services'][cont_name] = {
+                service_name = f"Python-{j}_{nodes_for_service[j]}" # eg: Python-0_(nodeid)
+                cont_name = f"{nodes_for_service[j]}"
+                docker_compose_data['services'][service_name] = {
                     'image': f"python:latest",
                     'container_name': cont_name,
                     'volumes':[
-                        './sl_server.py:/app/sl_server.py'  
+                        './sl_test.py:/app/sl_test.py',
+                        './sl_requirements.txt:/app/sl_requirements.txt'
                     ],
-                    'ports': ['5000:5000'] # TBC
+                    'working_dir': '/app',
+                    'environment': [
+                        'CONTAINER_NAME={}'.format(service_name)
+                    ],
+                    'command':
+                        'sh -c "pip install -r sl_requirements.txt && python sl_test.py"'
                 }
         elif service == 'Redis':
             for j in range(service_node_count):
-                cont_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
-                docker_compose_data['services'][cont_name] = {
+                service_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
+                cont_name = f"{nodes_for_service[j]}"
+                docker_compose_data['services'][service_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
                     'ports': ['6379:6379'] # TBC
                 }
         elif service == 'MongoDB':
             for j in range(service_node_count):
-                cont_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
-                docker_compose_data['services'][cont_name] = {
+                service_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
+                cont_name = f"{nodes_for_service[j]}"
+                docker_compose_data['services'][service_name] = {
                     'image': f"mongo:latest",
                     'container_name': cont_name,
                     'ports': ['27017:27017'] # TBC
                 }
         elif service == 'Postgres':
             for j in range(service_node_count):
-                cont_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
-                docker_compose_data['services'][cont_name] = {
+                service_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
+                cont_name = f"{nodes_for_service[j]}"
+                docker_compose_data['services'][service_name] = {
                     'image': f"postgres:latest",
                     'container_name': cont_name,
-                    'ports': ['5432:5432'] # TBC
+                    'ports': ['5432:5432'], # TBC
+                    'environment': [
+                        'POSTGRES_USER=pguser',
+                        'POSTGRES_PASSWORD=pgpass',
+                        'POSTGRES_DB=pg_db',
+                        'POSTGRES_HOST_AUTH_METHOD=trust'
+                    ]
                 }   
     
-    return yaml.dump(docker_compose_data)
+    return yaml.dump(docker_compose_data, default_flow_style=False, sort_keys=False)
 
 docker_compose_content = gen_docker_compose_data(conts_to_setup)
 with open('docker-compose.yml', 'w') as f:
