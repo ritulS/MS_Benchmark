@@ -17,8 +17,6 @@ trace_details_data = pkl_to_dict('./trace_details_data.pkl')
 
 def send_data_to_container(container_name, data, cont_type):
     try:
-        print(container_name)
-        print(cont_type)
         if cont_type == 'Python':
             port = 5000
         elif cont_type == 'Redis':
@@ -44,8 +42,10 @@ def main():
     delay = 1/req_ps
     print(trace_packets_dict)
     for tid, t_packet in trace_packets_dict.items():
-        t_ini_cont = trace_details_data[tid][2]
-        t_ini_type = t_packet['initial_node_type']
+        # t_ini_cont = trace_details_data[tid][2]
+        # t_ini_type = t_packet['initial_node_type']
+        t_ini_cont = '8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf78'
+        t_ini_type = 'Python'
         # t_ini_cont = 'Python-1_8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf782'
         send_data_to_container(t_ini_cont, t_packet, t_ini_type)
         time.sleep(delay)
