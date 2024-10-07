@@ -26,12 +26,16 @@ def send_data_to_container(container_name, data, cont_type):
         elif cont_type == 'Postgres':
             port = 5432
 
-        url = f"http://{container_name}:{port}"
-        response = requests.post(url, data=data)
+        url = f"http://{container_name}:{port}/"
+        print(url)
+        headers = {'Content-Type': 'application/json'}
+        print(data)
+        response = requests.post(url, json=data, headers=headers)
         if response.status_code == 200:
             print(f"Successfully sent data to {container_name}")
         else:
-            print(f"Failed to send data to {container_name}: {response.text}")
+            print(f"Status code: {response.status_code}")
+            print(f"Failed to send data to {container_name}: {response.text}: {response.content}")
     except Exception as e:
         print("Error sending data to container: ", e)
 
@@ -40,16 +44,11 @@ req_ps = 50 # packets per second; USER DEFINED
 def main():
     total_num_packets = len(trace_packets_dict)
     delay = 1/req_ps
-    print(trace_packets_dict)
     for tid, t_packet in trace_packets_dict.items():
-        # t_ini_cont = trace_details_data[tid][2]
-        # t_ini_type = t_packet['initial_node_type']
-        t_ini_cont = '8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf78'
-        t_ini_type = 'Python'
-        # t_ini_cont = 'Python-1_8738f7b585302b876bff0dbb5723d7234341f9e6f523c7877f7cff67b48cf782'
+        t_ini_cont = t_packet['initial_node']
+        t_ini_type = t_packet['initial_node_type']
         send_data_to_container(t_ini_cont, t_packet, t_ini_type)
         time.sleep(delay)
-        break
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,9 @@
 myenv/
-node_details_data.pkl
+*node_details_data.pkl
 traces/
 all_trace*
 enrichment_runs/
 testing_sl/
 node_split_output*
 *requirements.txt
-trace_details_data.pkl
+*trace_details_data.pkl

@@ -15,7 +15,7 @@ conts_to_setup = {
 }
 
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
-node_split = load_dict_from_json('./enrichment_runs/test_run/node_split_output.json')
+node_split = load_dict_from_json('./enrichment_runs/new_test_run/node_split_output.json')
 
 # extract sl node info: count, sl nodeids
 total_sl_count = 0
@@ -35,8 +35,13 @@ for service in conts_to_setup:
 print(conts_to_setup.keys())
 def gen_docker_compose_data(conts_to_setup):
     docker_compose_data = {
-    "version": "3.8",
-    "services": {}
+        "version": "3.8",
+        "services": {},
+        "networks": {
+            "mewbie_network": {
+                "driver": "bridge"
+            }
+        }
     }
 
     # Client container setup
@@ -46,15 +51,16 @@ def gen_docker_compose_data(conts_to_setup):
         'volumes':[
             './mewbie_client.py:/app/mewbie_client.py',
             './client_requirements.txt:/app/client_requirements.txt',
-            './trace_details_data.pkl:/app/trace_details_data.pkl',
-            './enrichment_runs/test_run/all_trace_packets.json:/app/all_trace_packets.json'
+            './new_trace_details_data.pkl:/app/trace_details_data.pkl',
+            './enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json'
         ],
         'working_dir': '/app',
         'environment': [
             'CONTAINER_NAME={}'.format('mewbie_client')
         ],
         'command':
-            'sh -c "pip install -r client_requirements.txt && tail -f /dev/null"'
+            'sh -c "pip install -r client_requirements.txt && tail -f /dev/null"',
+        'networks': ['mewbie_network']
     }
     for service in conts_to_setup:
         service_node_count = conts_to_setup[service]['count']
@@ -73,10 +79,11 @@ def gen_docker_compose_data(conts_to_setup):
                     ],
                     'working_dir': '/app',
                     'environment': [
-                        'CONTAINER_NAME={}'.format(service_name)
+                        'CONTAINER_NAME={}'.format(cont_name)
                     ],
                     'command':
-                        'sh -c "pip install -r sl_requirements.txt && python sl_test.py"'
+                        'sh -c "pip install -r sl_requirements.txt && python sl_test.py"',
+                    'networks': ['mewbie_network']
                 }
         elif service == 'Redis':
             for j in range(service_node_count):
@@ -85,7 +92,9 @@ def gen_docker_compose_data(conts_to_setup):
                 docker_compose_data['services'][service_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
-                    'ports': ['6379:6379'] # TBC
+                    'ports': ['6379:6379'], # TBC
+                    'networks': ['mewbie_network']
+                    
                 }
         elif service == 'MongoDB':
             for j in range(service_node_count):
@@ -94,7 +103,8 @@ def gen_docker_compose_data(conts_to_setup):
                 docker_compose_data['services'][service_name] = {
                     'image': f"mongo:latest",
                     'container_name': cont_name,
-                    'ports': ['27017:27017'] # TBC
+                    'ports': ['27017:27017'], # TBC
+                    'networks': ['mewbie_network']
                 }
         elif service == 'Postgres':
             for j in range(service_node_count):
@@ -104,6 +114,7 @@ def gen_docker_compose_data(conts_to_setup):
                     'image': f"postgres:latest",
                     'container_name': cont_name,
                     'ports': ['5432:5432'], # TBC
+                    'networks': ['mewbie_network'],
                     'environment': [
                         'POSTGRES_USER=pguser',
                         'POSTGRES_PASSWORD=pgpass',
