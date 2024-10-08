@@ -1,10 +1,9 @@
-import docker
 import json
 import time
 import requests
 import re
 import pickle
-
+import logging
 
 def pkl_to_dict(pkl_file):
     with open(pkl_file, 'rb') as f:
@@ -48,6 +47,7 @@ def main():
         t_ini_cont = t_packet['initial_node']
         t_ini_type = t_packet['initial_node_type']
         send_data_to_container(t_ini_cont, t_packet, t_ini_type)
+        logging.info(f"Logging = {tid}:'mewbie_client':{time.time()}")
         time.sleep(delay)
 
 if __name__ == "__main__":

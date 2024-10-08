@@ -105,6 +105,9 @@ def gen_docker_compose_data(conts_to_setup):
                     'container_name': cont_name,
                     'ports': ['27017:27017'], # TBC
                     'networks': ['mewbie_network']
+                    # 'environment': {
+                    #     'MONGO_INITDB_DATABASE': 'mewbie_db',  # Create database
+                    # }
                 }
         elif service == 'Postgres':
             for j in range(service_node_count):
