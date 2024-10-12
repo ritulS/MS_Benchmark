@@ -3,11 +3,11 @@
 # Make sure these add up to 100
 Databases: 
   MongoDB: 
-    percentage: 30 
+    percentage: 60 
   Redis: 
-    percentage: 30
+    percentage: 20
   Postgres: 
-    percentage: 40
+    percentage: 20
 
 WorkloadConfig:
   record_count: 1000          # eg: 1000 

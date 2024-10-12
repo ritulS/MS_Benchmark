@@ -52,7 +52,8 @@ def gen_docker_compose_data(conts_to_setup):
             './mewbie_client.py:/app/mewbie_client.py',
             './client_requirements.txt:/app/client_requirements.txt',
             './new_trace_details_data.pkl:/app/trace_details_data.pkl',
-            './enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json'
+            './enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json',
+            './logs:/app/logs'
         ],
         'working_dir': '/app',
         'environment': [
@@ -65,7 +66,6 @@ def gen_docker_compose_data(conts_to_setup):
     for service in conts_to_setup:
         service_node_count = conts_to_setup[service]['count']
         nodes_for_service = conts_to_setup[service]['nodes_list']
-        # print(f"{service}-{i}")
         if service == 'Python':
             for j in range(service_node_count):
                 service_name = f"Python-{j}_{nodes_for_service[j]}" # eg: Python-0_(nodeid)
@@ -75,7 +75,8 @@ def gen_docker_compose_data(conts_to_setup):
                     'container_name': cont_name,
                     'volumes':[
                         './sl_test.py:/app/sl_test.py',
-                        './sl_requirements.txt:/app/sl_requirements.txt'
+                        './sl_requirements.txt:/app/sl_requirements.txt',
+                        './logs:/app/logs'
                     ],
                     'working_dir': '/app',
                     'environment': [
@@ -105,9 +106,6 @@ def gen_docker_compose_data(conts_to_setup):
                     'container_name': cont_name,
                     'ports': ['27017:27017'], # TBC
                     'networks': ['mewbie_network']
-                    # 'environment': {
-                    #     'MONGO_INITDB_DATABASE': 'mewbie_db',  # Create database
-                    # }
                 }
         elif service == 'Postgres':
             for j in range(service_node_count):

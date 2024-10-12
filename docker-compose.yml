@@ -8,6 +8,7 @@ services:
     - ./client_requirements.txt:/app/client_requirements.txt
     - ./new_trace_details_data.pkl:/app/trace_details_data.pkl
     - ./enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json
+    - ./logs:/app/logs
     working_dir: /app
     environment:
     - CONTAINER_NAME=mewbie_client
@@ -21,51 +22,5387 @@ services:
     - 27017:27017
     networks:
     - mewbie_network
-  Python-0_n3732:
+  MongoDB-1_n7079:
+    image: mongo:latest
+    container_name: n7079
+    ports:
+    - 27017:27017
+    networks:
+    - mewbie_network
+  MongoDB-2_n6277:
+    image: mongo:latest
+    container_name: n6277
+    ports:
+    - 27017:27017
+    networks:
+    - mewbie_network
+  MongoDB-3_n462:
+    image: mongo:latest
+    container_name: n462
+    ports:
+    - 27017:27017
+    networks:
+    - mewbie_network
+  MongoDB-4_n5960:
+    image: mongo:latest
+    container_name: n5960
+    ports:
+    - 27017:27017
+    networks:
+    - mewbie_network
+  MongoDB-5_n7501:
+    image: mongo:latest
+    container_name: n7501
+    ports:
+    - 27017:27017
+    networks:
+    - mewbie_network
+  MongoDB-6_n2395:
+    image: mongo:latest
+    container_name: n2395
+    ports:
+    - 27017:27017
+    networks:
+    - mewbie_network
+  MongoDB-7_n4193:
+    image: mongo:latest
+    container_name: n4193
+    ports:
+    - 27017:27017
+    networks:
+    - mewbie_network
+  Redis-0_n3158:
+    image: redis:latest
+    container_name: n3158
+    ports:
+    - 6379:6379
+    networks:
+    - mewbie_network
+  Redis-1_n8085:
+    image: redis:latest
+    container_name: n8085
+    ports:
+    - 6379:6379
+    networks:
+    - mewbie_network
+  Redis-2_n2379:
+    image: redis:latest
+    container_name: n2379
+    ports:
+    - 6379:6379
+    networks:
+    - mewbie_network
+  Postgres-0_n843:
+    image: postgres:latest
+    container_name: n843
+    ports:
+    - 5432:5432
+    networks:
+    - mewbie_network
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-1_n1518:
+    image: postgres:latest
+    container_name: n1518
+    ports:
+    - 5432:5432
+    networks:
+    - mewbie_network
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-2_n7889:
+    image: postgres:latest
+    container_name: n7889
+    ports:
+    - 5432:5432
+    networks:
+    - mewbie_network
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Python-0_n6815:
+    image: python:latest
+    container_name: n6815
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6815
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-1_n7217:
+    image: python:latest
+    container_name: n7217
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7217
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-2_n7071:
+    image: python:latest
+    container_name: n7071
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7071
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-3_n8155:
+    image: python:latest
+    container_name: n8155
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8155
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-4_n6532:
+    image: python:latest
+    container_name: n6532
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6532
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-5_n5051:
+    image: python:latest
+    container_name: n5051
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5051
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-6_n1832:
+    image: python:latest
+    container_name: n1832
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1832
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-7_n6759:
+    image: python:latest
+    container_name: n6759
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6759
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-8_n4388:
+    image: python:latest
+    container_name: n4388
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4388
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-9_n769:
+    image: python:latest
+    container_name: n769
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n769
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-10_n4059:
+    image: python:latest
+    container_name: n4059
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4059
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-11_n5439:
+    image: python:latest
+    container_name: n5439
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5439
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-12_n295:
+    image: python:latest
+    container_name: n295
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n295
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-13_n3829:
+    image: python:latest
+    container_name: n3829
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3829
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-14_n7668:
+    image: python:latest
+    container_name: n7668
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7668
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-15_n1358:
+    image: python:latest
+    container_name: n1358
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1358
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-16_n2749:
+    image: python:latest
+    container_name: n2749
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2749
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-17_n2888:
+    image: python:latest
+    container_name: n2888
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2888
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-18_n7315:
+    image: python:latest
+    container_name: n7315
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7315
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-19_n4215:
+    image: python:latest
+    container_name: n4215
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4215
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-20_n4774:
+    image: python:latest
+    container_name: n4774
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4774
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-21_n3973:
+    image: python:latest
+    container_name: n3973
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3973
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-22_n3664:
+    image: python:latest
+    container_name: n3664
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3664
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-23_n7355:
+    image: python:latest
+    container_name: n7355
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7355
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-24_n6265:
+    image: python:latest
+    container_name: n6265
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6265
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-25_n6444:
+    image: python:latest
+    container_name: n6444
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6444
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-26_n3148:
+    image: python:latest
+    container_name: n3148
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3148
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-27_n1806:
+    image: python:latest
+    container_name: n1806
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1806
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-28_n1420:
+    image: python:latest
+    container_name: n1420
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1420
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-29_n3854:
+    image: python:latest
+    container_name: n3854
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3854
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-30_n6158:
+    image: python:latest
+    container_name: n6158
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6158
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-31_n121:
+    image: python:latest
+    container_name: n121
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n121
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-32_n1070:
+    image: python:latest
+    container_name: n1070
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1070
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-33_n4012:
+    image: python:latest
+    container_name: n4012
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4012
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-34_n5784:
+    image: python:latest
+    container_name: n5784
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5784
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-35_n2218:
+    image: python:latest
+    container_name: n2218
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2218
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-36_n5389:
+    image: python:latest
+    container_name: n5389
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5389
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-37_n896:
+    image: python:latest
+    container_name: n896
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n896
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-38_n6599:
+    image: python:latest
+    container_name: n6599
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6599
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-39_n5908:
+    image: python:latest
+    container_name: n5908
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5908
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-40_n5583:
+    image: python:latest
+    container_name: n5583
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5583
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-41_n2280:
+    image: python:latest
+    container_name: n2280
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2280
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-42_n4792:
+    image: python:latest
+    container_name: n4792
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4792
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-43_n3174:
+    image: python:latest
+    container_name: n3174
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3174
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-44_n5398:
+    image: python:latest
+    container_name: n5398
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5398
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-45_n225:
+    image: python:latest
+    container_name: n225
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n225
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-46_n1930:
+    image: python:latest
+    container_name: n1930
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1930
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-47_n4479:
+    image: python:latest
+    container_name: n4479
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4479
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-48_n3273:
+    image: python:latest
+    container_name: n3273
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3273
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-49_n4404:
+    image: python:latest
+    container_name: n4404
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4404
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-50_n6002:
+    image: python:latest
+    container_name: n6002
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6002
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-51_n1244:
+    image: python:latest
+    container_name: n1244
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1244
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-52_n4597:
+    image: python:latest
+    container_name: n4597
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4597
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-53_n7900:
+    image: python:latest
+    container_name: n7900
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7900
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-54_n995:
+    image: python:latest
+    container_name: n995
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n995
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-55_n6926:
+    image: python:latest
+    container_name: n6926
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6926
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-56_n7941:
+    image: python:latest
+    container_name: n7941
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7941
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-57_n5726:
+    image: python:latest
+    container_name: n5726
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5726
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-58_n1553:
+    image: python:latest
+    container_name: n1553
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1553
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-59_n2542:
+    image: python:latest
+    container_name: n2542
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2542
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-60_n5202:
+    image: python:latest
+    container_name: n5202
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5202
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-61_n1886:
+    image: python:latest
+    container_name: n1886
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1886
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-62_n772:
+    image: python:latest
+    container_name: n772
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n772
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-63_n5121:
+    image: python:latest
+    container_name: n5121
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5121
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-64_n4313:
+    image: python:latest
+    container_name: n4313
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4313
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-65_n99:
+    image: python:latest
+    container_name: n99
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n99
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-66_n1663:
+    image: python:latest
+    container_name: n1663
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1663
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-67_n6887:
+    image: python:latest
+    container_name: n6887
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6887
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-68_n1728:
+    image: python:latest
+    container_name: n1728
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1728
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-69_n6715:
+    image: python:latest
+    container_name: n6715
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6715
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-70_n2921:
+    image: python:latest
+    container_name: n2921
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2921
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-71_n8275:
+    image: python:latest
+    container_name: n8275
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8275
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-72_n3660:
+    image: python:latest
+    container_name: n3660
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3660
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-73_n5919:
+    image: python:latest
+    container_name: n5919
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5919
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-74_n7591:
+    image: python:latest
+    container_name: n7591
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7591
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-75_n2113:
+    image: python:latest
+    container_name: n2113
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2113
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-76_n2223:
+    image: python:latest
+    container_name: n2223
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2223
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-77_n2784:
+    image: python:latest
+    container_name: n2784
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2784
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-78_n1235:
+    image: python:latest
+    container_name: n1235
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1235
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-79_n5798:
+    image: python:latest
+    container_name: n5798
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5798
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-80_n6494:
+    image: python:latest
+    container_name: n6494
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6494
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-81_n6138:
+    image: python:latest
+    container_name: n6138
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6138
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-82_n8173:
+    image: python:latest
+    container_name: n8173
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8173
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-83_n4128:
+    image: python:latest
+    container_name: n4128
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4128
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-84_n867:
+    image: python:latest
+    container_name: n867
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n867
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-85_n1639:
+    image: python:latest
+    container_name: n1639
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1639
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-86_n1897:
+    image: python:latest
+    container_name: n1897
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1897
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-87_n1976:
+    image: python:latest
+    container_name: n1976
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1976
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-88_n1062:
+    image: python:latest
+    container_name: n1062
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1062
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-89_n3536:
+    image: python:latest
+    container_name: n3536
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3536
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-90_n6029:
+    image: python:latest
+    container_name: n6029
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6029
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-91_n1654:
+    image: python:latest
+    container_name: n1654
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1654
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-92_n6483:
+    image: python:latest
+    container_name: n6483
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6483
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-93_n8054:
+    image: python:latest
+    container_name: n8054
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8054
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-94_n5400:
+    image: python:latest
+    container_name: n5400
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5400
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-95_n2146:
+    image: python:latest
+    container_name: n2146
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2146
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-96_n7526:
+    image: python:latest
+    container_name: n7526
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7526
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-97_n3266:
+    image: python:latest
+    container_name: n3266
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3266
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-98_n4138:
+    image: python:latest
+    container_name: n4138
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4138
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-99_n6418:
+    image: python:latest
+    container_name: n6418
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6418
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-100_n5610:
+    image: python:latest
+    container_name: n5610
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5610
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-101_n5318:
+    image: python:latest
+    container_name: n5318
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5318
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-102_n3202:
+    image: python:latest
+    container_name: n3202
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3202
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-103_n5870:
+    image: python:latest
+    container_name: n5870
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5870
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-104_n4453:
+    image: python:latest
+    container_name: n4453
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4453
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-105_n1211:
+    image: python:latest
+    container_name: n1211
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1211
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-106_n4178:
+    image: python:latest
+    container_name: n4178
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4178
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-107_n206:
+    image: python:latest
+    container_name: n206
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n206
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-108_n3732:
     image: python:latest
     container_name: n3732
     volumes:
     - ./sl_test.py:/app/sl_test.py
     - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
     working_dir: /app
     environment:
     - CONTAINER_NAME=n3732
     command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
     networks:
     - mewbie_network
-  Python-1_n3324:
+  Python-109_n8167:
     image: python:latest
-    container_name: n3324
+    container_name: n8167
     volumes:
     - ./sl_test.py:/app/sl_test.py
     - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
     working_dir: /app
     environment:
-    - CONTAINER_NAME=n3324
+    - CONTAINER_NAME=n8167
     command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
     networks:
     - mewbie_network
-  Python-2_n806:
+  Python-110_n3761:
+    image: python:latest
+    container_name: n3761
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3761
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-111_n3166:
+    image: python:latest
+    container_name: n3166
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3166
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-112_n631:
+    image: python:latest
+    container_name: n631
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n631
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-113_n2372:
+    image: python:latest
+    container_name: n2372
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2372
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-114_n750:
+    image: python:latest
+    container_name: n750
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n750
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-115_n5742:
+    image: python:latest
+    container_name: n5742
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5742
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-116_n1959:
+    image: python:latest
+    container_name: n1959
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1959
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-117_n5127:
+    image: python:latest
+    container_name: n5127
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5127
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-118_n3665:
+    image: python:latest
+    container_name: n3665
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3665
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-119_n5554:
+    image: python:latest
+    container_name: n5554
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5554
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-120_n3561:
+    image: python:latest
+    container_name: n3561
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3561
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-121_n4150:
+    image: python:latest
+    container_name: n4150
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4150
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-122_n4022:
+    image: python:latest
+    container_name: n4022
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4022
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-123_n7636:
+    image: python:latest
+    container_name: n7636
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7636
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-124_n699:
+    image: python:latest
+    container_name: n699
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n699
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-125_n7494:
+    image: python:latest
+    container_name: n7494
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7494
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-126_n4931:
+    image: python:latest
+    container_name: n4931
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4931
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-127_n4398:
+    image: python:latest
+    container_name: n4398
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4398
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-128_n717:
+    image: python:latest
+    container_name: n717
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n717
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-129_n1101:
+    image: python:latest
+    container_name: n1101
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1101
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-130_n8152:
+    image: python:latest
+    container_name: n8152
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8152
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-131_n6515:
+    image: python:latest
+    container_name: n6515
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6515
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-132_n7599:
+    image: python:latest
+    container_name: n7599
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7599
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-133_n2337:
+    image: python:latest
+    container_name: n2337
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2337
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-134_n5176:
+    image: python:latest
+    container_name: n5176
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5176
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-135_n1743:
+    image: python:latest
+    container_name: n1743
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1743
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-136_n6311:
+    image: python:latest
+    container_name: n6311
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6311
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-137_n7947:
+    image: python:latest
+    container_name: n7947
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7947
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-138_n6519:
+    image: python:latest
+    container_name: n6519
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6519
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-139_n1998:
+    image: python:latest
+    container_name: n1998
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1998
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-140_n1499:
+    image: python:latest
+    container_name: n1499
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1499
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-141_n3265:
+    image: python:latest
+    container_name: n3265
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3265
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-142_n2665:
+    image: python:latest
+    container_name: n2665
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2665
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-143_n5519:
+    image: python:latest
+    container_name: n5519
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5519
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-144_n258:
+    image: python:latest
+    container_name: n258
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n258
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-145_n7391:
+    image: python:latest
+    container_name: n7391
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7391
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-146_n2576:
+    image: python:latest
+    container_name: n2576
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2576
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-147_n732:
+    image: python:latest
+    container_name: n732
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n732
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-148_n3972:
+    image: python:latest
+    container_name: n3972
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3972
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-149_n1929:
+    image: python:latest
+    container_name: n1929
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1929
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-150_n1148:
+    image: python:latest
+    container_name: n1148
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1148
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-151_n6221:
+    image: python:latest
+    container_name: n6221
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6221
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-152_n7035:
+    image: python:latest
+    container_name: n7035
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7035
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-153_n4434:
+    image: python:latest
+    container_name: n4434
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4434
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-154_n7435:
+    image: python:latest
+    container_name: n7435
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7435
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-155_n6809:
+    image: python:latest
+    container_name: n6809
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6809
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-156_n4688:
+    image: python:latest
+    container_name: n4688
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4688
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-157_n7389:
+    image: python:latest
+    container_name: n7389
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7389
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-158_n984:
+    image: python:latest
+    container_name: n984
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n984
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-159_n4320:
+    image: python:latest
+    container_name: n4320
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4320
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-160_n3353:
+    image: python:latest
+    container_name: n3353
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3353
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-161_n4595:
+    image: python:latest
+    container_name: n4595
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4595
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-162_n967:
+    image: python:latest
+    container_name: n967
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n967
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-163_n4497:
+    image: python:latest
+    container_name: n4497
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4497
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-164_n2295:
+    image: python:latest
+    container_name: n2295
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2295
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-165_n4825:
+    image: python:latest
+    container_name: n4825
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4825
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-166_n6811:
+    image: python:latest
+    container_name: n6811
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6811
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-167_n606:
+    image: python:latest
+    container_name: n606
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n606
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-168_n4429:
+    image: python:latest
+    container_name: n4429
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4429
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-169_n7329:
+    image: python:latest
+    container_name: n7329
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7329
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-170_n5473:
+    image: python:latest
+    container_name: n5473
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5473
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-171_n1220:
+    image: python:latest
+    container_name: n1220
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1220
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-172_n6121:
+    image: python:latest
+    container_name: n6121
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6121
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-173_n5653:
+    image: python:latest
+    container_name: n5653
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5653
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-174_n2781:
+    image: python:latest
+    container_name: n2781
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2781
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-175_n4985:
+    image: python:latest
+    container_name: n4985
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4985
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-176_n6657:
+    image: python:latest
+    container_name: n6657
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6657
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-177_n621:
+    image: python:latest
+    container_name: n621
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n621
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-178_n5761:
+    image: python:latest
+    container_name: n5761
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5761
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-179_n2102:
+    image: python:latest
+    container_name: n2102
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2102
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-180_n6350:
+    image: python:latest
+    container_name: n6350
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6350
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-181_n7017:
+    image: python:latest
+    container_name: n7017
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7017
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-182_n4200:
+    image: python:latest
+    container_name: n4200
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4200
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-183_n6475:
+    image: python:latest
+    container_name: n6475
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6475
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-184_n1659:
+    image: python:latest
+    container_name: n1659
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1659
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-185_n6876:
+    image: python:latest
+    container_name: n6876
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6876
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-186_n244:
+    image: python:latest
+    container_name: n244
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n244
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-187_n5837:
+    image: python:latest
+    container_name: n5837
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5837
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-188_n1134:
+    image: python:latest
+    container_name: n1134
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1134
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-189_n806:
     image: python:latest
     container_name: n806
     volumes:
     - ./sl_test.py:/app/sl_test.py
     - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
     working_dir: /app
     environment:
     - CONTAINER_NAME=n806
     command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
     networks:
     - mewbie_network
-  Python-3_n1929:
+  Python-190_n3825:
     image: python:latest
-    container_name: n1929
+    container_name: n3825
     volumes:
     - ./sl_test.py:/app/sl_test.py
     - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
     working_dir: /app
     environment:
-    - CONTAINER_NAME=n1929
+    - CONTAINER_NAME=n3825
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-191_n8052:
+    image: python:latest
+    container_name: n8052
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8052
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-192_n8250:
+    image: python:latest
+    container_name: n8250
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8250
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-193_n4550:
+    image: python:latest
+    container_name: n4550
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4550
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-194_n1757:
+    image: python:latest
+    container_name: n1757
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1757
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-195_n3883:
+    image: python:latest
+    container_name: n3883
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3883
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-196_n1633:
+    image: python:latest
+    container_name: n1633
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1633
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-197_n2590:
+    image: python:latest
+    container_name: n2590
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2590
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-198_n1487:
+    image: python:latest
+    container_name: n1487
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1487
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-199_n8090:
+    image: python:latest
+    container_name: n8090
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8090
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-200_n6669:
+    image: python:latest
+    container_name: n6669
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6669
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-201_n4449:
+    image: python:latest
+    container_name: n4449
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4449
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-202_n2137:
+    image: python:latest
+    container_name: n2137
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2137
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-203_n8156:
+    image: python:latest
+    container_name: n8156
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8156
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-204_n3822:
+    image: python:latest
+    container_name: n3822
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3822
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-205_n7353:
+    image: python:latest
+    container_name: n7353
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7353
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-206_n602:
+    image: python:latest
+    container_name: n602
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n602
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-207_n7742:
+    image: python:latest
+    container_name: n7742
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7742
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-208_n1567:
+    image: python:latest
+    container_name: n1567
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1567
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-209_n1660:
+    image: python:latest
+    container_name: n1660
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1660
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-210_n2110:
+    image: python:latest
+    container_name: n2110
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2110
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-211_n1329:
+    image: python:latest
+    container_name: n1329
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1329
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-212_n4147:
+    image: python:latest
+    container_name: n4147
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4147
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-213_n7454:
+    image: python:latest
+    container_name: n7454
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7454
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-214_n5887:
+    image: python:latest
+    container_name: n5887
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5887
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-215_n6618:
+    image: python:latest
+    container_name: n6618
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6618
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-216_n2282:
+    image: python:latest
+    container_name: n2282
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2282
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-217_n4875:
+    image: python:latest
+    container_name: n4875
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4875
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-218_n3802:
+    image: python:latest
+    container_name: n3802
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3802
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-219_n7672:
+    image: python:latest
+    container_name: n7672
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7672
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-220_n4877:
+    image: python:latest
+    container_name: n4877
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4877
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-221_n5215:
+    image: python:latest
+    container_name: n5215
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5215
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-222_n7416:
+    image: python:latest
+    container_name: n7416
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7416
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-223_n3170:
+    image: python:latest
+    container_name: n3170
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3170
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-224_n5504:
+    image: python:latest
+    container_name: n5504
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5504
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-225_n7496:
+    image: python:latest
+    container_name: n7496
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7496
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-226_n6196:
+    image: python:latest
+    container_name: n6196
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6196
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-227_n1957:
+    image: python:latest
+    container_name: n1957
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1957
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-228_n4538:
+    image: python:latest
+    container_name: n4538
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4538
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-229_n5790:
+    image: python:latest
+    container_name: n5790
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5790
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-230_n3172:
+    image: python:latest
+    container_name: n3172
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3172
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-231_n6526:
+    image: python:latest
+    container_name: n6526
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6526
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-232_n4273:
+    image: python:latest
+    container_name: n4273
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4273
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-233_n554:
+    image: python:latest
+    container_name: n554
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n554
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-234_n131:
+    image: python:latest
+    container_name: n131
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n131
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-235_n5682:
+    image: python:latest
+    container_name: n5682
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5682
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-236_n464:
+    image: python:latest
+    container_name: n464
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n464
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-237_n7762:
+    image: python:latest
+    container_name: n7762
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7762
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-238_n7140:
+    image: python:latest
+    container_name: n7140
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7140
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-239_n6037:
+    image: python:latest
+    container_name: n6037
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6037
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-240_n2316:
+    image: python:latest
+    container_name: n2316
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2316
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-241_n6662:
+    image: python:latest
+    container_name: n6662
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6662
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-242_n5172:
+    image: python:latest
+    container_name: n5172
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5172
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-243_n3141:
+    image: python:latest
+    container_name: n3141
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3141
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-244_n695:
+    image: python:latest
+    container_name: n695
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n695
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-245_n6836:
+    image: python:latest
+    container_name: n6836
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6836
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-246_n787:
+    image: python:latest
+    container_name: n787
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n787
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-247_n4427:
+    image: python:latest
+    container_name: n4427
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4427
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-248_n3950:
+    image: python:latest
+    container_name: n3950
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3950
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-249_n2047:
+    image: python:latest
+    container_name: n2047
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2047
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-250_n3282:
+    image: python:latest
+    container_name: n3282
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3282
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-251_n599:
+    image: python:latest
+    container_name: n599
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n599
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-252_n57:
+    image: python:latest
+    container_name: n57
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n57
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-253_n5324:
+    image: python:latest
+    container_name: n5324
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5324
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-254_n3479:
+    image: python:latest
+    container_name: n3479
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3479
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-255_n8281:
+    image: python:latest
+    container_name: n8281
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8281
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-256_n7285:
+    image: python:latest
+    container_name: n7285
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7285
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-257_n3637:
+    image: python:latest
+    container_name: n3637
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3637
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-258_n1614:
+    image: python:latest
+    container_name: n1614
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1614
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-259_n5510:
+    image: python:latest
+    container_name: n5510
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5510
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-260_n8215:
+    image: python:latest
+    container_name: n8215
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8215
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-261_n6014:
+    image: python:latest
+    container_name: n6014
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6014
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-262_n3867:
+    image: python:latest
+    container_name: n3867
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3867
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-263_n1841:
+    image: python:latest
+    container_name: n1841
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1841
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-264_n5480:
+    image: python:latest
+    container_name: n5480
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5480
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-265_n6188:
+    image: python:latest
+    container_name: n6188
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6188
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-266_n7357:
+    image: python:latest
+    container_name: n7357
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7357
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-267_n552:
+    image: python:latest
+    container_name: n552
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n552
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-268_n7546:
+    image: python:latest
+    container_name: n7546
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7546
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-269_n4998:
+    image: python:latest
+    container_name: n4998
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4998
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-270_n2928:
+    image: python:latest
+    container_name: n2928
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2928
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-271_n3193:
+    image: python:latest
+    container_name: n3193
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3193
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-272_n7666:
+    image: python:latest
+    container_name: n7666
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7666
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-273_n4326:
+    image: python:latest
+    container_name: n4326
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4326
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-274_n4724:
+    image: python:latest
+    container_name: n4724
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4724
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-275_n84:
+    image: python:latest
+    container_name: n84
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n84
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-276_n7081:
+    image: python:latest
+    container_name: n7081
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7081
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-277_n2457:
+    image: python:latest
+    container_name: n2457
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2457
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-278_n7230:
+    image: python:latest
+    container_name: n7230
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7230
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-279_n5898:
+    image: python:latest
+    container_name: n5898
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5898
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-280_n4024:
+    image: python:latest
+    container_name: n4024
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4024
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-281_n5567:
+    image: python:latest
+    container_name: n5567
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5567
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-282_n2889:
+    image: python:latest
+    container_name: n2889
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2889
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-283_n3010:
+    image: python:latest
+    container_name: n3010
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3010
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-284_n5361:
+    image: python:latest
+    container_name: n5361
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5361
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-285_n8023:
+    image: python:latest
+    container_name: n8023
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8023
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-286_n1217:
+    image: python:latest
+    container_name: n1217
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1217
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-287_n1770:
+    image: python:latest
+    container_name: n1770
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1770
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-288_n3061:
+    image: python:latest
+    container_name: n3061
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3061
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-289_n1444:
+    image: python:latest
+    container_name: n1444
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1444
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-290_n1755:
+    image: python:latest
+    container_name: n1755
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1755
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-291_n2939:
+    image: python:latest
+    container_name: n2939
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2939
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-292_n1788:
+    image: python:latest
+    container_name: n1788
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1788
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-293_n6580:
+    image: python:latest
+    container_name: n6580
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6580
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-294_n4454:
+    image: python:latest
+    container_name: n4454
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4454
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-295_n6963:
+    image: python:latest
+    container_name: n6963
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6963
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-296_n4103:
+    image: python:latest
+    container_name: n4103
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4103
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-297_n6302:
+    image: python:latest
+    container_name: n6302
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6302
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-298_n3641:
+    image: python:latest
+    container_name: n3641
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3641
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-299_n7743:
+    image: python:latest
+    container_name: n7743
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7743
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-300_n3687:
+    image: python:latest
+    container_name: n3687
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3687
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-301_n2173:
+    image: python:latest
+    container_name: n2173
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2173
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-302_n7873:
+    image: python:latest
+    container_name: n7873
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7873
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-303_n651:
+    image: python:latest
+    container_name: n651
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n651
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-304_n3696:
+    image: python:latest
+    container_name: n3696
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3696
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-305_n6438:
+    image: python:latest
+    container_name: n6438
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6438
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-306_n2933:
+    image: python:latest
+    container_name: n2933
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2933
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-307_n2739:
+    image: python:latest
+    container_name: n2739
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2739
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-308_n8121:
+    image: python:latest
+    container_name: n8121
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8121
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-309_n5026:
+    image: python:latest
+    container_name: n5026
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5026
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-310_n6703:
+    image: python:latest
+    container_name: n6703
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6703
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-311_n248:
+    image: python:latest
+    container_name: n248
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n248
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-312_n8223:
+    image: python:latest
+    container_name: n8223
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8223
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-313_n3487:
+    image: python:latest
+    container_name: n3487
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3487
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-314_n6629:
+    image: python:latest
+    container_name: n6629
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6629
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-315_n1312:
+    image: python:latest
+    container_name: n1312
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1312
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-316_n8160:
+    image: python:latest
+    container_name: n8160
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8160
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-317_n2745:
+    image: python:latest
+    container_name: n2745
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2745
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-318_n954:
+    image: python:latest
+    container_name: n954
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n954
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-319_n726:
+    image: python:latest
+    container_name: n726
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n726
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-320_n1542:
+    image: python:latest
+    container_name: n1542
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1542
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-321_n4495:
+    image: python:latest
+    container_name: n4495
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4495
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-322_n4838:
+    image: python:latest
+    container_name: n4838
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4838
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-323_n2351:
+    image: python:latest
+    container_name: n2351
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2351
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-324_n5482:
+    image: python:latest
+    container_name: n5482
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5482
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-325_n7617:
+    image: python:latest
+    container_name: n7617
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7617
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-326_n5957:
+    image: python:latest
+    container_name: n5957
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5957
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-327_n5909:
+    image: python:latest
+    container_name: n5909
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5909
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-328_n461:
+    image: python:latest
+    container_name: n461
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n461
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-329_n7335:
+    image: python:latest
+    container_name: n7335
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7335
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-330_n1406:
+    image: python:latest
+    container_name: n1406
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1406
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-331_n4880:
+    image: python:latest
+    container_name: n4880
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4880
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-332_n6752:
+    image: python:latest
+    container_name: n6752
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6752
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-333_n7219:
+    image: python:latest
+    container_name: n7219
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7219
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-334_n1381:
+    image: python:latest
+    container_name: n1381
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1381
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-335_n7921:
+    image: python:latest
+    container_name: n7921
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7921
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-336_n4367:
+    image: python:latest
+    container_name: n4367
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4367
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-337_n5993:
+    image: python:latest
+    container_name: n5993
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5993
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-338_n7939:
+    image: python:latest
+    container_name: n7939
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7939
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-339_n1055:
+    image: python:latest
+    container_name: n1055
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1055
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-340_n1904:
+    image: python:latest
+    container_name: n1904
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1904
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-341_n3589:
+    image: python:latest
+    container_name: n3589
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3589
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-342_n345:
+    image: python:latest
+    container_name: n345
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n345
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-343_n2564:
+    image: python:latest
+    container_name: n2564
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2564
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-344_n7281:
+    image: python:latest
+    container_name: n7281
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7281
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-345_n1962:
+    image: python:latest
+    container_name: n1962
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1962
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-346_n7757:
+    image: python:latest
+    container_name: n7757
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7757
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-347_n2469:
+    image: python:latest
+    container_name: n2469
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2469
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-348_n3324:
+    image: python:latest
+    container_name: n3324
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3324
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-349_n7841:
+    image: python:latest
+    container_name: n7841
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7841
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-350_n7393:
+    image: python:latest
+    container_name: n7393
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7393
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-351_n7896:
+    image: python:latest
+    container_name: n7896
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7896
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-352_n2497:
+    image: python:latest
+    container_name: n2497
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2497
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-353_n3127:
+    image: python:latest
+    container_name: n3127
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3127
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-354_n6143:
+    image: python:latest
+    container_name: n6143
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6143
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-355_n1361:
+    image: python:latest
+    container_name: n1361
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1361
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-356_n4735:
+    image: python:latest
+    container_name: n4735
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4735
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-357_n2050:
+    image: python:latest
+    container_name: n2050
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2050
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-358_n4047:
+    image: python:latest
+    container_name: n4047
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4047
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-359_n998:
+    image: python:latest
+    container_name: n998
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n998
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-360_n7384:
+    image: python:latest
+    container_name: n7384
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7384
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-361_n5437:
+    image: python:latest
+    container_name: n5437
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5437
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-362_n5685:
+    image: python:latest
+    container_name: n5685
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5685
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-363_n5629:
+    image: python:latest
+    container_name: n5629
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5629
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-364_n6266:
+    image: python:latest
+    container_name: n6266
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6266
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-365_n323:
+    image: python:latest
+    container_name: n323
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n323
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-366_n264:
+    image: python:latest
+    container_name: n264
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n264
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-367_n3377:
+    image: python:latest
+    container_name: n3377
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3377
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-368_n1927:
+    image: python:latest
+    container_name: n1927
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1927
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-369_n4335:
+    image: python:latest
+    container_name: n4335
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4335
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-370_n2932:
+    image: python:latest
+    container_name: n2932
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2932
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-371_n713:
+    image: python:latest
+    container_name: n713
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n713
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-372_n8070:
+    image: python:latest
+    container_name: n8070
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n8070
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-373_n1691:
+    image: python:latest
+    container_name: n1691
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1691
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-374_n2817:
+    image: python:latest
+    container_name: n2817
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2817
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-375_n3480:
+    image: python:latest
+    container_name: n3480
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3480
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-376_n7755:
+    image: python:latest
+    container_name: n7755
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7755
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-377_n6941:
+    image: python:latest
+    container_name: n6941
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n6941
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-378_n4945:
+    image: python:latest
+    container_name: n4945
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4945
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-379_n791:
+    image: python:latest
+    container_name: n791
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n791
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-380_n7150:
+    image: python:latest
+    container_name: n7150
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7150
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-381_n1266:
+    image: python:latest
+    container_name: n1266
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1266
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-382_n5830:
+    image: python:latest
+    container_name: n5830
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5830
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-383_n3154:
+    image: python:latest
+    container_name: n3154
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3154
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-384_n3180:
+    image: python:latest
+    container_name: n3180
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3180
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-385_n7179:
+    image: python:latest
+    container_name: n7179
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7179
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-386_n7310:
+    image: python:latest
+    container_name: n7310
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7310
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-387_n764:
+    image: python:latest
+    container_name: n764
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n764
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-388_n5167:
+    image: python:latest
+    container_name: n5167
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5167
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-389_n4011:
+    image: python:latest
+    container_name: n4011
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4011
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-390_n1532:
+    image: python:latest
+    container_name: n1532
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1532
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-391_n3342:
+    image: python:latest
+    container_name: n3342
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3342
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-392_n5630:
+    image: python:latest
+    container_name: n5630
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5630
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-393_n7027:
+    image: python:latest
+    container_name: n7027
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7027
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-394_n2078:
+    image: python:latest
+    container_name: n2078
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2078
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-395_n2944:
+    image: python:latest
+    container_name: n2944
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2944
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-396_n1565:
+    image: python:latest
+    container_name: n1565
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1565
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-397_n2244:
+    image: python:latest
+    container_name: n2244
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2244
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-398_n7715:
+    image: python:latest
+    container_name: n7715
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n7715
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-399_n3026:
+    image: python:latest
+    container_name: n3026
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n3026
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-400_n5212:
+    image: python:latest
+    container_name: n5212
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5212
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-401_n189:
+    image: python:latest
+    container_name: n189
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n189
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-402_n5625:
+    image: python:latest
+    container_name: n5625
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n5625
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-403_n2382:
+    image: python:latest
+    container_name: n2382
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n2382
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-404_n1949:
+    image: python:latest
+    container_name: n1949
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n1949
+    command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
+    networks:
+    - mewbie_network
+  Python-405_n4151:
+    image: python:latest
+    container_name: n4151
+    volumes:
+    - ./sl_test.py:/app/sl_test.py
+    - ./sl_requirements.txt:/app/sl_requirements.txt
+    - ./logs:/app/logs
+    working_dir: /app
+    environment:
+    - CONTAINER_NAME=n4151
     command: sh -c "pip install -r sl_requirements.txt && python sl_test.py"
     networks:
     - mewbie_network

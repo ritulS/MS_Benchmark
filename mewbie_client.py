@@ -1,20 +1,45 @@
 import json
 import time
+import os
 import requests
-import re
+import csv
 import pickle
 import logging
+from concurrent.futures import ThreadPoolExecutor
 
 def pkl_to_dict(pkl_file):
     with open(pkl_file, 'rb') as f:
         return pickle.load(f)
 
+# Initialize logging 
+logging.basicConfig(level=logging.INFO)
+executor = ThreadPoolExecutor(max_workers=5)
+def log_to_csv_file(tid, this_nid, logged_time):
+    log_directory = "./logs"
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)  # Create the directory if it does not exist
+    
+    log_file = f"{log_directory}/{this_nid}_log.csv"  
+    try:
+        with open(log_file, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([tid, this_nid, logged_time])
+            logging.info(f"Log entry for tid={tid}, this_nid={this_nid} written successfully")
+    except Exception as e:
+        logging.error(f"Failed to write log entry: {e}")
+
+def log_in_background(tid, this_nid, logged_time):
+    logging.info(f"Submitting log task for tid={tid}, this_nid={this_nid}")
+    executor.submit(log_to_csv_file, tid, this_nid, logged_time)
+    
 # Read trace packets from file
 trace_packets_dict = json.load(open('./all_trace_packets.json'))
 # Read trace initial node info from file
 trace_details_data = pkl_to_dict('./trace_details_data.pkl')
 
-def send_data_to_container(container_name, data, cont_type):
+def send_data_to_container(container_name, data, cont_type, tid):
+    log_in_background(tid, "mewbie_client", time.time())
+    # logging.info(f"Logging = {tid}:'mewbie_client':{time.time()}")
     try:
         if cont_type == 'Python':
             port = 5000
@@ -39,6 +64,10 @@ def send_data_to_container(container_name, data, cont_type):
         print("Error sending data to container: ", e)
 
 
+def send_data_in_background(container_name, data, cont_type, tid):
+    executor.submit(send_data_to_container, container_name, data, cont_type, tid)
+
+
 req_ps = 50 # packets per second; USER DEFINED
 def main():
     total_num_packets = len(trace_packets_dict)
@@ -46,8 +75,8 @@ def main():
     for tid, t_packet in trace_packets_dict.items():
         t_ini_cont = t_packet['initial_node']
         t_ini_type = t_packet['initial_node_type']
-        send_data_to_container(t_ini_cont, t_packet, t_ini_type)
-        logging.info(f"Logging = {tid}:'mewbie_client':{time.time()}")
+        send_data_in_background(t_ini_cont, t_packet, t_ini_type, tid)
+        # logging.info(f"Logging = {tid}:'mewbie_client':{time.time()}")
         time.sleep(delay)
 
 if __name__ == "__main__":
