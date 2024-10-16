@@ -1,5 +1,6 @@
 import json
 import yaml
+import subprocess
 
 # Read inputs
 def load_dict_from_json(file_path):
@@ -33,9 +34,12 @@ for service in conts_to_setup:
     print(service, "=> Conts to setup: ",conts_to_setup[service]['count'])
 
 print(conts_to_setup.keys())
+
+
+
 def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
     docker_compose_data = {
-        "version": "3.8",
+        "version": "3.3",
         "services": {},
         "networks": {
             "mewbie_network": {
@@ -50,7 +54,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
         'container_name': 'portainer',
         'restart': 'always',
         'ports': [
-            '8000:9001'
+            '8000:9000'
         ],
         'volumes': [
             '/var/run/docker.sock:/var/run/docker.sock',  # To manage Docker
@@ -65,7 +69,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
 
     # Client container setup
     docker_compose_data['services']['MewbieClient'] = {
-        'image': f"python:latest",
+        'image': f"python:3.11-slim",
         'container_name': 'mewbie_client',
         'volumes':[
             './mewbie_client.py:/app/mewbie_client.py',
@@ -80,14 +84,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
         ],
         'command':
             'sh -c "pip install -r client_requirements.txt && tail -f /dev/null"',
-        'networks': ['mewbie_network'],
-        'deploy': {
-            'resources': {
-                'limits': {
-                    'cpus': '1.0'  
-                }
-            }
-        }
+        'networks': ['mewbie_network']
     }
 
     def calc_cpus_per_container(cpc):
@@ -102,7 +99,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
                 service_name = f"Python-{j}_{nodes_for_service[j]}" # eg: Python-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
                 docker_compose_data['services'][service_name] = {
-                    'image': f"python:latest",
+                    'image': f"python:3.11-slim",
                     'container_name': cont_name,
                     'volumes':[
                         './sl_test.py:/app/sl_test.py',
@@ -116,13 +113,6 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
                     'command':
                         'sh -c "pip install -r sl_requirements.txt && python sl_test.py"',
                     'networks': ['mewbie_network']
-                    # 'deploy': {
-                    #     'resources': {
-                    #         'limits': {
-                    #             'cpus': str(cpus_per_cont)
-                    #         }
-                    #     }
-                    # }
                 }
         
 
@@ -160,13 +150,6 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
                         'POSTGRES_DB=pg_db',
                         'POSTGRES_HOST_AUTH_METHOD=trust'
                     ]
-                    # 'deploy': {
-                    #     'resources': {
-                    #         'limits': {
-                    #             'cpus': str(cpus_per_container)
-                    #         }
-                    #     }
-                    # }
                 }   
     
     return yaml.dump(docker_compose_data, default_flow_style=False, sort_keys=False)

@@ -1,5 +1,6 @@
 import json
 import yaml
+import subprocess
 
 # Read inputs
 def load_dict_from_json(file_path):
@@ -33,9 +34,16 @@ for service in conts_to_setup:
     print(service, "=> Conts to setup: ",conts_to_setup[service]['count'])
 
 print(conts_to_setup.keys())
+
+def build_images():
+    path = "./deployment_files/mewbie_client/"
+    subprocess.run(["docker", "build", "-t", "mewbie_img", path], check=True)
+    path = "./deployment_files/sl_python/"
+    subprocess.run(["docker", "build", "-t", "slp_img", path], check=True)
+
 def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
     docker_compose_data = {
-        "version": "3.8",
+        "version": "3.3",
         "services": {},
         "networks": {
             "mewbie_network": {
@@ -52,7 +60,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
         'container_name': 'portainer',
         'restart': 'always',
         'ports': [
-            '8000:9001'
+            '8000:9000'
         ],
         'volumes': [
             '/var/run/docker.sock:/var/run/docker.sock',  # To manage Docker
@@ -71,14 +79,18 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
             #     'context': './deployment_files/mewbie_client',  # Directory where the Dockerfile is located
             #     'dockerfile': 'Dockerfile'  # Name of the Dockerfile
             # },
-            'image': f"ms_benchmark-mewbieclient",
+            'image': f"mewbie_img:latest",
             'container_name': 'mewbie_client',
             'volumes':[
-                './enrichment_runs/{}/all_trace_packets.json:/app/all_trace_packets.json'.format(workload_name)
+                './enrichment_runs/{}/all_trace_packets.json:/app/all_trace_packets.json'.format(workload_name),
+                # './deployment_files/mewbie_client/mewbie_client.py:/app/mewbie_client.py',
+                # './deployment_files/mewbie_client/new_trace_details_data.pkl:/app/new_trace_details_data.pkl'
             ],
             'environment': [
                 f'CONTAINER_NAME=mewbie_client'
             ],
+            'command':
+            'sh -c "tail -f /dev/null"',
             'networks': ['mewbie_network'],
     }
 
@@ -98,7 +110,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                     #     'context': './deployment_files/sl_python',  # Directory where the Dockerfile is located
                     #     'dockerfile': 'Dockerfile'  # Name of the Dockerfile
                     # },
-                    'image': f"ms_benchmark-python-1_n5390",
+                    'image': f"slp_img",
                     'container_name': cont_name,
                     'environment': [
                         f'CONTAINER_NAME={cont_name}'
@@ -131,11 +143,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 cont_name = f"{nodes_for_service[j]}"
                 docker_compose_data['services'][service_name] = {
                     'image': f"postgres:latest",
-                    'container_name': cont_name,
-                    'networks': ['mewbie_network'],
-                    'environment': [
-                        'POSTGRES_USER=pguser',
-                        'POSTGRES_PASSWORD=pgpass',
+                    'container_name': cont_name,80
                         'POSTGRES_DB=pg_db',
                         'POSTGRES_HOST_AUTH_METHOD=trust'
                     ]
@@ -153,6 +161,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
 python_cpc = 2
 db_cpc = 2
 workload_name = "new_test_run"
+build_images()
 docker_compose_content = gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name)
 with open('docker-compose.yml', 'w') as f:
     f.write(docker_compose_content)

@@ -34,7 +34,7 @@ def log_in_background(tid, this_nid, logged_time):
 # Read trace packets from file
 trace_packets_dict = json.load(open('./all_trace_packets.json'))
 # Read trace initial node info from file
-trace_details_data = pkl_to_dict('./trace_details_data.pkl')
+trace_details_data = pkl_to_dict('./new_trace_details_data.pkl')
 session = requests.Session()
 
 def send_data_to_container(container_name, data, cont_type, tid):
@@ -100,4 +100,5 @@ def main():
     print(f"Average requests per second: {avg_req_ps}")
 
 if __name__ == "__main__":
-    main()
+    print("Chumma!!")
+    # main()

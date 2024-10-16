@@ -1,23 +1,24 @@
-version: '3.8'
+version: '3.3'
 services:
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
     restart: always
     ports:
-    - 8000:9001
+    - 8000:9000
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     - portainer_data:/data
     networks:
     - mewbie_network
   MewbieClient:
-    image: ms_benchmark-mewbieclient
+    image: mewbie_img:latest
     container_name: mewbie_client
     volumes:
     - ./enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json
     environment:
     - CONTAINER_NAME=mewbie_client
+    command: sh -c "tail -f /dev/null"
     networks:
     - mewbie_network
   MongoDB-0_n2675:
@@ -26,686 +27,686 @@ services:
     networks:
     - mewbie_network
   Python-0_n1728:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1728
     environment:
     - CONTAINER_NAME=n1728
     networks:
     - mewbie_network
   Python-1_n5390:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5390
     environment:
     - CONTAINER_NAME=n5390
     networks:
     - mewbie_network
   Python-2_n1185:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1185
     environment:
     - CONTAINER_NAME=n1185
     networks:
     - mewbie_network
   Python-3_n2480:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2480
     environment:
     - CONTAINER_NAME=n2480
     networks:
     - mewbie_network
   Python-4_n8165:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n8165
     environment:
     - CONTAINER_NAME=n8165
     networks:
     - mewbie_network
   Python-5_n6208:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6208
     environment:
     - CONTAINER_NAME=n6208
     networks:
     - mewbie_network
   Python-6_n3642:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3642
     environment:
     - CONTAINER_NAME=n3642
     networks:
     - mewbie_network
   Python-7_n1791:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1791
     environment:
     - CONTAINER_NAME=n1791
     networks:
     - mewbie_network
   Python-8_n4475:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4475
     environment:
     - CONTAINER_NAME=n4475
     networks:
     - mewbie_network
   Python-9_n4974:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4974
     environment:
     - CONTAINER_NAME=n4974
     networks:
     - mewbie_network
   Python-10_n8000:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n8000
     environment:
     - CONTAINER_NAME=n8000
     networks:
     - mewbie_network
   Python-11_n6307:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6307
     environment:
     - CONTAINER_NAME=n6307
     networks:
     - mewbie_network
   Python-12_n4860:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4860
     environment:
     - CONTAINER_NAME=n4860
     networks:
     - mewbie_network
   Python-13_n1276:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1276
     environment:
     - CONTAINER_NAME=n1276
     networks:
     - mewbie_network
   Python-14_n2277:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2277
     environment:
     - CONTAINER_NAME=n2277
     networks:
     - mewbie_network
   Python-15_n5736:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5736
     environment:
     - CONTAINER_NAME=n5736
     networks:
     - mewbie_network
   Python-16_n2749:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2749
     environment:
     - CONTAINER_NAME=n2749
     networks:
     - mewbie_network
   Python-17_n6733:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6733
     environment:
     - CONTAINER_NAME=n6733
     networks:
     - mewbie_network
   Python-18_n1919:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1919
     environment:
     - CONTAINER_NAME=n1919
     networks:
     - mewbie_network
   Python-19_n7336:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7336
     environment:
     - CONTAINER_NAME=n7336
     networks:
     - mewbie_network
   Python-20_n4247:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4247
     environment:
     - CONTAINER_NAME=n4247
     networks:
     - mewbie_network
   Python-21_n4711:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4711
     environment:
     - CONTAINER_NAME=n4711
     networks:
     - mewbie_network
   Python-22_n4009:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4009
     environment:
     - CONTAINER_NAME=n4009
     networks:
     - mewbie_network
   Python-23_n8076:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n8076
     environment:
     - CONTAINER_NAME=n8076
     networks:
     - mewbie_network
   Python-24_n6971:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6971
     environment:
     - CONTAINER_NAME=n6971
     networks:
     - mewbie_network
   Python-25_n1388:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1388
     environment:
     - CONTAINER_NAME=n1388
     networks:
     - mewbie_network
   Python-26_n5413:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5413
     environment:
     - CONTAINER_NAME=n5413
     networks:
     - mewbie_network
   Python-27_n6438:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6438
     environment:
     - CONTAINER_NAME=n6438
     networks:
     - mewbie_network
   Python-28_n5001:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5001
     environment:
     - CONTAINER_NAME=n5001
     networks:
     - mewbie_network
   Python-29_n7612:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7612
     environment:
     - CONTAINER_NAME=n7612
     networks:
     - mewbie_network
   Python-30_n3969:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3969
     environment:
     - CONTAINER_NAME=n3969
     networks:
     - mewbie_network
   Python-31_n2744:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2744
     environment:
     - CONTAINER_NAME=n2744
     networks:
     - mewbie_network
   Python-32_n205:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n205
     environment:
     - CONTAINER_NAME=n205
     networks:
     - mewbie_network
   Python-33_n7218:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7218
     environment:
     - CONTAINER_NAME=n7218
     networks:
     - mewbie_network
   Python-34_n6861:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6861
     environment:
     - CONTAINER_NAME=n6861
     networks:
     - mewbie_network
   Python-35_n3056:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3056
     environment:
     - CONTAINER_NAME=n3056
     networks:
     - mewbie_network
   Python-36_n7157:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7157
     environment:
     - CONTAINER_NAME=n7157
     networks:
     - mewbie_network
   Python-37_n2722:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2722
     environment:
     - CONTAINER_NAME=n2722
     networks:
     - mewbie_network
   Python-38_n2307:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2307
     environment:
     - CONTAINER_NAME=n2307
     networks:
     - mewbie_network
   Python-39_n187:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n187
     environment:
     - CONTAINER_NAME=n187
     networks:
     - mewbie_network
   Python-40_n199:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n199
     environment:
     - CONTAINER_NAME=n199
     networks:
     - mewbie_network
   Python-41_n8203:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n8203
     environment:
     - CONTAINER_NAME=n8203
     networks:
     - mewbie_network
   Python-42_n2713:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2713
     environment:
     - CONTAINER_NAME=n2713
     networks:
     - mewbie_network
   Python-43_n4982:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4982
     environment:
     - CONTAINER_NAME=n4982
     networks:
     - mewbie_network
   Python-44_n7234:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7234
     environment:
     - CONTAINER_NAME=n7234
     networks:
     - mewbie_network
   Python-45_n7227:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7227
     environment:
     - CONTAINER_NAME=n7227
     networks:
     - mewbie_network
   Python-46_n3970:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3970
     environment:
     - CONTAINER_NAME=n3970
     networks:
     - mewbie_network
   Python-47_n4269:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4269
     environment:
     - CONTAINER_NAME=n4269
     networks:
     - mewbie_network
   Python-48_n3589:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3589
     environment:
     - CONTAINER_NAME=n3589
     networks:
     - mewbie_network
   Python-49_n2045:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2045
     environment:
     - CONTAINER_NAME=n2045
     networks:
     - mewbie_network
   Python-50_n1286:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1286
     environment:
     - CONTAINER_NAME=n1286
     networks:
     - mewbie_network
   Python-51_n5896:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5896
     environment:
     - CONTAINER_NAME=n5896
     networks:
     - mewbie_network
   Python-52_n3015:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3015
     environment:
     - CONTAINER_NAME=n3015
     networks:
     - mewbie_network
   Python-53_n2024:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2024
     environment:
     - CONTAINER_NAME=n2024
     networks:
     - mewbie_network
   Python-54_n8294:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n8294
     environment:
     - CONTAINER_NAME=n8294
     networks:
     - mewbie_network
   Python-55_n4917:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4917
     environment:
     - CONTAINER_NAME=n4917
     networks:
     - mewbie_network
   Python-56_n1405:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1405
     environment:
     - CONTAINER_NAME=n1405
     networks:
     - mewbie_network
   Python-57_n3368:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3368
     environment:
     - CONTAINER_NAME=n3368
     networks:
     - mewbie_network
   Python-58_n5582:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5582
     environment:
     - CONTAINER_NAME=n5582
     networks:
     - mewbie_network
   Python-59_n8145:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n8145
     environment:
     - CONTAINER_NAME=n8145
     networks:
     - mewbie_network
   Python-60_n2259:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2259
     environment:
     - CONTAINER_NAME=n2259
     networks:
     - mewbie_network
   Python-61_n3976:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3976
     environment:
     - CONTAINER_NAME=n3976
     networks:
     - mewbie_network
   Python-62_n4882:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4882
     environment:
     - CONTAINER_NAME=n4882
     networks:
     - mewbie_network
   Python-63_n7977:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7977
     environment:
     - CONTAINER_NAME=n7977
     networks:
     - mewbie_network
   Python-64_n7725:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7725
     environment:
     - CONTAINER_NAME=n7725
     networks:
     - mewbie_network
   Python-65_n2286:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2286
     environment:
     - CONTAINER_NAME=n2286
     networks:
     - mewbie_network
   Python-66_n2497:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2497
     environment:
     - CONTAINER_NAME=n2497
     networks:
     - mewbie_network
   Python-67_n1717:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1717
     environment:
     - CONTAINER_NAME=n1717
     networks:
     - mewbie_network
   Python-68_n3545:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n3545
     environment:
     - CONTAINER_NAME=n3545
     networks:
     - mewbie_network
   Python-69_n2464:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2464
     environment:
     - CONTAINER_NAME=n2464
     networks:
     - mewbie_network
   Python-70_n649:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n649
     environment:
     - CONTAINER_NAME=n649
     networks:
     - mewbie_network
   Python-71_n5085:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5085
     environment:
     - CONTAINER_NAME=n5085
     networks:
     - mewbie_network
   Python-72_n7279:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7279
     environment:
     - CONTAINER_NAME=n7279
     networks:
     - mewbie_network
   Python-73_n1455:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1455
     environment:
     - CONTAINER_NAME=n1455
     networks:
     - mewbie_network
   Python-74_n794:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n794
     environment:
     - CONTAINER_NAME=n794
     networks:
     - mewbie_network
   Python-75_n2731:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2731
     environment:
     - CONTAINER_NAME=n2731
     networks:
     - mewbie_network
   Python-76_n6231:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6231
     environment:
     - CONTAINER_NAME=n6231
     networks:
     - mewbie_network
   Python-77_n566:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n566
     environment:
     - CONTAINER_NAME=n566
     networks:
     - mewbie_network
   Python-78_n6734:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6734
     environment:
     - CONTAINER_NAME=n6734
     networks:
     - mewbie_network
   Python-79_n8305:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n8305
     environment:
     - CONTAINER_NAME=n8305
     networks:
     - mewbie_network
   Python-80_n7650:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7650
     environment:
     - CONTAINER_NAME=n7650
     networks:
     - mewbie_network
   Python-81_n7753:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7753
     environment:
     - CONTAINER_NAME=n7753
     networks:
     - mewbie_network
   Python-82_n65:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n65
     environment:
     - CONTAINER_NAME=n65
     networks:
     - mewbie_network
   Python-83_n2690:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2690
     environment:
     - CONTAINER_NAME=n2690
     networks:
     - mewbie_network
   Python-84_n4976:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n4976
     environment:
     - CONTAINER_NAME=n4976
     networks:
     - mewbie_network
   Python-85_n189:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n189
     environment:
     - CONTAINER_NAME=n189
     networks:
     - mewbie_network
   Python-86_n999:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n999
     environment:
     - CONTAINER_NAME=n999
     networks:
     - mewbie_network
   Python-87_n7904:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7904
     environment:
     - CONTAINER_NAME=n7904
     networks:
     - mewbie_network
   Python-88_n2632:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2632
     environment:
     - CONTAINER_NAME=n2632
     networks:
     - mewbie_network
   Python-89_n1034:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1034
     environment:
     - CONTAINER_NAME=n1034
     networks:
     - mewbie_network
   Python-90_n1927:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1927
     environment:
     - CONTAINER_NAME=n1927
     networks:
     - mewbie_network
   Python-91_n5121:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5121
     environment:
     - CONTAINER_NAME=n5121
     networks:
     - mewbie_network
   Python-92_n1274:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n1274
     environment:
     - CONTAINER_NAME=n1274
     networks:
     - mewbie_network
   Python-93_n6614:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6614
     environment:
     - CONTAINER_NAME=n6614
     networks:
     - mewbie_network
   Python-94_n6113:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n6113
     environment:
     - CONTAINER_NAME=n6113
     networks:
     - mewbie_network
   Python-95_n5222:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n5222
     environment:
     - CONTAINER_NAME=n5222
     networks:
     - mewbie_network
   Python-96_n2772:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n2772
     environment:
     - CONTAINER_NAME=n2772
     networks:
     - mewbie_network
   Python-97_n7317:
-    image: ms_benchmark-python-1_n5390
+    image: slp_img
     container_name: n7317
     environment:
     - CONTAINER_NAME=n7317

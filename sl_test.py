@@ -331,9 +331,11 @@ async def call_handler(request):
 this_nid = get_container_name()
 
 async def run_server(port=5000):
+    
     app = web.Application()
     app.router.add_post('/', call_handler)
     app.router.add_get('/', call_handler)
+
 
     runner = web.AppRunner(app)
     await runner.setup()
@@ -347,4 +349,6 @@ async def run_server(port=5000):
         await runner.cleanup()
 
 if __name__ == '__main__':
+    while True:
+        sleep(1000)
     asyncio.run(run_server())
