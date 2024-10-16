@@ -33,7 +33,7 @@ for service in conts_to_setup:
     print(service, "=> Conts to setup: ",conts_to_setup[service]['count'])
 
 print(conts_to_setup.keys())
-def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
+def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
     docker_compose_data = {
         "version": "3.8",
         "services": {},
@@ -44,8 +44,6 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
         },
         "volumes": {}
     }
-
-    
     # Add Portainer service
     docker_compose_data['services']['portainer'] = {
         'image': 'portainer/portainer-ce:latest',
@@ -67,19 +65,29 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
 
     # Client container setup
     docker_compose_data['services']['MewbieClient'] = {
-            # 'build': {
-            #     'context': './deployment_files/mewbie_client',  # Directory where the Dockerfile is located
-            #     'dockerfile': 'Dockerfile'  # Name of the Dockerfile
-            # },
-            'image': f"ms_benchmark-mewbieclient",
-            'container_name': 'mewbie_client',
-            'volumes':[
-                './enrichment_runs/{}/all_trace_packets.json:/app/all_trace_packets.json'.format(workload_name)
-            ],
-            'environment': [
-                f'CONTAINER_NAME=mewbie_client'
-            ],
-            'networks': ['mewbie_network'],
+        'image': f"python:latest",
+        'container_name': 'mewbie_client',
+        'volumes':[
+            './mewbie_client.py:/app/mewbie_client.py',
+            './client_requirements.txt:/app/client_requirements.txt',
+            './new_trace_details_data.pkl:/app/new_trace_details_data.pkl',
+            './enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json',
+            './logs:/app/logs'
+        ],
+        'working_dir': '/app',
+        'environment': [
+            'CONTAINER_NAME={}'.format('mewbie_client')
+        ],
+        'command':
+            'sh -c "pip install -r client_requirements.txt && tail -f /dev/null"',
+        'networks': ['mewbie_network'],
+        'deploy': {
+            'resources': {
+                'limits': {
+                    'cpus': '1.0'  
+                }
+            }
+        }
     }
 
     def calc_cpus_per_container(cpc):
@@ -91,21 +99,33 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
         if service == 'Python':
             cpus_per_cont = calc_cpus_per_container(python_cpc)
             for j in range(service_node_count):
-                service_name = f"Python-{j}_{nodes_for_service[j]}"  # e.g., Python-0_(nodeid)
+                service_name = f"Python-{j}_{nodes_for_service[j]}" # eg: Python-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
                 docker_compose_data['services'][service_name] = {
-                    # 'build': {
-                    #     'context': './deployment_files/sl_python',  # Directory where the Dockerfile is located
-                    #     'dockerfile': 'Dockerfile'  # Name of the Dockerfile
-                    # },
-                    'image': f"ms_benchmark-python-1_n5390",
+                    'image': f"python:latest",
                     'container_name': cont_name,
-                    'environment': [
-                        f'CONTAINER_NAME={cont_name}'
+                    'volumes':[
+                        './sl_test.py:/app/sl_test.py',
+                        './sl_requirements.txt:/app/sl_requirements.txt',
+                        './logs:/app/logs'
                     ],
-                    'networks': ['mewbie_network'],
+                    'working_dir': '/app',
+                    'environment': [
+                        'CONTAINER_NAME={}'.format(cont_name)
+                    ],
+                    'command':
+                        'sh -c "pip install -r sl_requirements.txt && python sl_test.py"',
+                    'networks': ['mewbie_network']
+                    # 'deploy': {
+                    #     'resources': {
+                    #         'limits': {
+                    #             'cpus': str(cpus_per_cont)
+                    #         }
+                    #     }
+                    # }
                 }
         
+
         elif service == 'Redis':
             for j in range(service_node_count):
                 service_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
@@ -113,7 +133,8 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 docker_compose_data['services'][service_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
-                    'networks': ['mewbie_network'] 
+                    'networks': ['mewbie_network']
+                    
                 }
         elif service == 'MongoDB':
             for j in range(service_node_count):
@@ -152,7 +173,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
 
 python_cpc = 2
 db_cpc = 2
-workload_name = "new_test_run"
-docker_compose_content = gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name)
+
+docker_compose_content = gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc)
 with open('docker-compose.yml', 'w') as f:
     f.write(docker_compose_content)
