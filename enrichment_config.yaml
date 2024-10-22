@@ -3,9 +3,9 @@
 # Make sure these add up to 100
 Databases: 
   MongoDB: 
-    percentage: 60 
+    percentage: 20 
   Redis: 
-    percentage: 20
+    percentage: 60
   Postgres: 
     percentage: 20
 

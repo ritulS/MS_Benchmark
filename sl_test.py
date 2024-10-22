@@ -349,6 +349,4 @@ async def run_server(port=5000):
         await runner.cleanup()
 
 if __name__ == '__main__':
-    while True:
-        sleep(1000)
     asyncio.run(run_server())

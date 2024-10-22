@@ -12,6 +12,8 @@ import redis.asyncio as redis
 from aiohttp import web
 from concurrent.futures import ThreadPoolExecutor
 
+
+
 # Initialize logging 
 logging.basicConfig(level=logging.INFO)
 # Async logging
@@ -23,7 +25,7 @@ def log_to_csv_file(tid, this_nid, logged_time):
     
     log_file = f"{log_directory}/{this_nid}_log.csv"  
     try:
-        with open(log_file, mode='a', newline='') as file:
+        with open(log_file, mode='a+', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([tid, this_nid, logged_time])
             logging.info(f"Log entry for tid={tid}, this_nid={this_nid} written successfully")
@@ -202,67 +204,6 @@ async def make_db_call(tid, dm_nid, db_name, kv, async_flag, op_type, this_nid):
 
 
 ######################################################
-# async def call_handler(request):
-#     try:
-#         trace_packet_data = await request.json()
-#         # logging.info(f"Received payload: {trace_packet_data}\n")
-#         this_nid = get_container_name()
-#         tid = trace_packet_data.get('tid')
-#         node_calls_dict = trace_packet_data.get('node_calls_dict')
-#         data_ops_dict = trace_packet_data.get('data_ops_dict')
-#         logger_nodes = trace_packet_data.get('logger_nodes')
-        
-#         logging.info(f"This nid: {this_nid}\n")
-#         # dm_nodes_to_call = node_calls_dict[this_nid]
-#         dm_nodes_to_call = node_calls_dict.get(this_nid)
-        
-#         logging.info(f"Nodes to call for this_nid {this_nid}: {dm_nodes_to_call}\n")
-#         # Sleep to simulate processing time
-#         await asyncio.sleep(random.uniform(0.1, 1.5)) # TODO Need to get alibaba values for this
-
-#         if this_nid in logger_nodes: # If node is leaf SL, it logs and quits
-#             logging.info(f"Logging = {tid}:{this_nid}:{time.time()}")
-#             log_in_background(tid, this_nid, time.time())
-
-#         if not dm_nodes_to_call:
-#             logging.info(f"Leaf node, no nodes to call further.")
-#             return web.Response(text=f"No operations for {this_nid}.", status=200)
-        
-#         sl_tasks = []
-#         for dm_node_call in dm_nodes_to_call:
-#             dm_nid = dm_node_call[0]
-#             data_op_id = dm_node_call[1]
-#             async_flag = dm_node_call[2] # 1 if async, 0 if sync
-
-#             if data_op_id != -1: # data op id is -1 for SF call
-#                 try: 
-#                     op_pkt = data_ops_dict[str(data_op_id)]
-#                     logging.info(f"Operation packet!!: {op_pkt}")
-#                     op_type = op_pkt['op_type']
-#                     op_obj_id = op_pkt['op_obj_id']
-#                     db_name = op_pkt['db']
-#                     kv = {op_obj_id: generate_random_string(100)} 
-#                     logging.info(f"Making db call to {dm_nid}")
-#                     response = await make_db_call(tid, dm_nid, db_name, kv, async_flag, op_type, this_nid)
-#                 except Exception as e:
-#                     logging.info(f"Error in make_db_call: {e}")
-#                     return web.Response(text=f"Error during data operation: {e}", status=500)
-
-#             else: # SL call
-#                 try: 
-#                     task = make_sl_call(dm_nid, async_flag, trace_packet_data)
-#                     sl_tasks.append(task)
-#                 except Exception as e:
-#                     logging.error(f"Error in make_sl_call: {e}")
-#                     return web.Response(text=f"Error during sl call: {e}", status=500)
-#         if sl_tasks:
-#             await asyncio.gather(*sl_tasks)
-#         return web.Response(text="All operations complete!", status=200)
-    
-#     except Exception as e:
-#         logging.error(f"Error while handling request: {e}")
-#         return web.Response(text="Error occurred! status:", status=500)
-
 async def process_trace_packet(trace_packet_data):
     try:
         this_nid = get_container_name()
@@ -275,7 +216,14 @@ async def process_trace_packet(trace_packet_data):
         dm_nodes_to_call = node_calls_dict.get(this_nid)
         
         logging.info(f"Nodes to call for this_nid {this_nid}: {dm_nodes_to_call}\n")
-        await asyncio.sleep(random.uniform(0.1, 1.5))  # Simulating processing time
+        proc_times = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+                       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2,\
+                        2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7,\
+                        7, 8, 8, 9, 9, 10, 11, 11, 12, 13, 15, 16, 18, 20, 22, 25,\
+                        29, 33, 39, 45, 52, 62, 70, 78, 87, 97, 111, 126, 143, 164,\
+                        188, 220, 254, 289, 331, 379, 446, 3892811]
+
+        await asyncio.sleep(random.choice(proc_times))  # Simulating processing time
 
         if this_nid in logger_nodes:  # If node is leaf SL, it logs and quits
             logging.info(f"Logging = {tid}:{this_nid}:{time.time()}")

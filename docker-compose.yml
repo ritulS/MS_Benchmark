@@ -11,710 +11,5198 @@ services:
     - portainer_data:/data
     networks:
     - mewbie_network
+    deploy:
+      placement:
+        constraints:
+        - node.role == manager
   MewbieClient:
-    image: mewbie_img:latest
+    image: mewbieregistry.com:5000/mewbie_img:latest
     container_name: mewbie_client
     volumes:
-    - ./enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json
+    - ./enrichment_runs/dmix1_pg_heavy/all_trace_packets.json:/app/all_trace_packets.json
+    - ./deployment_files/mewbie_client/mewbie_client.py:/app/mewbie_client.py
+    - ritul_logs:/app/logs/
     environment:
     - CONTAINER_NAME=mewbie_client
+    - WORKLOAD_NAME=dmix1_pg_heavy
     command: sh -c "tail -f /dev/null"
     networks:
     - mewbie_network
-  MongoDB-0_n2675:
+    deploy:
+      placement:
+        constraints:
+        - node.role == manager
+  MongoDB-0_n6268:
     image: mongo:latest
-    container_name: n2675
+    container_name: n6268
     networks:
-    - mewbie_network
-  Python-0_n1728:
-    image: slp_img
-    container_name: n1728
+      mewbie_network:
+        aliases:
+        - n6268
+  MongoDB-1_n3613:
+    image: mongo:latest
+    container_name: n3613
+    networks:
+      mewbie_network:
+        aliases:
+        - n3613
+  MongoDB-2_n3636:
+    image: mongo:latest
+    container_name: n3636
+    networks:
+      mewbie_network:
+        aliases:
+        - n3636
+  MongoDB-3_n7033:
+    image: mongo:latest
+    container_name: n7033
+    networks:
+      mewbie_network:
+        aliases:
+        - n7033
+  MongoDB-4_n1361:
+    image: mongo:latest
+    container_name: n1361
+    networks:
+      mewbie_network:
+        aliases:
+        - n1361
+  MongoDB-5_n6660:
+    image: mongo:latest
+    container_name: n6660
+    networks:
+      mewbie_network:
+        aliases:
+        - n6660
+  MongoDB-6_n1343:
+    image: mongo:latest
+    container_name: n1343
+    networks:
+      mewbie_network:
+        aliases:
+        - n1343
+  MongoDB-7_n4365:
+    image: mongo:latest
+    container_name: n4365
+    networks:
+      mewbie_network:
+        aliases:
+        - n4365
+  MongoDB-8_n6454:
+    image: mongo:latest
+    container_name: n6454
+    networks:
+      mewbie_network:
+        aliases:
+        - n6454
+  MongoDB-9_n6474:
+    image: mongo:latest
+    container_name: n6474
+    networks:
+      mewbie_network:
+        aliases:
+        - n6474
+  MongoDB-10_n8049:
+    image: mongo:latest
+    container_name: n8049
+    networks:
+      mewbie_network:
+        aliases:
+        - n8049
+  MongoDB-11_n5410:
+    image: mongo:latest
+    container_name: n5410
+    networks:
+      mewbie_network:
+        aliases:
+        - n5410
+  MongoDB-12_n5601:
+    image: mongo:latest
+    container_name: n5601
+    networks:
+      mewbie_network:
+        aliases:
+        - n5601
+  MongoDB-13_n7222:
+    image: mongo:latest
+    container_name: n7222
+    networks:
+      mewbie_network:
+        aliases:
+        - n7222
+  MongoDB-14_n6420:
+    image: mongo:latest
+    container_name: n6420
+    networks:
+      mewbie_network:
+        aliases:
+        - n6420
+  MongoDB-15_n3570:
+    image: mongo:latest
+    container_name: n3570
+    networks:
+      mewbie_network:
+        aliases:
+        - n3570
+  MongoDB-16_n6487:
+    image: mongo:latest
+    container_name: n6487
+    networks:
+      mewbie_network:
+        aliases:
+        - n6487
+  MongoDB-17_n1937:
+    image: mongo:latest
+    container_name: n1937
+    networks:
+      mewbie_network:
+        aliases:
+        - n1937
+  MongoDB-18_n2530:
+    image: mongo:latest
+    container_name: n2530
+    networks:
+      mewbie_network:
+        aliases:
+        - n2530
+  MongoDB-19_n7731:
+    image: mongo:latest
+    container_name: n7731
+    networks:
+      mewbie_network:
+        aliases:
+        - n7731
+  MongoDB-20_n6617:
+    image: mongo:latest
+    container_name: n6617
+    networks:
+      mewbie_network:
+        aliases:
+        - n6617
+  MongoDB-21_n2764:
+    image: mongo:latest
+    container_name: n2764
+    networks:
+      mewbie_network:
+        aliases:
+        - n2764
+  MongoDB-22_n5952:
+    image: mongo:latest
+    container_name: n5952
+    networks:
+      mewbie_network:
+        aliases:
+        - n5952
+  MongoDB-23_n5681:
+    image: mongo:latest
+    container_name: n5681
+    networks:
+      mewbie_network:
+        aliases:
+        - n5681
+  MongoDB-24_n2661:
+    image: mongo:latest
+    container_name: n2661
+    networks:
+      mewbie_network:
+        aliases:
+        - n2661
+  MongoDB-25_n5724:
+    image: mongo:latest
+    container_name: n5724
+    networks:
+      mewbie_network:
+        aliases:
+        - n5724
+  MongoDB-26_n5482:
+    image: mongo:latest
+    container_name: n5482
+    networks:
+      mewbie_network:
+        aliases:
+        - n5482
+  MongoDB-27_n5401:
+    image: mongo:latest
+    container_name: n5401
+    networks:
+      mewbie_network:
+        aliases:
+        - n5401
+  MongoDB-28_n3634:
+    image: mongo:latest
+    container_name: n3634
+    networks:
+      mewbie_network:
+        aliases:
+        - n3634
+  MongoDB-29_n5416:
+    image: mongo:latest
+    container_name: n5416
+    networks:
+      mewbie_network:
+        aliases:
+        - n5416
+  MongoDB-30_n7555:
+    image: mongo:latest
+    container_name: n7555
+    networks:
+      mewbie_network:
+        aliases:
+        - n7555
+  MongoDB-31_n4101:
+    image: mongo:latest
+    container_name: n4101
+    networks:
+      mewbie_network:
+        aliases:
+        - n4101
+  MongoDB-32_n4667:
+    image: mongo:latest
+    container_name: n4667
+    networks:
+      mewbie_network:
+        aliases:
+        - n4667
+  MongoDB-33_n7960:
+    image: mongo:latest
+    container_name: n7960
+    networks:
+      mewbie_network:
+        aliases:
+        - n7960
+  MongoDB-34_n5206:
+    image: mongo:latest
+    container_name: n5206
+    networks:
+      mewbie_network:
+        aliases:
+        - n5206
+  MongoDB-35_n6840:
+    image: mongo:latest
+    container_name: n6840
+    networks:
+      mewbie_network:
+        aliases:
+        - n6840
+  MongoDB-36_n8301:
+    image: mongo:latest
+    container_name: n8301
+    networks:
+      mewbie_network:
+        aliases:
+        - n8301
+  MongoDB-37_n6182:
+    image: mongo:latest
+    container_name: n6182
+    networks:
+      mewbie_network:
+        aliases:
+        - n6182
+  MongoDB-38_n2557:
+    image: mongo:latest
+    container_name: n2557
+    networks:
+      mewbie_network:
+        aliases:
+        - n2557
+  MongoDB-39_n5541:
+    image: mongo:latest
+    container_name: n5541
+    networks:
+      mewbie_network:
+        aliases:
+        - n5541
+  MongoDB-40_n2599:
+    image: mongo:latest
+    container_name: n2599
+    networks:
+      mewbie_network:
+        aliases:
+        - n2599
+  MongoDB-41_n7476:
+    image: mongo:latest
+    container_name: n7476
+    networks:
+      mewbie_network:
+        aliases:
+        - n7476
+  MongoDB-42_n6469:
+    image: mongo:latest
+    container_name: n6469
+    networks:
+      mewbie_network:
+        aliases:
+        - n6469
+  MongoDB-43_n412:
+    image: mongo:latest
+    container_name: n412
+    networks:
+      mewbie_network:
+        aliases:
+        - n412
+  MongoDB-44_n136:
+    image: mongo:latest
+    container_name: n136
+    networks:
+      mewbie_network:
+        aliases:
+        - n136
+  MongoDB-45_n7870:
+    image: mongo:latest
+    container_name: n7870
+    networks:
+      mewbie_network:
+        aliases:
+        - n7870
+  MongoDB-46_n5459:
+    image: mongo:latest
+    container_name: n5459
+    networks:
+      mewbie_network:
+        aliases:
+        - n5459
+  MongoDB-47_n3514:
+    image: mongo:latest
+    container_name: n3514
+    networks:
+      mewbie_network:
+        aliases:
+        - n3514
+  MongoDB-48_n7695:
+    image: mongo:latest
+    container_name: n7695
+    networks:
+      mewbie_network:
+        aliases:
+        - n7695
+  MongoDB-49_n434:
+    image: mongo:latest
+    container_name: n434
+    networks:
+      mewbie_network:
+        aliases:
+        - n434
+  MongoDB-50_n2521:
+    image: mongo:latest
+    container_name: n2521
+    networks:
+      mewbie_network:
+        aliases:
+        - n2521
+  MongoDB-51_n4726:
+    image: mongo:latest
+    container_name: n4726
+    networks:
+      mewbie_network:
+        aliases:
+        - n4726
+  MongoDB-52_n804:
+    image: mongo:latest
+    container_name: n804
+    networks:
+      mewbie_network:
+        aliases:
+        - n804
+  MongoDB-53_n3492:
+    image: mongo:latest
+    container_name: n3492
+    networks:
+      mewbie_network:
+        aliases:
+        - n3492
+  MongoDB-54_n6918:
+    image: mongo:latest
+    container_name: n6918
+    networks:
+      mewbie_network:
+        aliases:
+        - n6918
+  MongoDB-55_n224:
+    image: mongo:latest
+    container_name: n224
+    networks:
+      mewbie_network:
+        aliases:
+        - n224
+  Redis-0_n4797:
+    image: redis:latest
+    container_name: n4797
+    networks:
+      mewbie_network:
+        aliases:
+        - n4797
+  Redis-1_n7084:
+    image: redis:latest
+    container_name: n7084
+    networks:
+      mewbie_network:
+        aliases:
+        - n7084
+  Redis-2_n6035:
+    image: redis:latest
+    container_name: n6035
+    networks:
+      mewbie_network:
+        aliases:
+        - n6035
+  Redis-3_n5628:
+    image: redis:latest
+    container_name: n5628
+    networks:
+      mewbie_network:
+        aliases:
+        - n5628
+  Redis-4_n7422:
+    image: redis:latest
+    container_name: n7422
+    networks:
+      mewbie_network:
+        aliases:
+        - n7422
+  Redis-5_n5691:
+    image: redis:latest
+    container_name: n5691
+    networks:
+      mewbie_network:
+        aliases:
+        - n5691
+  Redis-6_n3223:
+    image: redis:latest
+    container_name: n3223
+    networks:
+      mewbie_network:
+        aliases:
+        - n3223
+  Redis-7_n4388:
+    image: redis:latest
+    container_name: n4388
+    networks:
+      mewbie_network:
+        aliases:
+        - n4388
+  Redis-8_n1787:
+    image: redis:latest
+    container_name: n1787
+    networks:
+      mewbie_network:
+        aliases:
+        - n1787
+  Redis-9_n3207:
+    image: redis:latest
+    container_name: n3207
+    networks:
+      mewbie_network:
+        aliases:
+        - n3207
+  Redis-10_n6576:
+    image: redis:latest
+    container_name: n6576
+    networks:
+      mewbie_network:
+        aliases:
+        - n6576
+  Redis-11_n3460:
+    image: redis:latest
+    container_name: n3460
+    networks:
+      mewbie_network:
+        aliases:
+        - n3460
+  Redis-12_n6803:
+    image: redis:latest
+    container_name: n6803
+    networks:
+      mewbie_network:
+        aliases:
+        - n6803
+  Redis-13_n3427:
+    image: redis:latest
+    container_name: n3427
+    networks:
+      mewbie_network:
+        aliases:
+        - n3427
+  Redis-14_n5227:
+    image: redis:latest
+    container_name: n5227
+    networks:
+      mewbie_network:
+        aliases:
+        - n5227
+  Redis-15_n4550:
+    image: redis:latest
+    container_name: n4550
+    networks:
+      mewbie_network:
+        aliases:
+        - n4550
+  Redis-16_n6300:
+    image: redis:latest
+    container_name: n6300
+    networks:
+      mewbie_network:
+        aliases:
+        - n6300
+  Redis-17_n429:
+    image: redis:latest
+    container_name: n429
+    networks:
+      mewbie_network:
+        aliases:
+        - n429
+  Redis-18_n1021:
+    image: redis:latest
+    container_name: n1021
+    networks:
+      mewbie_network:
+        aliases:
+        - n1021
+  Redis-19_n418:
+    image: redis:latest
+    container_name: n418
+    networks:
+      mewbie_network:
+        aliases:
+        - n418
+  Redis-20_n967:
+    image: redis:latest
+    container_name: n967
+    networks:
+      mewbie_network:
+        aliases:
+        - n967
+  Redis-21_n377:
+    image: redis:latest
+    container_name: n377
+    networks:
+      mewbie_network:
+        aliases:
+        - n377
+  Redis-22_n5657:
+    image: redis:latest
+    container_name: n5657
+    networks:
+      mewbie_network:
+        aliases:
+        - n5657
+  Redis-23_n3148:
+    image: redis:latest
+    container_name: n3148
+    networks:
+      mewbie_network:
+        aliases:
+        - n3148
+  Redis-24_n988:
+    image: redis:latest
+    container_name: n988
+    networks:
+      mewbie_network:
+        aliases:
+        - n988
+  Redis-25_n2634:
+    image: redis:latest
+    container_name: n2634
+    networks:
+      mewbie_network:
+        aliases:
+        - n2634
+  Redis-26_n4824:
+    image: redis:latest
+    container_name: n4824
+    networks:
+      mewbie_network:
+        aliases:
+        - n4824
+  Redis-27_n1041:
+    image: redis:latest
+    container_name: n1041
+    networks:
+      mewbie_network:
+        aliases:
+        - n1041
+  Redis-28_n6282:
+    image: redis:latest
+    container_name: n6282
+    networks:
+      mewbie_network:
+        aliases:
+        - n6282
+  Redis-29_n2649:
+    image: redis:latest
+    container_name: n2649
+    networks:
+      mewbie_network:
+        aliases:
+        - n2649
+  Redis-30_n4703:
+    image: redis:latest
+    container_name: n4703
+    networks:
+      mewbie_network:
+        aliases:
+        - n4703
+  Redis-31_n6382:
+    image: redis:latest
+    container_name: n6382
+    networks:
+      mewbie_network:
+        aliases:
+        - n6382
+  Redis-32_n5247:
+    image: redis:latest
+    container_name: n5247
+    networks:
+      mewbie_network:
+        aliases:
+        - n5247
+  Redis-33_n231:
+    image: redis:latest
+    container_name: n231
+    networks:
+      mewbie_network:
+        aliases:
+        - n231
+  Redis-34_n4927:
+    image: redis:latest
+    container_name: n4927
+    networks:
+      mewbie_network:
+        aliases:
+        - n4927
+  Redis-35_n5064:
+    image: redis:latest
+    container_name: n5064
+    networks:
+      mewbie_network:
+        aliases:
+        - n5064
+  Redis-36_n6224:
+    image: redis:latest
+    container_name: n6224
+    networks:
+      mewbie_network:
+        aliases:
+        - n6224
+  Redis-37_n1026:
+    image: redis:latest
+    container_name: n1026
+    networks:
+      mewbie_network:
+        aliases:
+        - n1026
+  Redis-38_n6800:
+    image: redis:latest
+    container_name: n6800
+    networks:
+      mewbie_network:
+        aliases:
+        - n6800
+  Redis-39_n8146:
+    image: redis:latest
+    container_name: n8146
+    networks:
+      mewbie_network:
+        aliases:
+        - n8146
+  Redis-40_n7666:
+    image: redis:latest
+    container_name: n7666
+    networks:
+      mewbie_network:
+        aliases:
+        - n7666
+  Redis-41_n1485:
+    image: redis:latest
+    container_name: n1485
+    networks:
+      mewbie_network:
+        aliases:
+        - n1485
+  Redis-42_n2177:
+    image: redis:latest
+    container_name: n2177
+    networks:
+      mewbie_network:
+        aliases:
+        - n2177
+  Redis-43_n358:
+    image: redis:latest
+    container_name: n358
+    networks:
+      mewbie_network:
+        aliases:
+        - n358
+  Redis-44_n5774:
+    image: redis:latest
+    container_name: n5774
+    networks:
+      mewbie_network:
+        aliases:
+        - n5774
+  Redis-45_n8286:
+    image: redis:latest
+    container_name: n8286
+    networks:
+      mewbie_network:
+        aliases:
+        - n8286
+  Redis-46_n2458:
+    image: redis:latest
+    container_name: n2458
+    networks:
+      mewbie_network:
+        aliases:
+        - n2458
+  Redis-47_n4226:
+    image: redis:latest
+    container_name: n4226
+    networks:
+      mewbie_network:
+        aliases:
+        - n4226
+  Redis-48_n7734:
+    image: redis:latest
+    container_name: n7734
+    networks:
+      mewbie_network:
+        aliases:
+        - n7734
+  Redis-49_n218:
+    image: redis:latest
+    container_name: n218
+    networks:
+      mewbie_network:
+        aliases:
+        - n218
+  Redis-50_n4680:
+    image: redis:latest
+    container_name: n4680
+    networks:
+      mewbie_network:
+        aliases:
+        - n4680
+  Redis-51_n6986:
+    image: redis:latest
+    container_name: n6986
+    networks:
+      mewbie_network:
+        aliases:
+        - n6986
+  Redis-52_n1749:
+    image: redis:latest
+    container_name: n1749
+    networks:
+      mewbie_network:
+        aliases:
+        - n1749
+  Redis-53_n7551:
+    image: redis:latest
+    container_name: n7551
+    networks:
+      mewbie_network:
+        aliases:
+        - n7551
+  Redis-54_n138:
+    image: redis:latest
+    container_name: n138
+    networks:
+      mewbie_network:
+        aliases:
+        - n138
+  Redis-55_n7253:
+    image: redis:latest
+    container_name: n7253
+    networks:
+      mewbie_network:
+        aliases:
+        - n7253
+  Postgres-0_n132:
+    image: postgres:latest
+    container_name: n132
+    networks:
+      mewbie_network:
+        aliases:
+        - n132
     environment:
-    - CONTAINER_NAME=n1728
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-1_n1389:
+    image: postgres:latest
+    container_name: n1389
     networks:
-    - mewbie_network
-  Python-1_n5390:
-    image: slp_img
-    container_name: n5390
+      mewbie_network:
+        aliases:
+        - n1389
     environment:
-    - CONTAINER_NAME=n5390
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-2_n6974:
+    image: postgres:latest
+    container_name: n6974
     networks:
-    - mewbie_network
-  Python-2_n1185:
-    image: slp_img
-    container_name: n1185
+      mewbie_network:
+        aliases:
+        - n6974
     environment:
-    - CONTAINER_NAME=n1185
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-3_n5778:
+    image: postgres:latest
+    container_name: n5778
     networks:
-    - mewbie_network
-  Python-3_n2480:
-    image: slp_img
-    container_name: n2480
+      mewbie_network:
+        aliases:
+        - n5778
     environment:
-    - CONTAINER_NAME=n2480
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-4_n4770:
+    image: postgres:latest
+    container_name: n4770
     networks:
-    - mewbie_network
-  Python-4_n8165:
-    image: slp_img
-    container_name: n8165
+      mewbie_network:
+        aliases:
+        - n4770
     environment:
-    - CONTAINER_NAME=n8165
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-5_n3155:
+    image: postgres:latest
+    container_name: n3155
     networks:
-    - mewbie_network
-  Python-5_n6208:
-    image: slp_img
-    container_name: n6208
+      mewbie_network:
+        aliases:
+        - n3155
     environment:
-    - CONTAINER_NAME=n6208
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-6_n3078:
+    image: postgres:latest
+    container_name: n3078
     networks:
-    - mewbie_network
-  Python-6_n3642:
-    image: slp_img
+      mewbie_network:
+        aliases:
+        - n3078
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-7_n1412:
+    image: postgres:latest
+    container_name: n1412
+    networks:
+      mewbie_network:
+        aliases:
+        - n1412
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-8_n7576:
+    image: postgres:latest
+    container_name: n7576
+    networks:
+      mewbie_network:
+        aliases:
+        - n7576
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-9_n6232:
+    image: postgres:latest
+    container_name: n6232
+    networks:
+      mewbie_network:
+        aliases:
+        - n6232
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-10_n7113:
+    image: postgres:latest
+    container_name: n7113
+    networks:
+      mewbie_network:
+        aliases:
+        - n7113
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-11_n5323:
+    image: postgres:latest
+    container_name: n5323
+    networks:
+      mewbie_network:
+        aliases:
+        - n5323
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-12_n8081:
+    image: postgres:latest
+    container_name: n8081
+    networks:
+      mewbie_network:
+        aliases:
+        - n8081
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-13_n2728:
+    image: postgres:latest
+    container_name: n2728
+    networks:
+      mewbie_network:
+        aliases:
+        - n2728
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-14_n2224:
+    image: postgres:latest
+    container_name: n2224
+    networks:
+      mewbie_network:
+        aliases:
+        - n2224
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-15_n6969:
+    image: postgres:latest
+    container_name: n6969
+    networks:
+      mewbie_network:
+        aliases:
+        - n6969
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-16_n599:
+    image: postgres:latest
+    container_name: n599
+    networks:
+      mewbie_network:
+        aliases:
+        - n599
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-17_n5556:
+    image: postgres:latest
+    container_name: n5556
+    networks:
+      mewbie_network:
+        aliases:
+        - n5556
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-18_n7565:
+    image: postgres:latest
+    container_name: n7565
+    networks:
+      mewbie_network:
+        aliases:
+        - n7565
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-19_n8085:
+    image: postgres:latest
+    container_name: n8085
+    networks:
+      mewbie_network:
+        aliases:
+        - n8085
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-20_n5481:
+    image: postgres:latest
+    container_name: n5481
+    networks:
+      mewbie_network:
+        aliases:
+        - n5481
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-21_n421:
+    image: postgres:latest
+    container_name: n421
+    networks:
+      mewbie_network:
+        aliases:
+        - n421
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-22_n4324:
+    image: postgres:latest
+    container_name: n4324
+    networks:
+      mewbie_network:
+        aliases:
+        - n4324
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-23_n1225:
+    image: postgres:latest
+    container_name: n1225
+    networks:
+      mewbie_network:
+        aliases:
+        - n1225
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-24_n7831:
+    image: postgres:latest
+    container_name: n7831
+    networks:
+      mewbie_network:
+        aliases:
+        - n7831
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-25_n1685:
+    image: postgres:latest
+    container_name: n1685
+    networks:
+      mewbie_network:
+        aliases:
+        - n1685
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-26_n8188:
+    image: postgres:latest
+    container_name: n8188
+    networks:
+      mewbie_network:
+        aliases:
+        - n8188
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-27_n2637:
+    image: postgres:latest
+    container_name: n2637
+    networks:
+      mewbie_network:
+        aliases:
+        - n2637
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-28_n1606:
+    image: postgres:latest
+    container_name: n1606
+    networks:
+      mewbie_network:
+        aliases:
+        - n1606
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-29_n6281:
+    image: postgres:latest
+    container_name: n6281
+    networks:
+      mewbie_network:
+        aliases:
+        - n6281
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-30_n2194:
+    image: postgres:latest
+    container_name: n2194
+    networks:
+      mewbie_network:
+        aliases:
+        - n2194
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-31_n3772:
+    image: postgres:latest
+    container_name: n3772
+    networks:
+      mewbie_network:
+        aliases:
+        - n3772
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-32_n3297:
+    image: postgres:latest
+    container_name: n3297
+    networks:
+      mewbie_network:
+        aliases:
+        - n3297
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-33_n1287:
+    image: postgres:latest
+    container_name: n1287
+    networks:
+      mewbie_network:
+        aliases:
+        - n1287
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-34_n7044:
+    image: postgres:latest
+    container_name: n7044
+    networks:
+      mewbie_network:
+        aliases:
+        - n7044
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-35_n2950:
+    image: postgres:latest
+    container_name: n2950
+    networks:
+      mewbie_network:
+        aliases:
+        - n2950
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-36_n6171:
+    image: postgres:latest
+    container_name: n6171
+    networks:
+      mewbie_network:
+        aliases:
+        - n6171
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-37_n2416:
+    image: postgres:latest
+    container_name: n2416
+    networks:
+      mewbie_network:
+        aliases:
+        - n2416
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-38_n645:
+    image: postgres:latest
+    container_name: n645
+    networks:
+      mewbie_network:
+        aliases:
+        - n645
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-39_n4067:
+    image: postgres:latest
+    container_name: n4067
+    networks:
+      mewbie_network:
+        aliases:
+        - n4067
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-40_n2759:
+    image: postgres:latest
+    container_name: n2759
+    networks:
+      mewbie_network:
+        aliases:
+        - n2759
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-41_n6378:
+    image: postgres:latest
+    container_name: n6378
+    networks:
+      mewbie_network:
+        aliases:
+        - n6378
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-42_n4660:
+    image: postgres:latest
+    container_name: n4660
+    networks:
+      mewbie_network:
+        aliases:
+        - n4660
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-43_n6248:
+    image: postgres:latest
+    container_name: n6248
+    networks:
+      mewbie_network:
+        aliases:
+        - n6248
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-44_n4490:
+    image: postgres:latest
+    container_name: n4490
+    networks:
+      mewbie_network:
+        aliases:
+        - n4490
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-45_n6899:
+    image: postgres:latest
+    container_name: n6899
+    networks:
+      mewbie_network:
+        aliases:
+        - n6899
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-46_n8250:
+    image: postgres:latest
+    container_name: n8250
+    networks:
+      mewbie_network:
+        aliases:
+        - n8250
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-47_n3921:
+    image: postgres:latest
+    container_name: n3921
+    networks:
+      mewbie_network:
+        aliases:
+        - n3921
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-48_n3951:
+    image: postgres:latest
+    container_name: n3951
+    networks:
+      mewbie_network:
+        aliases:
+        - n3951
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-49_n7456:
+    image: postgres:latest
+    container_name: n7456
+    networks:
+      mewbie_network:
+        aliases:
+        - n7456
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-50_n2734:
+    image: postgres:latest
+    container_name: n2734
+    networks:
+      mewbie_network:
+        aliases:
+        - n2734
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-51_n1911:
+    image: postgres:latest
+    container_name: n1911
+    networks:
+      mewbie_network:
+        aliases:
+        - n1911
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-52_n227:
+    image: postgres:latest
+    container_name: n227
+    networks:
+      mewbie_network:
+        aliases:
+        - n227
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-53_n8147:
+    image: postgres:latest
+    container_name: n8147
+    networks:
+      mewbie_network:
+        aliases:
+        - n8147
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-54_n3803:
+    image: postgres:latest
+    container_name: n3803
+    networks:
+      mewbie_network:
+        aliases:
+        - n3803
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-55_n5508:
+    image: postgres:latest
+    container_name: n5508
+    networks:
+      mewbie_network:
+        aliases:
+        - n5508
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-56_n6563:
+    image: postgres:latest
+    container_name: n6563
+    networks:
+      mewbie_network:
+        aliases:
+        - n6563
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-57_n5083:
+    image: postgres:latest
+    container_name: n5083
+    networks:
+      mewbie_network:
+        aliases:
+        - n5083
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-58_n4482:
+    image: postgres:latest
+    container_name: n4482
+    networks:
+      mewbie_network:
+        aliases:
+        - n4482
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-59_n1595:
+    image: postgres:latest
+    container_name: n1595
+    networks:
+      mewbie_network:
+        aliases:
+        - n1595
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-60_n2327:
+    image: postgres:latest
+    container_name: n2327
+    networks:
+      mewbie_network:
+        aliases:
+        - n2327
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-61_n7982:
+    image: postgres:latest
+    container_name: n7982
+    networks:
+      mewbie_network:
+        aliases:
+        - n7982
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-62_n66:
+    image: postgres:latest
+    container_name: n66
+    networks:
+      mewbie_network:
+        aliases:
+        - n66
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-63_n7691:
+    image: postgres:latest
+    container_name: n7691
+    networks:
+      mewbie_network:
+        aliases:
+        - n7691
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-64_n7248:
+    image: postgres:latest
+    container_name: n7248
+    networks:
+      mewbie_network:
+        aliases:
+        - n7248
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-65_n2250:
+    image: postgres:latest
+    container_name: n2250
+    networks:
+      mewbie_network:
+        aliases:
+        - n2250
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-66_n4750:
+    image: postgres:latest
+    container_name: n4750
+    networks:
+      mewbie_network:
+        aliases:
+        - n4750
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-67_n4156:
+    image: postgres:latest
+    container_name: n4156
+    networks:
+      mewbie_network:
+        aliases:
+        - n4156
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-68_n4189:
+    image: postgres:latest
+    container_name: n4189
+    networks:
+      mewbie_network:
+        aliases:
+        - n4189
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-69_n2492:
+    image: postgres:latest
+    container_name: n2492
+    networks:
+      mewbie_network:
+        aliases:
+        - n2492
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-70_n8005:
+    image: postgres:latest
+    container_name: n8005
+    networks:
+      mewbie_network:
+        aliases:
+        - n8005
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-71_n2341:
+    image: postgres:latest
+    container_name: n2341
+    networks:
+      mewbie_network:
+        aliases:
+        - n2341
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-72_n6111:
+    image: postgres:latest
+    container_name: n6111
+    networks:
+      mewbie_network:
+        aliases:
+        - n6111
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-73_n4030:
+    image: postgres:latest
+    container_name: n4030
+    networks:
+      mewbie_network:
+        aliases:
+        - n4030
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-74_n3534:
+    image: postgres:latest
+    container_name: n3534
+    networks:
+      mewbie_network:
+        aliases:
+        - n3534
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-75_n863:
+    image: postgres:latest
+    container_name: n863
+    networks:
+      mewbie_network:
+        aliases:
+        - n863
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-76_n3897:
+    image: postgres:latest
+    container_name: n3897
+    networks:
+      mewbie_network:
+        aliases:
+        - n3897
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-77_n824:
+    image: postgres:latest
+    container_name: n824
+    networks:
+      mewbie_network:
+        aliases:
+        - n824
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-78_n4300:
+    image: postgres:latest
+    container_name: n4300
+    networks:
+      mewbie_network:
+        aliases:
+        - n4300
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-79_n3404:
+    image: postgres:latest
+    container_name: n3404
+    networks:
+      mewbie_network:
+        aliases:
+        - n3404
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-80_n7826:
+    image: postgres:latest
+    container_name: n7826
+    networks:
+      mewbie_network:
+        aliases:
+        - n7826
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-81_n760:
+    image: postgres:latest
+    container_name: n760
+    networks:
+      mewbie_network:
+        aliases:
+        - n760
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-82_n6573:
+    image: postgres:latest
+    container_name: n6573
+    networks:
+      mewbie_network:
+        aliases:
+        - n6573
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-83_n1747:
+    image: postgres:latest
+    container_name: n1747
+    networks:
+      mewbie_network:
+        aliases:
+        - n1747
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-84_n1333:
+    image: postgres:latest
+    container_name: n1333
+    networks:
+      mewbie_network:
+        aliases:
+        - n1333
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-85_n5732:
+    image: postgres:latest
+    container_name: n5732
+    networks:
+      mewbie_network:
+        aliases:
+        - n5732
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-86_n8216:
+    image: postgres:latest
+    container_name: n8216
+    networks:
+      mewbie_network:
+        aliases:
+        - n8216
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-87_n6977:
+    image: postgres:latest
+    container_name: n6977
+    networks:
+      mewbie_network:
+        aliases:
+        - n6977
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-88_n8032:
+    image: postgres:latest
+    container_name: n8032
+    networks:
+      mewbie_network:
+        aliases:
+        - n8032
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-89_n2784:
+    image: postgres:latest
+    container_name: n2784
+    networks:
+      mewbie_network:
+        aliases:
+        - n2784
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-90_n2136:
+    image: postgres:latest
+    container_name: n2136
+    networks:
+      mewbie_network:
+        aliases:
+        - n2136
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-91_n3960:
+    image: postgres:latest
+    container_name: n3960
+    networks:
+      mewbie_network:
+        aliases:
+        - n3960
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-92_n5317:
+    image: postgres:latest
+    container_name: n5317
+    networks:
+      mewbie_network:
+        aliases:
+        - n5317
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-93_n876:
+    image: postgres:latest
+    container_name: n876
+    networks:
+      mewbie_network:
+        aliases:
+        - n876
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-94_n3734:
+    image: postgres:latest
+    container_name: n3734
+    networks:
+      mewbie_network:
+        aliases:
+        - n3734
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-95_n3022:
+    image: postgres:latest
+    container_name: n3022
+    networks:
+      mewbie_network:
+        aliases:
+        - n3022
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-96_n622:
+    image: postgres:latest
+    container_name: n622
+    networks:
+      mewbie_network:
+        aliases:
+        - n622
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-97_n1928:
+    image: postgres:latest
+    container_name: n1928
+    networks:
+      mewbie_network:
+        aliases:
+        - n1928
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-98_n1868:
+    image: postgres:latest
+    container_name: n1868
+    networks:
+      mewbie_network:
+        aliases:
+        - n1868
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-99_n1148:
+    image: postgres:latest
+    container_name: n1148
+    networks:
+      mewbie_network:
+        aliases:
+        - n1148
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-100_n1608:
+    image: postgres:latest
+    container_name: n1608
+    networks:
+      mewbie_network:
+        aliases:
+        - n1608
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-101_n3642:
+    image: postgres:latest
     container_name: n3642
-    environment:
-    - CONTAINER_NAME=n3642
     networks:
-    - mewbie_network
-  Python-7_n1791:
-    image: slp_img
-    container_name: n1791
+      mewbie_network:
+        aliases:
+        - n3642
     environment:
-    - CONTAINER_NAME=n1791
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-102_n4815:
+    image: postgres:latest
+    container_name: n4815
     networks:
-    - mewbie_network
-  Python-8_n4475:
-    image: slp_img
-    container_name: n4475
+      mewbie_network:
+        aliases:
+        - n4815
     environment:
-    - CONTAINER_NAME=n4475
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-103_n2036:
+    image: postgres:latest
+    container_name: n2036
     networks:
-    - mewbie_network
-  Python-9_n4974:
-    image: slp_img
-    container_name: n4974
+      mewbie_network:
+        aliases:
+        - n2036
     environment:
-    - CONTAINER_NAME=n4974
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-104_n4410:
+    image: postgres:latest
+    container_name: n4410
     networks:
-    - mewbie_network
-  Python-10_n8000:
-    image: slp_img
-    container_name: n8000
+      mewbie_network:
+        aliases:
+        - n4410
     environment:
-    - CONTAINER_NAME=n8000
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-105_n7350:
+    image: postgres:latest
+    container_name: n7350
     networks:
-    - mewbie_network
-  Python-11_n6307:
-    image: slp_img
-    container_name: n6307
+      mewbie_network:
+        aliases:
+        - n7350
     environment:
-    - CONTAINER_NAME=n6307
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-106_n3221:
+    image: postgres:latest
+    container_name: n3221
     networks:
-    - mewbie_network
-  Python-12_n4860:
-    image: slp_img
-    container_name: n4860
+      mewbie_network:
+        aliases:
+        - n3221
     environment:
-    - CONTAINER_NAME=n4860
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-107_n1850:
+    image: postgres:latest
+    container_name: n1850
     networks:
-    - mewbie_network
-  Python-13_n1276:
-    image: slp_img
-    container_name: n1276
+      mewbie_network:
+        aliases:
+        - n1850
     environment:
-    - CONTAINER_NAME=n1276
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-108_n7153:
+    image: postgres:latest
+    container_name: n7153
     networks:
-    - mewbie_network
-  Python-14_n2277:
-    image: slp_img
-    container_name: n2277
+      mewbie_network:
+        aliases:
+        - n7153
     environment:
-    - CONTAINER_NAME=n2277
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-109_n1944:
+    image: postgres:latest
+    container_name: n1944
     networks:
-    - mewbie_network
-  Python-15_n5736:
-    image: slp_img
-    container_name: n5736
+      mewbie_network:
+        aliases:
+        - n1944
     environment:
-    - CONTAINER_NAME=n5736
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-110_n5004:
+    image: postgres:latest
+    container_name: n5004
     networks:
-    - mewbie_network
-  Python-16_n2749:
-    image: slp_img
-    container_name: n2749
+      mewbie_network:
+        aliases:
+        - n5004
     environment:
-    - CONTAINER_NAME=n2749
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-111_n615:
+    image: postgres:latest
+    container_name: n615
     networks:
-    - mewbie_network
-  Python-17_n6733:
-    image: slp_img
-    container_name: n6733
+      mewbie_network:
+        aliases:
+        - n615
     environment:
-    - CONTAINER_NAME=n6733
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-112_n3622:
+    image: postgres:latest
+    container_name: n3622
     networks:
-    - mewbie_network
-  Python-18_n1919:
-    image: slp_img
-    container_name: n1919
+      mewbie_network:
+        aliases:
+        - n3622
     environment:
-    - CONTAINER_NAME=n1919
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-113_n1033:
+    image: postgres:latest
+    container_name: n1033
     networks:
-    - mewbie_network
-  Python-19_n7336:
-    image: slp_img
-    container_name: n7336
+      mewbie_network:
+        aliases:
+        - n1033
     environment:
-    - CONTAINER_NAME=n7336
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-114_n3549:
+    image: postgres:latest
+    container_name: n3549
     networks:
-    - mewbie_network
-  Python-20_n4247:
-    image: slp_img
-    container_name: n4247
+      mewbie_network:
+        aliases:
+        - n3549
     environment:
-    - CONTAINER_NAME=n4247
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-115_n2230:
+    image: postgres:latest
+    container_name: n2230
     networks:
-    - mewbie_network
-  Python-21_n4711:
-    image: slp_img
-    container_name: n4711
+      mewbie_network:
+        aliases:
+        - n2230
     environment:
-    - CONTAINER_NAME=n4711
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-116_n4500:
+    image: postgres:latest
+    container_name: n4500
     networks:
-    - mewbie_network
-  Python-22_n4009:
-    image: slp_img
-    container_name: n4009
+      mewbie_network:
+        aliases:
+        - n4500
     environment:
-    - CONTAINER_NAME=n4009
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-117_n2413:
+    image: postgres:latest
+    container_name: n2413
     networks:
-    - mewbie_network
-  Python-23_n8076:
-    image: slp_img
-    container_name: n8076
+      mewbie_network:
+        aliases:
+        - n2413
     environment:
-    - CONTAINER_NAME=n8076
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-118_n4124:
+    image: postgres:latest
+    container_name: n4124
     networks:
-    - mewbie_network
-  Python-24_n6971:
-    image: slp_img
-    container_name: n6971
+      mewbie_network:
+        aliases:
+        - n4124
     environment:
-    - CONTAINER_NAME=n6971
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-119_n1480:
+    image: postgres:latest
+    container_name: n1480
     networks:
-    - mewbie_network
-  Python-25_n1388:
-    image: slp_img
-    container_name: n1388
+      mewbie_network:
+        aliases:
+        - n1480
     environment:
-    - CONTAINER_NAME=n1388
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-120_n4426:
+    image: postgres:latest
+    container_name: n4426
     networks:
-    - mewbie_network
-  Python-26_n5413:
-    image: slp_img
-    container_name: n5413
+      mewbie_network:
+        aliases:
+        - n4426
     environment:
-    - CONTAINER_NAME=n5413
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-121_n4709:
+    image: postgres:latest
+    container_name: n4709
     networks:
-    - mewbie_network
-  Python-27_n6438:
-    image: slp_img
-    container_name: n6438
+      mewbie_network:
+        aliases:
+        - n4709
     environment:
-    - CONTAINER_NAME=n6438
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-122_n6648:
+    image: postgres:latest
+    container_name: n6648
     networks:
-    - mewbie_network
-  Python-28_n5001:
-    image: slp_img
-    container_name: n5001
+      mewbie_network:
+        aliases:
+        - n6648
     environment:
-    - CONTAINER_NAME=n5001
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-123_n1119:
+    image: postgres:latest
+    container_name: n1119
     networks:
-    - mewbie_network
-  Python-29_n7612:
-    image: slp_img
-    container_name: n7612
+      mewbie_network:
+        aliases:
+        - n1119
     environment:
-    - CONTAINER_NAME=n7612
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-124_n2354:
+    image: postgres:latest
+    container_name: n2354
     networks:
-    - mewbie_network
-  Python-30_n3969:
-    image: slp_img
-    container_name: n3969
+      mewbie_network:
+        aliases:
+        - n2354
     environment:
-    - CONTAINER_NAME=n3969
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-125_n772:
+    image: postgres:latest
+    container_name: n772
     networks:
-    - mewbie_network
-  Python-31_n2744:
-    image: slp_img
-    container_name: n2744
+      mewbie_network:
+        aliases:
+        - n772
     environment:
-    - CONTAINER_NAME=n2744
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-126_n287:
+    image: postgres:latest
+    container_name: n287
     networks:
-    - mewbie_network
-  Python-32_n205:
-    image: slp_img
+      mewbie_network:
+        aliases:
+        - n287
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-127_n6531:
+    image: postgres:latest
+    container_name: n6531
+    networks:
+      mewbie_network:
+        aliases:
+        - n6531
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-128_n4450:
+    image: postgres:latest
+    container_name: n4450
+    networks:
+      mewbie_network:
+        aliases:
+        - n4450
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-129_n1297:
+    image: postgres:latest
+    container_name: n1297
+    networks:
+      mewbie_network:
+        aliases:
+        - n1297
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-130_n3114:
+    image: postgres:latest
+    container_name: n3114
+    networks:
+      mewbie_network:
+        aliases:
+        - n3114
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-131_n3334:
+    image: postgres:latest
+    container_name: n3334
+    networks:
+      mewbie_network:
+        aliases:
+        - n3334
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-132_n127:
+    image: postgres:latest
+    container_name: n127
+    networks:
+      mewbie_network:
+        aliases:
+        - n127
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-133_n6014:
+    image: postgres:latest
+    container_name: n6014
+    networks:
+      mewbie_network:
+        aliases:
+        - n6014
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-134_n681:
+    image: postgres:latest
+    container_name: n681
+    networks:
+      mewbie_network:
+        aliases:
+        - n681
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-135_n205:
+    image: postgres:latest
     container_name: n205
-    environment:
-    - CONTAINER_NAME=n205
-    networks:
-    - mewbie_network
-  Python-33_n7218:
-    image: slp_img
-    container_name: n7218
-    environment:
-    - CONTAINER_NAME=n7218
-    networks:
-    - mewbie_network
-  Python-34_n6861:
-    image: slp_img
-    container_name: n6861
-    environment:
-    - CONTAINER_NAME=n6861
-    networks:
-    - mewbie_network
-  Python-35_n3056:
-    image: slp_img
-    container_name: n3056
-    environment:
-    - CONTAINER_NAME=n3056
-    networks:
-    - mewbie_network
-  Python-36_n7157:
-    image: slp_img
-    container_name: n7157
-    environment:
-    - CONTAINER_NAME=n7157
-    networks:
-    - mewbie_network
-  Python-37_n2722:
-    image: slp_img
-    container_name: n2722
-    environment:
-    - CONTAINER_NAME=n2722
-    networks:
-    - mewbie_network
-  Python-38_n2307:
-    image: slp_img
-    container_name: n2307
-    environment:
-    - CONTAINER_NAME=n2307
-    networks:
-    - mewbie_network
-  Python-39_n187:
-    image: slp_img
-    container_name: n187
-    environment:
-    - CONTAINER_NAME=n187
-    networks:
-    - mewbie_network
-  Python-40_n199:
-    image: slp_img
-    container_name: n199
-    environment:
-    - CONTAINER_NAME=n199
-    networks:
-    - mewbie_network
-  Python-41_n8203:
-    image: slp_img
-    container_name: n8203
-    environment:
-    - CONTAINER_NAME=n8203
-    networks:
-    - mewbie_network
-  Python-42_n2713:
-    image: slp_img
-    container_name: n2713
-    environment:
-    - CONTAINER_NAME=n2713
-    networks:
-    - mewbie_network
-  Python-43_n4982:
-    image: slp_img
-    container_name: n4982
-    environment:
-    - CONTAINER_NAME=n4982
-    networks:
-    - mewbie_network
-  Python-44_n7234:
-    image: slp_img
-    container_name: n7234
-    environment:
-    - CONTAINER_NAME=n7234
-    networks:
-    - mewbie_network
-  Python-45_n7227:
-    image: slp_img
-    container_name: n7227
-    environment:
-    - CONTAINER_NAME=n7227
-    networks:
-    - mewbie_network
-  Python-46_n3970:
-    image: slp_img
-    container_name: n3970
-    environment:
-    - CONTAINER_NAME=n3970
-    networks:
-    - mewbie_network
-  Python-47_n4269:
-    image: slp_img
-    container_name: n4269
-    environment:
-    - CONTAINER_NAME=n4269
-    networks:
-    - mewbie_network
-  Python-48_n3589:
-    image: slp_img
-    container_name: n3589
-    environment:
-    - CONTAINER_NAME=n3589
-    networks:
-    - mewbie_network
-  Python-49_n2045:
-    image: slp_img
-    container_name: n2045
-    environment:
-    - CONTAINER_NAME=n2045
-    networks:
-    - mewbie_network
-  Python-50_n1286:
-    image: slp_img
-    container_name: n1286
-    environment:
-    - CONTAINER_NAME=n1286
-    networks:
-    - mewbie_network
-  Python-51_n5896:
-    image: slp_img
-    container_name: n5896
-    environment:
-    - CONTAINER_NAME=n5896
-    networks:
-    - mewbie_network
-  Python-52_n3015:
-    image: slp_img
-    container_name: n3015
-    environment:
-    - CONTAINER_NAME=n3015
-    networks:
-    - mewbie_network
-  Python-53_n2024:
-    image: slp_img
-    container_name: n2024
-    environment:
-    - CONTAINER_NAME=n2024
-    networks:
-    - mewbie_network
-  Python-54_n8294:
-    image: slp_img
-    container_name: n8294
-    environment:
-    - CONTAINER_NAME=n8294
-    networks:
-    - mewbie_network
-  Python-55_n4917:
-    image: slp_img
-    container_name: n4917
-    environment:
-    - CONTAINER_NAME=n4917
-    networks:
-    - mewbie_network
-  Python-56_n1405:
-    image: slp_img
-    container_name: n1405
-    environment:
-    - CONTAINER_NAME=n1405
-    networks:
-    - mewbie_network
-  Python-57_n3368:
-    image: slp_img
-    container_name: n3368
-    environment:
-    - CONTAINER_NAME=n3368
-    networks:
-    - mewbie_network
-  Python-58_n5582:
-    image: slp_img
-    container_name: n5582
-    environment:
-    - CONTAINER_NAME=n5582
-    networks:
-    - mewbie_network
-  Python-59_n8145:
-    image: slp_img
-    container_name: n8145
-    environment:
-    - CONTAINER_NAME=n8145
-    networks:
-    - mewbie_network
-  Python-60_n2259:
-    image: slp_img
-    container_name: n2259
-    environment:
-    - CONTAINER_NAME=n2259
-    networks:
-    - mewbie_network
-  Python-61_n3976:
-    image: slp_img
-    container_name: n3976
-    environment:
-    - CONTAINER_NAME=n3976
-    networks:
-    - mewbie_network
-  Python-62_n4882:
-    image: slp_img
-    container_name: n4882
-    environment:
-    - CONTAINER_NAME=n4882
-    networks:
-    - mewbie_network
-  Python-63_n7977:
-    image: slp_img
-    container_name: n7977
-    environment:
-    - CONTAINER_NAME=n7977
-    networks:
-    - mewbie_network
-  Python-64_n7725:
-    image: slp_img
-    container_name: n7725
-    environment:
-    - CONTAINER_NAME=n7725
-    networks:
-    - mewbie_network
-  Python-65_n2286:
-    image: slp_img
-    container_name: n2286
-    environment:
-    - CONTAINER_NAME=n2286
-    networks:
-    - mewbie_network
-  Python-66_n2497:
-    image: slp_img
-    container_name: n2497
-    environment:
-    - CONTAINER_NAME=n2497
-    networks:
-    - mewbie_network
-  Python-67_n1717:
-    image: slp_img
-    container_name: n1717
-    environment:
-    - CONTAINER_NAME=n1717
-    networks:
-    - mewbie_network
-  Python-68_n3545:
-    image: slp_img
-    container_name: n3545
-    environment:
-    - CONTAINER_NAME=n3545
-    networks:
-    - mewbie_network
-  Python-69_n2464:
-    image: slp_img
-    container_name: n2464
-    environment:
-    - CONTAINER_NAME=n2464
-    networks:
-    - mewbie_network
-  Python-70_n649:
-    image: slp_img
-    container_name: n649
-    environment:
-    - CONTAINER_NAME=n649
-    networks:
-    - mewbie_network
-  Python-71_n5085:
-    image: slp_img
-    container_name: n5085
-    environment:
-    - CONTAINER_NAME=n5085
-    networks:
-    - mewbie_network
-  Python-72_n7279:
-    image: slp_img
-    container_name: n7279
-    environment:
-    - CONTAINER_NAME=n7279
-    networks:
-    - mewbie_network
-  Python-73_n1455:
-    image: slp_img
-    container_name: n1455
-    environment:
-    - CONTAINER_NAME=n1455
-    networks:
-    - mewbie_network
-  Python-74_n794:
-    image: slp_img
-    container_name: n794
-    environment:
-    - CONTAINER_NAME=n794
-    networks:
-    - mewbie_network
-  Python-75_n2731:
-    image: slp_img
-    container_name: n2731
-    environment:
-    - CONTAINER_NAME=n2731
-    networks:
-    - mewbie_network
-  Python-76_n6231:
-    image: slp_img
-    container_name: n6231
-    environment:
-    - CONTAINER_NAME=n6231
-    networks:
-    - mewbie_network
-  Python-77_n566:
-    image: slp_img
-    container_name: n566
-    environment:
-    - CONTAINER_NAME=n566
-    networks:
-    - mewbie_network
-  Python-78_n6734:
-    image: slp_img
-    container_name: n6734
-    environment:
-    - CONTAINER_NAME=n6734
-    networks:
-    - mewbie_network
-  Python-79_n8305:
-    image: slp_img
-    container_name: n8305
-    environment:
-    - CONTAINER_NAME=n8305
-    networks:
-    - mewbie_network
-  Python-80_n7650:
-    image: slp_img
-    container_name: n7650
-    environment:
-    - CONTAINER_NAME=n7650
-    networks:
-    - mewbie_network
-  Python-81_n7753:
-    image: slp_img
-    container_name: n7753
-    environment:
-    - CONTAINER_NAME=n7753
-    networks:
-    - mewbie_network
-  Python-82_n65:
-    image: slp_img
-    container_name: n65
-    environment:
-    - CONTAINER_NAME=n65
-    networks:
-    - mewbie_network
-  Python-83_n2690:
-    image: slp_img
-    container_name: n2690
-    environment:
-    - CONTAINER_NAME=n2690
-    networks:
-    - mewbie_network
-  Python-84_n4976:
-    image: slp_img
-    container_name: n4976
-    environment:
-    - CONTAINER_NAME=n4976
-    networks:
-    - mewbie_network
-  Python-85_n189:
-    image: slp_img
-    container_name: n189
-    environment:
-    - CONTAINER_NAME=n189
-    networks:
-    - mewbie_network
-  Python-86_n999:
-    image: slp_img
-    container_name: n999
-    environment:
-    - CONTAINER_NAME=n999
-    networks:
-    - mewbie_network
-  Python-87_n7904:
-    image: slp_img
-    container_name: n7904
-    environment:
-    - CONTAINER_NAME=n7904
-    networks:
-    - mewbie_network
-  Python-88_n2632:
-    image: slp_img
-    container_name: n2632
-    environment:
-    - CONTAINER_NAME=n2632
-    networks:
-    - mewbie_network
-  Python-89_n1034:
-    image: slp_img
-    container_name: n1034
-    environment:
-    - CONTAINER_NAME=n1034
-    networks:
-    - mewbie_network
-  Python-90_n1927:
-    image: slp_img
-    container_name: n1927
-    environment:
-    - CONTAINER_NAME=n1927
-    networks:
-    - mewbie_network
-  Python-91_n5121:
-    image: slp_img
-    container_name: n5121
-    environment:
-    - CONTAINER_NAME=n5121
-    networks:
-    - mewbie_network
-  Python-92_n1274:
-    image: slp_img
-    container_name: n1274
-    environment:
-    - CONTAINER_NAME=n1274
-    networks:
-    - mewbie_network
-  Python-93_n6614:
-    image: slp_img
-    container_name: n6614
-    environment:
-    - CONTAINER_NAME=n6614
-    networks:
-    - mewbie_network
-  Python-94_n6113:
-    image: slp_img
-    container_name: n6113
-    environment:
-    - CONTAINER_NAME=n6113
-    networks:
-    - mewbie_network
-  Python-95_n5222:
-    image: slp_img
-    container_name: n5222
-    environment:
-    - CONTAINER_NAME=n5222
-    networks:
-    - mewbie_network
-  Python-96_n2772:
-    image: slp_img
-    container_name: n2772
-    environment:
-    - CONTAINER_NAME=n2772
-    networks:
-    - mewbie_network
-  Python-97_n7317:
-    image: slp_img
-    container_name: n7317
-    environment:
-    - CONTAINER_NAME=n7317
     networks:
-    - mewbie_network
+      mewbie_network:
+        aliases:
+        - n205
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-136_n903:
+    image: postgres:latest
+    container_name: n903
+    networks:
+      mewbie_network:
+        aliases:
+        - n903
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-137_n1673:
+    image: postgres:latest
+    container_name: n1673
+    networks:
+      mewbie_network:
+        aliases:
+        - n1673
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-138_n4843:
+    image: postgres:latest
+    container_name: n4843
+    networks:
+      mewbie_network:
+        aliases:
+        - n4843
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-139_n4509:
+    image: postgres:latest
+    container_name: n4509
+    networks:
+      mewbie_network:
+        aliases:
+        - n4509
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-140_n4063:
+    image: postgres:latest
+    container_name: n4063
+    networks:
+      mewbie_network:
+        aliases:
+        - n4063
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-141_n8275:
+    image: postgres:latest
+    container_name: n8275
+    networks:
+      mewbie_network:
+        aliases:
+        - n8275
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-142_n6516:
+    image: postgres:latest
+    container_name: n6516
+    networks:
+      mewbie_network:
+        aliases:
+        - n6516
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-143_n1459:
+    image: postgres:latest
+    container_name: n1459
+    networks:
+      mewbie_network:
+        aliases:
+        - n1459
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-144_n4975:
+    image: postgres:latest
+    container_name: n4975
+    networks:
+      mewbie_network:
+        aliases:
+        - n4975
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-145_n6790:
+    image: postgres:latest
+    container_name: n6790
+    networks:
+      mewbie_network:
+        aliases:
+        - n6790
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-146_n1479:
+    image: postgres:latest
+    container_name: n1479
+    networks:
+      mewbie_network:
+        aliases:
+        - n1479
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-147_n8082:
+    image: postgres:latest
+    container_name: n8082
+    networks:
+      mewbie_network:
+        aliases:
+        - n8082
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-148_n1270:
+    image: postgres:latest
+    container_name: n1270
+    networks:
+      mewbie_network:
+        aliases:
+        - n1270
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-149_n4868:
+    image: postgres:latest
+    container_name: n4868
+    networks:
+      mewbie_network:
+        aliases:
+        - n4868
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-150_n2929:
+    image: postgres:latest
+    container_name: n2929
+    networks:
+      mewbie_network:
+        aliases:
+        - n2929
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-151_n1554:
+    image: postgres:latest
+    container_name: n1554
+    networks:
+      mewbie_network:
+        aliases:
+        - n1554
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-152_n7061:
+    image: postgres:latest
+    container_name: n7061
+    networks:
+      mewbie_network:
+        aliases:
+        - n7061
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-153_n3411:
+    image: postgres:latest
+    container_name: n3411
+    networks:
+      mewbie_network:
+        aliases:
+        - n3411
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-154_n4937:
+    image: postgres:latest
+    container_name: n4937
+    networks:
+      mewbie_network:
+        aliases:
+        - n4937
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-155_n7440:
+    image: postgres:latest
+    container_name: n7440
+    networks:
+      mewbie_network:
+        aliases:
+        - n7440
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-156_n3989:
+    image: postgres:latest
+    container_name: n3989
+    networks:
+      mewbie_network:
+        aliases:
+        - n3989
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-157_n1417:
+    image: postgres:latest
+    container_name: n1417
+    networks:
+      mewbie_network:
+        aliases:
+        - n1417
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-158_n5008:
+    image: postgres:latest
+    container_name: n5008
+    networks:
+      mewbie_network:
+        aliases:
+        - n5008
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-159_n73:
+    image: postgres:latest
+    container_name: n73
+    networks:
+      mewbie_network:
+        aliases:
+        - n73
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-160_n2222:
+    image: postgres:latest
+    container_name: n2222
+    networks:
+      mewbie_network:
+        aliases:
+        - n2222
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-161_n3694:
+    image: postgres:latest
+    container_name: n3694
+    networks:
+      mewbie_network:
+        aliases:
+        - n3694
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-162_n2744:
+    image: postgres:latest
+    container_name: n2744
+    networks:
+      mewbie_network:
+        aliases:
+        - n2744
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-163_n3682:
+    image: postgres:latest
+    container_name: n3682
+    networks:
+      mewbie_network:
+        aliases:
+        - n3682
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-164_n5925:
+    image: postgres:latest
+    container_name: n5925
+    networks:
+      mewbie_network:
+        aliases:
+        - n5925
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-165_n5899:
+    image: postgres:latest
+    container_name: n5899
+    networks:
+      mewbie_network:
+        aliases:
+        - n5899
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Postgres-166_n3599:
+    image: postgres:latest
+    container_name: n3599
+    networks:
+      mewbie_network:
+        aliases:
+        - n3599
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+  Python-0_n5703:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5703
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5703
+    networks:
+      mewbie_network:
+        aliases:
+        - n5703
+  Python-1_n2609:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2609
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2609
+    networks:
+      mewbie_network:
+        aliases:
+        - n2609
+  Python-2_n4162:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4162
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4162
+    networks:
+      mewbie_network:
+        aliases:
+        - n4162
+  Python-3_n4690:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4690
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4690
+    networks:
+      mewbie_network:
+        aliases:
+        - n4690
+  Python-4_n4260:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4260
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4260
+    networks:
+      mewbie_network:
+        aliases:
+        - n4260
+  Python-5_n7642:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7642
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7642
+    networks:
+      mewbie_network:
+        aliases:
+        - n7642
+  Python-6_n2003:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2003
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2003
+    networks:
+      mewbie_network:
+        aliases:
+        - n2003
+  Python-7_n6042:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6042
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6042
+    networks:
+      mewbie_network:
+        aliases:
+        - n6042
+  Python-8_n1964:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1964
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1964
+    networks:
+      mewbie_network:
+        aliases:
+        - n1964
+  Python-9_n630:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n630
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n630
+    networks:
+      mewbie_network:
+        aliases:
+        - n630
+  Python-10_n2444:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2444
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2444
+    networks:
+      mewbie_network:
+        aliases:
+        - n2444
+  Python-11_n8030:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8030
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8030
+    networks:
+      mewbie_network:
+        aliases:
+        - n8030
+  Python-12_n4578:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4578
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4578
+    networks:
+      mewbie_network:
+        aliases:
+        - n4578
+  Python-13_n2868:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2868
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2868
+    networks:
+      mewbie_network:
+        aliases:
+        - n2868
+  Python-14_n5406:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5406
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5406
+    networks:
+      mewbie_network:
+        aliases:
+        - n5406
+  Python-15_n3441:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3441
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3441
+    networks:
+      mewbie_network:
+        aliases:
+        - n3441
+  Python-16_n5735:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5735
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5735
+    networks:
+      mewbie_network:
+        aliases:
+        - n5735
+  Python-17_n5775:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5775
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5775
+    networks:
+      mewbie_network:
+        aliases:
+        - n5775
+  Python-18_n3941:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3941
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3941
+    networks:
+      mewbie_network:
+        aliases:
+        - n3941
+  Python-19_n7964:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7964
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7964
+    networks:
+      mewbie_network:
+        aliases:
+        - n7964
+  Python-20_n2172:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2172
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2172
+    networks:
+      mewbie_network:
+        aliases:
+        - n2172
+  Python-21_n895:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n895
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n895
+    networks:
+      mewbie_network:
+        aliases:
+        - n895
+  Python-22_n1220:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1220
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1220
+    networks:
+      mewbie_network:
+        aliases:
+        - n1220
+  Python-23_n3703:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3703
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3703
+    networks:
+      mewbie_network:
+        aliases:
+        - n3703
+  Python-24_n6046:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6046
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6046
+    networks:
+      mewbie_network:
+        aliases:
+        - n6046
+  Python-25_n6286:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6286
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6286
+    networks:
+      mewbie_network:
+        aliases:
+        - n6286
+  Python-26_n1436:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1436
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1436
+    networks:
+      mewbie_network:
+        aliases:
+        - n1436
+  Python-27_n2819:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2819
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2819
+    networks:
+      mewbie_network:
+        aliases:
+        - n2819
+  Python-28_n8290:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8290
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8290
+    networks:
+      mewbie_network:
+        aliases:
+        - n8290
+  Python-29_n7994:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7994
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7994
+    networks:
+      mewbie_network:
+        aliases:
+        - n7994
+  Python-30_n4912:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4912
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4912
+    networks:
+      mewbie_network:
+        aliases:
+        - n4912
+  Python-31_n1748:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1748
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1748
+    networks:
+      mewbie_network:
+        aliases:
+        - n1748
+  Python-32_n2029:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2029
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2029
+    networks:
+      mewbie_network:
+        aliases:
+        - n2029
+  Python-33_n6096:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6096
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6096
+    networks:
+      mewbie_network:
+        aliases:
+        - n6096
+  Python-34_n2663:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2663
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2663
+    networks:
+      mewbie_network:
+        aliases:
+        - n2663
+  Python-35_n5510:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5510
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5510
+    networks:
+      mewbie_network:
+        aliases:
+        - n5510
+  Python-36_n309:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n309
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n309
+    networks:
+      mewbie_network:
+        aliases:
+        - n309
+  Python-37_n7900:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7900
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7900
+    networks:
+      mewbie_network:
+        aliases:
+        - n7900
+  Python-38_n2453:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2453
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2453
+    networks:
+      mewbie_network:
+        aliases:
+        - n2453
+  Python-39_n8307:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8307
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8307
+    networks:
+      mewbie_network:
+        aliases:
+        - n8307
+  Python-40_n5171:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5171
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5171
+    networks:
+      mewbie_network:
+        aliases:
+        - n5171
+  Python-41_n4909:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4909
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4909
+    networks:
+      mewbie_network:
+        aliases:
+        - n4909
+  Python-42_n4850:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4850
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4850
+    networks:
+      mewbie_network:
+        aliases:
+        - n4850
+  Python-43_n5095:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5095
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5095
+    networks:
+      mewbie_network:
+        aliases:
+        - n5095
+  Python-44_n7510:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7510
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7510
+    networks:
+      mewbie_network:
+        aliases:
+        - n7510
+  Python-45_n704:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n704
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n704
+    networks:
+      mewbie_network:
+        aliases:
+        - n704
+  Python-46_n3756:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3756
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3756
+    networks:
+      mewbie_network:
+        aliases:
+        - n3756
+  Python-47_n7370:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7370
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7370
+    networks:
+      mewbie_network:
+        aliases:
+        - n7370
+  Python-48_n7567:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7567
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7567
+    networks:
+      mewbie_network:
+        aliases:
+        - n7567
+  Python-49_n263:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n263
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n263
+    networks:
+      mewbie_network:
+        aliases:
+        - n263
+  Python-50_n5081:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5081
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5081
+    networks:
+      mewbie_network:
+        aliases:
+        - n5081
+  Python-51_n7290:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7290
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7290
+    networks:
+      mewbie_network:
+        aliases:
+        - n7290
+  Python-52_n1860:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1860
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1860
+    networks:
+      mewbie_network:
+        aliases:
+        - n1860
+  Python-53_n4864:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4864
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4864
+    networks:
+      mewbie_network:
+        aliases:
+        - n4864
+  Python-54_n2439:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2439
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2439
+    networks:
+      mewbie_network:
+        aliases:
+        - n2439
+  Python-55_n2309:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2309
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2309
+    networks:
+      mewbie_network:
+        aliases:
+        - n2309
+  Python-56_n7206:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7206
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7206
+    networks:
+      mewbie_network:
+        aliases:
+        - n7206
+  Python-57_n1562:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1562
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1562
+    networks:
+      mewbie_network:
+        aliases:
+        - n1562
+  Python-58_n8176:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8176
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8176
+    networks:
+      mewbie_network:
+        aliases:
+        - n8176
+  Python-59_n4904:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4904
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4904
+    networks:
+      mewbie_network:
+        aliases:
+        - n4904
+  Python-60_n6068:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6068
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6068
+    networks:
+      mewbie_network:
+        aliases:
+        - n6068
+  Python-61_n7144:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7144
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7144
+    networks:
+      mewbie_network:
+        aliases:
+        - n7144
+  Python-62_n6693:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6693
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6693
+    networks:
+      mewbie_network:
+        aliases:
+        - n6693
+  Python-63_n6134:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6134
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6134
+    networks:
+      mewbie_network:
+        aliases:
+        - n6134
+  Python-64_n6952:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6952
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6952
+    networks:
+      mewbie_network:
+        aliases:
+        - n6952
+  Python-65_n6650:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6650
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6650
+    networks:
+      mewbie_network:
+        aliases:
+        - n6650
+  Python-66_n2882:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2882
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2882
+    networks:
+      mewbie_network:
+        aliases:
+        - n2882
+  Python-67_n6973:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6973
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6973
+    networks:
+      mewbie_network:
+        aliases:
+        - n6973
+  Python-68_n728:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n728
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n728
+    networks:
+      mewbie_network:
+        aliases:
+        - n728
+  Python-69_n995:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n995
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n995
+    networks:
+      mewbie_network:
+        aliases:
+        - n995
+  Python-70_n812:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n812
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n812
+    networks:
+      mewbie_network:
+        aliases:
+        - n812
+  Python-71_n3035:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3035
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3035
+    networks:
+      mewbie_network:
+        aliases:
+        - n3035
+  Python-72_n2134:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2134
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2134
+    networks:
+      mewbie_network:
+        aliases:
+        - n2134
+  Python-73_n4592:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4592
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4592
+    networks:
+      mewbie_network:
+        aliases:
+        - n4592
+  Python-74_n776:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n776
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n776
+    networks:
+      mewbie_network:
+        aliases:
+        - n776
+  Python-75_n7475:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7475
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7475
+    networks:
+      mewbie_network:
+        aliases:
+        - n7475
+  Python-76_n5598:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5598
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5598
+    networks:
+      mewbie_network:
+        aliases:
+        - n5598
+  Python-77_n3674:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3674
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3674
+    networks:
+      mewbie_network:
+        aliases:
+        - n3674
+  Python-78_n3907:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3907
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3907
+    networks:
+      mewbie_network:
+        aliases:
+        - n3907
+  Python-79_n1439:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1439
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1439
+    networks:
+      mewbie_network:
+        aliases:
+        - n1439
+  Python-80_n6689:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6689
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6689
+    networks:
+      mewbie_network:
+        aliases:
+        - n6689
+  Python-81_n2769:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2769
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2769
+    networks:
+      mewbie_network:
+        aliases:
+        - n2769
+  Python-82_n366:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n366
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n366
+    networks:
+      mewbie_network:
+        aliases:
+        - n366
+  Python-83_n2526:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2526
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2526
+    networks:
+      mewbie_network:
+        aliases:
+        - n2526
+  Python-84_n785:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n785
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n785
+    networks:
+      mewbie_network:
+        aliases:
+        - n785
+  Python-85_n2409:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2409
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2409
+    networks:
+      mewbie_network:
+        aliases:
+        - n2409
+  Python-86_n1357:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1357
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1357
+    networks:
+      mewbie_network:
+        aliases:
+        - n1357
+  Python-87_n7266:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7266
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7266
+    networks:
+      mewbie_network:
+        aliases:
+        - n7266
+  Python-88_n2630:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2630
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2630
+    networks:
+      mewbie_network:
+        aliases:
+        - n2630
+  Python-89_n2502:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2502
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2502
+    networks:
+      mewbie_network:
+        aliases:
+        - n2502
+  Python-90_n3727:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3727
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3727
+    networks:
+      mewbie_network:
+        aliases:
+        - n3727
+  Python-91_n2119:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2119
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2119
+    networks:
+      mewbie_network:
+        aliases:
+        - n2119
+  Python-92_n942:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n942
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n942
+    networks:
+      mewbie_network:
+        aliases:
+        - n942
+  Python-93_n6486:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6486
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6486
+    networks:
+      mewbie_network:
+        aliases:
+        - n6486
+  Python-94_n7455:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7455
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7455
+    networks:
+      mewbie_network:
+        aliases:
+        - n7455
+  Python-95_n2484:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2484
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2484
+    networks:
+      mewbie_network:
+        aliases:
+        - n2484
+  Python-96_n6212:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6212
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6212
+    networks:
+      mewbie_network:
+        aliases:
+        - n6212
+  Python-97_n2739:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2739
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2739
+    networks:
+      mewbie_network:
+        aliases:
+        - n2739
+  Python-98_n5912:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5912
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5912
+    networks:
+      mewbie_network:
+        aliases:
+        - n5912
+  Python-99_n7200:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7200
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7200
+    networks:
+      mewbie_network:
+        aliases:
+        - n7200
+  Python-100_n1410:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1410
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1410
+    networks:
+      mewbie_network:
+        aliases:
+        - n1410
+  Python-101_n3508:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3508
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3508
+    networks:
+      mewbie_network:
+        aliases:
+        - n3508
+  Python-102_n6109:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6109
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6109
+    networks:
+      mewbie_network:
+        aliases:
+        - n6109
+  Python-103_n5971:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5971
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5971
+    networks:
+      mewbie_network:
+        aliases:
+        - n5971
+  Python-104_n4923:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4923
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4923
+    networks:
+      mewbie_network:
+        aliases:
+        - n4923
+  Python-105_n2415:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2415
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2415
+    networks:
+      mewbie_network:
+        aliases:
+        - n2415
+  Python-106_n486:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n486
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n486
+    networks:
+      mewbie_network:
+        aliases:
+        - n486
+  Python-107_n2838:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2838
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2838
+    networks:
+      mewbie_network:
+        aliases:
+        - n2838
+  Python-108_n2685:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2685
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2685
+    networks:
+      mewbie_network:
+        aliases:
+        - n2685
+  Python-109_n2158:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2158
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2158
+    networks:
+      mewbie_network:
+        aliases:
+        - n2158
+  Python-110_n2068:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2068
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2068
+    networks:
+      mewbie_network:
+        aliases:
+        - n2068
+  Python-111_n6342:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6342
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6342
+    networks:
+      mewbie_network:
+        aliases:
+        - n6342
+  Python-112_n3888:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3888
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3888
+    networks:
+      mewbie_network:
+        aliases:
+        - n3888
+  Python-113_n7361:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7361
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7361
+    networks:
+      mewbie_network:
+        aliases:
+        - n7361
+  Python-114_n7549:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7549
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7549
+    networks:
+      mewbie_network:
+        aliases:
+        - n7549
+  Python-115_n3779:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3779
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3779
+    networks:
+      mewbie_network:
+        aliases:
+        - n3779
+  Python-116_n2977:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2977
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2977
+    networks:
+      mewbie_network:
+        aliases:
+        - n2977
+  Python-117_n6223:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6223
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6223
+    networks:
+      mewbie_network:
+        aliases:
+        - n6223
+  Python-118_n4376:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4376
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4376
+    networks:
+      mewbie_network:
+        aliases:
+        - n4376
+  Python-119_n2888:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2888
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2888
+    networks:
+      mewbie_network:
+        aliases:
+        - n2888
+  Python-120_n7045:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7045
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7045
+    networks:
+      mewbie_network:
+        aliases:
+        - n7045
+  Python-121_n6076:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6076
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6076
+    networks:
+      mewbie_network:
+        aliases:
+        - n6076
+  Python-122_n6255:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6255
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6255
+    networks:
+      mewbie_network:
+        aliases:
+        - n6255
+  Python-123_n4558:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4558
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4558
+    networks:
+      mewbie_network:
+        aliases:
+        - n4558
+  Python-124_n7356:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7356
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7356
+    networks:
+      mewbie_network:
+        aliases:
+        - n7356
+  Python-125_n5790:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5790
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5790
+    networks:
+      mewbie_network:
+        aliases:
+        - n5790
+  Python-126_n5447:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5447
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5447
+    networks:
+      mewbie_network:
+        aliases:
+        - n5447
+  Python-127_n8132:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8132
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8132
+    networks:
+      mewbie_network:
+        aliases:
+        - n8132
+  Python-128_n7918:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7918
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7918
+    networks:
+      mewbie_network:
+        aliases:
+        - n7918
+  Python-129_n2996:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2996
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2996
+    networks:
+      mewbie_network:
+        aliases:
+        - n2996
+  Python-130_n4310:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4310
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4310
+    networks:
+      mewbie_network:
+        aliases:
+        - n4310
+  Python-131_n8037:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8037
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8037
+    networks:
+      mewbie_network:
+        aliases:
+        - n8037
+  Python-132_n3127:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3127
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3127
+    networks:
+      mewbie_network:
+        aliases:
+        - n3127
+  Python-133_n5559:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5559
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5559
+    networks:
+      mewbie_network:
+        aliases:
+        - n5559
+  Python-134_n5986:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5986
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5986
+    networks:
+      mewbie_network:
+        aliases:
+        - n5986
+  Python-135_n6774:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6774
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6774
+    networks:
+      mewbie_network:
+        aliases:
+        - n6774
+  Python-136_n7796:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7796
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7796
+    networks:
+      mewbie_network:
+        aliases:
+        - n7796
+  Python-137_n7016:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7016
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7016
+    networks:
+      mewbie_network:
+        aliases:
+        - n7016
+  Python-138_n7595:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7595
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7595
+    networks:
+      mewbie_network:
+        aliases:
+        - n7595
+  Python-139_n158:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n158
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n158
+    networks:
+      mewbie_network:
+        aliases:
+        - n158
+  Python-140_n2826:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2826
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2826
+    networks:
+      mewbie_network:
+        aliases:
+        - n2826
+  Python-141_n2273:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2273
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2273
+    networks:
+      mewbie_network:
+        aliases:
+        - n2273
+  Python-142_n1875:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1875
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1875
+    networks:
+      mewbie_network:
+        aliases:
+        - n1875
+  Python-143_n4748:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4748
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4748
+    networks:
+      mewbie_network:
+        aliases:
+        - n4748
+  Python-144_n1725:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1725
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1725
+    networks:
+      mewbie_network:
+        aliases:
+        - n1725
+  Python-145_n1407:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1407
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1407
+    networks:
+      mewbie_network:
+        aliases:
+        - n1407
+  Python-146_n4294:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4294
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4294
+    networks:
+      mewbie_network:
+        aliases:
+        - n4294
+  Python-147_n1513:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1513
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1513
+    networks:
+      mewbie_network:
+        aliases:
+        - n1513
+  Python-148_n1962:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1962
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1962
+    networks:
+      mewbie_network:
+        aliases:
+        - n1962
+  Python-149_n1581:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1581
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1581
+    networks:
+      mewbie_network:
+        aliases:
+        - n1581
+  Python-150_n4202:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4202
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4202
+    networks:
+      mewbie_network:
+        aliases:
+        - n4202
+  Python-151_n4610:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4610
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4610
+    networks:
+      mewbie_network:
+        aliases:
+        - n4610
+  Python-152_n1200:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1200
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1200
+    networks:
+      mewbie_network:
+        aliases:
+        - n1200
+  Python-153_n896:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n896
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n896
+    networks:
+      mewbie_network:
+        aliases:
+        - n896
+  Python-154_n1985:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1985
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1985
+    networks:
+      mewbie_network:
+        aliases:
+        - n1985
+  Python-155_n9:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n9
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n9
+    networks:
+      mewbie_network:
+        aliases:
+        - n9
+  Python-156_n5015:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5015
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5015
+    networks:
+      mewbie_network:
+        aliases:
+        - n5015
+  Python-157_n3247:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3247
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3247
+    networks:
+      mewbie_network:
+        aliases:
+        - n3247
+  Python-158_n7203:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7203
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7203
+    networks:
+      mewbie_network:
+        aliases:
+        - n7203
+  Python-159_n4715:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4715
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4715
+    networks:
+      mewbie_network:
+        aliases:
+        - n4715
+  Python-160_n7482:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7482
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7482
+    networks:
+      mewbie_network:
+        aliases:
+        - n7482
+  Python-161_n3820:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3820
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3820
+    networks:
+      mewbie_network:
+        aliases:
+        - n3820
+  Python-162_n572:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n572
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n572
+    networks:
+      mewbie_network:
+        aliases:
+        - n572
+  Python-163_n2587:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2587
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2587
+    networks:
+      mewbie_network:
+        aliases:
+        - n2587
+  Python-164_n3432:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3432
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3432
+    networks:
+      mewbie_network:
+        aliases:
+        - n3432
+  Python-165_n6678:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6678
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6678
+    networks:
+      mewbie_network:
+        aliases:
+        - n6678
+  Python-166_n1076:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1076
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1076
+    networks:
+      mewbie_network:
+        aliases:
+        - n1076
+  Python-167_n2083:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2083
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2083
+    networks:
+      mewbie_network:
+        aliases:
+        - n2083
+  Python-168_n7006:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7006
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7006
+    networks:
+      mewbie_network:
+        aliases:
+        - n7006
+  Python-169_n5500:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5500
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5500
+    networks:
+      mewbie_network:
+        aliases:
+        - n5500
+  Python-170_n4800:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4800
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4800
+    networks:
+      mewbie_network:
+        aliases:
+        - n4800
+  Python-171_n3827:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3827
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3827
+    networks:
+      mewbie_network:
+        aliases:
+        - n3827
+  Python-172_n2291:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2291
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2291
+    networks:
+      mewbie_network:
+        aliases:
+        - n2291
+  Python-173_n1604:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1604
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1604
+    networks:
+      mewbie_network:
+        aliases:
+        - n1604
+  Python-174_n2436:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2436
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2436
+    networks:
+      mewbie_network:
+        aliases:
+        - n2436
+  Python-175_n945:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n945
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n945
+    networks:
+      mewbie_network:
+        aliases:
+        - n945
+  Python-176_n6779:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6779
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6779
+    networks:
+      mewbie_network:
+        aliases:
+        - n6779
+  Python-177_n2289:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2289
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2289
+    networks:
+      mewbie_network:
+        aliases:
+        - n2289
+  Python-178_n8221:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8221
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8221
+    networks:
+      mewbie_network:
+        aliases:
+        - n8221
+  Python-179_n8167:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8167
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8167
+    networks:
+      mewbie_network:
+        aliases:
+        - n8167
+  Python-180_n3395:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3395
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3395
+    networks:
+      mewbie_network:
+        aliases:
+        - n3395
+  Python-181_n7352:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7352
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7352
+    networks:
+      mewbie_network:
+        aliases:
+        - n7352
+  Python-182_n1765:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1765
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1765
+    networks:
+      mewbie_network:
+        aliases:
+        - n1765
+  Python-183_n668:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n668
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n668
+    networks:
+      mewbie_network:
+        aliases:
+        - n668
+  Python-184_n3291:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3291
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3291
+    networks:
+      mewbie_network:
+        aliases:
+        - n3291
+  Python-185_n6141:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6141
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6141
+    networks:
+      mewbie_network:
+        aliases:
+        - n6141
+  Python-186_n8261:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8261
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8261
+    networks:
+      mewbie_network:
+        aliases:
+        - n8261
+  Python-187_n3826:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3826
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3826
+    networks:
+      mewbie_network:
+        aliases:
+        - n3826
+  Python-188_n1662:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1662
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1662
+    networks:
+      mewbie_network:
+        aliases:
+        - n1662
+  Python-189_n5259:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5259
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5259
+    networks:
+      mewbie_network:
+        aliases:
+        - n5259
+  Python-190_n165:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n165
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n165
+    networks:
+      mewbie_network:
+        aliases:
+        - n165
+  Python-191_n2857:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2857
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2857
+    networks:
+      mewbie_network:
+        aliases:
+        - n2857
+  Python-192_n5155:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5155
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5155
+    networks:
+      mewbie_network:
+        aliases:
+        - n5155
+  Python-193_n3754:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3754
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3754
+    networks:
+      mewbie_network:
+        aliases:
+        - n3754
+  Python-194_n1990:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1990
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1990
+    networks:
+      mewbie_network:
+        aliases:
+        - n1990
+  Python-195_n5829:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5829
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5829
+    networks:
+      mewbie_network:
+        aliases:
+        - n5829
+  Python-196_n7092:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7092
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7092
+    networks:
+      mewbie_network:
+        aliases:
+        - n7092
+  Python-197_n5856:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5856
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5856
+    networks:
+      mewbie_network:
+        aliases:
+        - n5856
+  Python-198_n341:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n341
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n341
+    networks:
+      mewbie_network:
+        aliases:
+        - n341
+  Python-199_n1011:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1011
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1011
+    networks:
+      mewbie_network:
+        aliases:
+        - n1011
+  Python-200_n423:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n423
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n423
+    networks:
+      mewbie_network:
+        aliases:
+        - n423
+  Python-201_n6697:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6697
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6697
+    networks:
+      mewbie_network:
+        aliases:
+        - n6697
+  Python-202_n6670:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6670
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6670
+    networks:
+      mewbie_network:
+        aliases:
+        - n6670
+  Python-203_n5402:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5402
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5402
+    networks:
+      mewbie_network:
+        aliases:
+        - n5402
+  Python-204_n5871:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5871
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5871
+    networks:
+      mewbie_network:
+        aliases:
+        - n5871
+  Python-205_n7070:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7070
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7070
+    networks:
+      mewbie_network:
+        aliases:
+        - n7070
+  Python-206_n4223:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4223
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4223
+    networks:
+      mewbie_network:
+        aliases:
+        - n4223
+  Python-207_n7924:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7924
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7924
+    networks:
+      mewbie_network:
+        aliases:
+        - n7924
+  Python-208_n1914:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1914
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1914
+    networks:
+      mewbie_network:
+        aliases:
+        - n1914
+  Python-209_n2756:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2756
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2756
+    networks:
+      mewbie_network:
+        aliases:
+        - n2756
+  Python-210_n7421:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7421
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7421
+    networks:
+      mewbie_network:
+        aliases:
+        - n7421
+  Python-211_n4408:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4408
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4408
+    networks:
+      mewbie_network:
+        aliases:
+        - n4408
+  Python-212_n3392:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3392
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3392
+    networks:
+      mewbie_network:
+        aliases:
+        - n3392
+  Python-213_n7547:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7547
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7547
+    networks:
+      mewbie_network:
+        aliases:
+        - n7547
+  Python-214_n5182:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5182
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5182
+    networks:
+      mewbie_network:
+        aliases:
+        - n5182
+  Python-215_n272:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n272
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n272
+    networks:
+      mewbie_network:
+        aliases:
+        - n272
 networks:
   mewbie_network:
-    driver: bridge
+    driver: overlay
+    ipam:
+      config:
+      - subnet: 10.20.0.0/16
 volumes:
+  ritul_logs: {}
   portainer_data:
     driver: local

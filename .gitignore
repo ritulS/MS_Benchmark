@@ -8,3 +8,5 @@ node_split_output*
 *requirements.txt
 *trace_details_data.pkl
 logs/
+results/
+rf_stats.yml

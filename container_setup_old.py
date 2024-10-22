@@ -1,6 +1,6 @@
 import json
 import yaml
-import subprocess
+import subprocess, os
 
 # Read inputs
 def load_dict_from_json(file_path):
@@ -35,9 +35,13 @@ for service in conts_to_setup:
 
 print(conts_to_setup.keys())
 
+def build_images():
+    path = "./deployment_files/mewbie_client/"
+    subprocess.run(["docker", "build", "-t", "mewbie_img", path], check=True)
+    path = "./deployment_files/sl_python/"
+    subprocess.run(["docker", "build", "-t", "slp_img", path], check=True)
 
-
-def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
+def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
     docker_compose_data = {
         "version": "3.3",
         "services": {},
@@ -66,25 +70,27 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
     docker_compose_data['volumes']['portainer_data'] = {
         'driver': 'local'
     }
-
+    log_file_path = f'./logs/mewbie_client_log.csv'
+    if not os.path.isfile(log_file_path):
+        with open(log_file_path, 'w') as f:
+            pass
     # Client container setup
     docker_compose_data['services']['MewbieClient'] = {
-        'image': f"python:3.11-slim",
-        'container_name': 'mewbie_client',
-        'volumes':[
-            './mewbie_client.py:/app/mewbie_client.py',
-            './client_requirements.txt:/app/client_requirements.txt',
-            './new_trace_details_data.pkl:/app/new_trace_details_data.pkl',
-            './enrichment_runs/new_test_run/all_trace_packets.json:/app/all_trace_packets.json',
-            './logs:/app/logs'
-        ],
-        'working_dir': '/app',
-        'environment': [
-            'CONTAINER_NAME={}'.format('mewbie_client')
-        ],
-        'command':
-            'sh -c "pip install -r client_requirements.txt && tail -f /dev/null"',
-        'networks': ['mewbie_network']
+            'image': f"mewbie_img:latest",
+            'container_name': 'mewbie_client',
+            'volumes':[
+                './enrichment_runs/{}/all_trace_packets.json:/app/all_trace_packets.json'.format(workload_name),
+                './deployment_files/mewbie_client/mewbie_client.py:/app/mewbie_client.py',
+                './logs/mewbie_client_log.csv:/app/logs/mewbie_client_log.csv'
+                # './deployment_files/mewbie_client/new_trace_details_data.pkl:/app/new_trace_details_data.pkl'
+            ],
+            'environment': [
+                'CONTAINER_NAME=mewbie_client',
+                f'WORKLOAD_NAME={workload_name}'
+            ],
+            'command':
+            'sh -c "tail -f /dev/null"',
+            'networks': ['mewbie_network']
     }
 
     def calc_cpus_per_container(cpc):
@@ -96,26 +102,23 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
         if service == 'Python':
             cpus_per_cont = calc_cpus_per_container(python_cpc)
             for j in range(service_node_count):
-                service_name = f"Python-{j}_{nodes_for_service[j]}" # eg: Python-0_(nodeid)
+                service_name = f"Python-{j}_{nodes_for_service[j]}"  # e.g., Python-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
+                log_file_path = f'./logs/{cont_name}_log.csv'
+                if not os.path.isfile(log_file_path):
+                    with open(log_file_path, 'w') as f:
+                        pass
                 docker_compose_data['services'][service_name] = {
-                    'image': f"python:3.11-slim",
+                    'image': f"slp_img",
                     'container_name': cont_name,
                     'volumes':[
-                        './sl_test.py:/app/sl_test.py',
-                        './sl_requirements.txt:/app/sl_requirements.txt',
-                        './logs:/app/logs'
+                        f'./logs/{cont_name}_log.csv:/app/logs/{cont_name}_log.csv'
                     ],
-                    'working_dir': '/app',
                     'environment': [
-                        'CONTAINER_NAME={}'.format(cont_name)
+                        f'CONTAINER_NAME={cont_name}'
                     ],
-                    'command':
-                        'sh -c "pip install -r sl_requirements.txt && python sl_test.py"',
                     'networks': ['mewbie_network']
                 }
-        
-
         elif service == 'Redis':
             for j in range(service_node_count):
                 service_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
@@ -123,9 +126,8 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
                 docker_compose_data['services'][service_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
-                    'networks': ['mewbie_network']
-                    
-                }
+                    'networks': ['mewbie_network'] 
+                }           
         elif service == 'MongoDB':
             for j in range(service_node_count):
                 service_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
@@ -151,12 +153,12 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc):
                         'POSTGRES_HOST_AUTH_METHOD=trust'
                     ]
                 }   
-    
     return yaml.dump(docker_compose_data, default_flow_style=False, sort_keys=False)
 
 python_cpc = 2
 db_cpc = 2
-
-docker_compose_content = gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc)
+workload_name = "dmix2_mongo_heavy"
+build_images()
+docker_compose_content = gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name)
 with open('docker-compose.yml', 'w') as f:
     f.write(docker_compose_content)
