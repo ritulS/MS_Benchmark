@@ -10,3 +10,4 @@ node_split_output*
 logs/
 results/
 rf_stats.yml
+node_and_trace_details/

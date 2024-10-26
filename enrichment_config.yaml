@@ -5,9 +5,9 @@ Databases:
   MongoDB: 
     percentage: 20 
   Redis: 
-    percentage: 60
-  Postgres: 
     percentage: 20
+  Postgres: 
+    percentage: 60
 
 WorkloadConfig:
   record_count: 1000          # eg: 1000 
@@ -16,6 +16,4 @@ WorkloadConfig:
   rw_ratio: 1               # eg: 0.5
   async_sync_ratio: 0.5
 
-# Make sure these add up to 100
-
-
+ExpWorkloadName: dmix1_pg_heavy

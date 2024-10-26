@@ -8,6 +8,11 @@ def load_dict_from_json(file_path):
         T_prime = json.load(json_file)
     return T_prime
 
+def read_yaml(file):
+    with open(file, 'r') as f:
+        data = yaml.safe_load(f)
+    return data
+
 conts_to_setup = {
     'MongoDB': {'count': 0, 'nodes_list': []},
     'Redis': {'count': 0, 'nodes_list': []},    
@@ -15,8 +20,11 @@ conts_to_setup = {
     'Python': {'count': 0, 'nodes_list': []}
 }
 
+config = read_yaml('enrichment_config.yaml')
+workload_name = config['ExpWorkloadName']
+
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
-node_split = load_dict_from_json('./enrichment_runs/dmix1_pg_heavy/node_split_output.json')
+node_split = load_dict_from_json(f"./enrichment_runs/{workload_name}/node_split_output.json")
 
 # extract sl node info: count, sl nodeids
 total_sl_count = 0
@@ -83,29 +91,23 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                     ]
                 }
             }
-
     }
     # Add a volume for Portainer
     docker_compose_data['volumes']['portainer_data'] = {
         'driver': 'local'
     }
-    # log_file_path = f'./logs/mewbie_client_log.csv'
-    # if not os.path.isfile(log_file_path):
-    #     with open(log_file_path, 'w') as f:
-    #         pass
-    # Client container setup
     docker_compose_data['services']['MewbieClient'] = {
-            'image': f"mewbieregistry.com:5000/mewbie_img:latest",
+            'image': "mewbieregistry.com:5000/mewbie_img:latest",
             'container_name': 'mewbie_client',
             'volumes':[
                 './enrichment_runs/{}/all_trace_packets.json:/app/all_trace_packets.json'.format(workload_name),
                 './deployment_files/mewbie_client/mewbie_client.py:/app/mewbie_client.py',
                 'ritul_logs:/app/logs/'
-                # './deployment_files/mewbie_client/new_trace_details_data.pkl:/app/new_trace_details_data.pkl'
             ],
             'environment': [
                 'CONTAINER_NAME=mewbie_client',
                 f'WORKLOAD_NAME={workload_name}'
+                #f'SL_NODES={",".join(sl_nodes)}'
             ],
             'command':
             'sh -c "tail -f /dev/null"',
@@ -118,10 +120,16 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }
             }
     }
-
+    # log_file_path = f'./logs/mewbie_client_log.csv'
+    # if not os.path.isfile(log_file_path):
+    #     with open(log_file_path, 'w') as f:
+    #         pass
+    # Client container setup
+    
     def calc_cpus_per_container(cpc):
         return 1.0/cpc
 
+    # sl_nodes = []
     for service in conts_to_setup:
         service_node_count = conts_to_setup[service]['count']
         nodes_for_service = conts_to_setup[service]['nodes_list']
@@ -130,10 +138,8 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
             for j in range(service_node_count):
                 service_name = f"Python-{j}_{nodes_for_service[j]}"  # e.g., Python-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-                # log_file_path = f'./logs/{cont_name}_log.csv'
-                # if not os.path.isfile(log_file_path):
-                #     with open(log_file_path, 'w') as f:
-                #         pass
+                # sl_nodes.append(cont_name)
+               
                 docker_compose_data['services'][service_name] = {
                         'image': f"mewbieregistry.com:5000/slp_img:latest",
                     'container_name': cont_name,
@@ -194,12 +200,13 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'POSTGRES_DB=pg_db',
                         'POSTGRES_HOST_AUTH_METHOD=trust'
                     ]
-                }   
+                }  
+
     return yaml.dump(docker_compose_data, default_flow_style=False, sort_keys=False)
+
 
 python_cpc = 2
 db_cpc = 2
-workload_name = "dmix1_pg_heavy"
 build_images()
 docker_compose_content = gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name)
 with open('docker-compose.yml', 'w') as f:
