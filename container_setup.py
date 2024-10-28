@@ -25,7 +25,8 @@ workload_name = config['ExpWorkloadName']
 
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
 node_split = load_dict_from_json(f"./enrichment_runs/{workload_name}/node_split_output.json")
-
+unique_nodes = load_dict_from_json(f"./node_and_trace_details/495_100k_unique_nodes.json")
+unique_nodes_str = ",".join(unique_nodes)
 # extract sl node info: count, sl nodeids
 total_sl_count = 0
 total_sl_nodes_list = []
@@ -38,6 +39,7 @@ conts_to_setup['MongoDB'] = node_split['sf_split']['MongoDB']
 conts_to_setup['Redis'] = node_split['sf_split']['Redis']
 conts_to_setup['Postgres'] = node_split['sf_split']['Postgres']
 
+
 for service in conts_to_setup:
     print(service, "=> Conts to setup: ",conts_to_setup[service]['count'])
 
@@ -45,7 +47,7 @@ print(conts_to_setup.keys())
 
 def build_images():
     path = "./deployment_files/mewbie_client/"
-    subprocess.run(["docker", "build", "-t", "mmewbieregistry.com:5000/mewbie_img", path], check=True)
+    subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/mewbie_img", path], check=True)
     subprocess.run(["docker","push","mewbieregistry.com:5000/mewbie_img:latest"])
     path = "./deployment_files/sl_python/"
     subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/slp_img", path], check=True)
@@ -101,13 +103,13 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
             'container_name': 'mewbie_client',
             'volumes':[
                 './enrichment_runs/{}/all_trace_packets.json:/app/all_trace_packets.json'.format(workload_name),
-                './deployment_files/mewbie_client/mewbie_client.py:/app/mewbie_client.py',
+                './deployment_files/mewbie_client/mewbie_client.go:/app/mewbie_client.go',
                 'ritul_logs:/app/logs/'
             ],
             'environment': [
                 'CONTAINER_NAME=mewbie_client',
-                f'WORKLOAD_NAME={workload_name}'
-                #f'SL_NODES={",".join(sl_nodes)}'
+                f'WORKLOAD_NAME={workload_name}',
+                f'SL_NODES={unique_nodes_str}'
             ],
             'command':
             'sh -c "tail -f /dev/null"',
@@ -120,11 +122,6 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }
             }
     }
-    # log_file_path = f'./logs/mewbie_client_log.csv'
-    # if not os.path.isfile(log_file_path):
-    #     with open(log_file_path, 'w') as f:
-    #         pass
-    # Client container setup
     
     def calc_cpus_per_container(cpc):
         return 1.0/cpc

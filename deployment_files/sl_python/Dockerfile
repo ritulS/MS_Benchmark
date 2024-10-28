@@ -1,11 +1,13 @@
-FROM python:3.11-slim
+FROM golang:latest
 
 WORKDIR /app
 
-COPY sl_requirements.txt .
+# COPY sl_requirements.txt .
 
-RUN pip install -r sl_requirements.txt
+# RUN pip install -r sl_requirements.txt
 
 COPY . .
 
-CMD ["python", "sl_test.py"]
+RUN ["go", "build"]
+
+CMD ["./sltest"]

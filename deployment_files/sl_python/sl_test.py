@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 #Request sleep counter
 rq_counter = 0
-
+session = None
 # Initialize logging 
 logging.basicConfig(level=logging.INFO)
 # Async logging
@@ -64,7 +64,7 @@ async def db_con_initializer(db_name, sf_node, dm_ip, dm_port, client_map):
         """
         try:
             await client.execute(create_table_query)
-            logging.info("Table 'mewbie_table' created or already exists.")
+            # logging.info("Table 'mewbie_table' created or already exists.")
         except Exception as e:
             logging.error(f"Error creating table 'mewbie_table': {e}")
     elif db_name == "Redis":
@@ -94,7 +94,7 @@ async def postgres_shim_func(kv, op, node_id, dm_ip="localhost", dm_port=5432):
         query = f"INSERT INTO {table_name} (key, value) VALUES ($1, $2)"
         try:
             result = await pg_client.execute(query, key, value)
-            logging.info(f"KV pair {key}:{value} inserted!")
+            # logging.info(f"KV pair {key}:{value} inserted!")
             return web.Response(text=f"KV pair {key}:{value} inserted", status=200)
         except Exception as e:
             logging.error(f"Error in write to postgres: {e}")
@@ -104,7 +104,7 @@ async def postgres_shim_func(kv, op, node_id, dm_ip="localhost", dm_port=5432):
             key, value = list(kv.items())[0]
             query = f"SELECT * FROM {table_name} WHERE key = $1"
             result = await pg_client.fetchrow(query, key)
-            logging.info(f"KV pair {key}:{value} found!")
+            # logging.info(f"KV pair {key}:{value} found!")
             return web.Response(text=f"KV pair {key}:{value} read successfully", status=200)
         except Exception as e:
             logging.error(f"Error in read from postgres: {e}")
@@ -120,13 +120,13 @@ async def mongo_shim_func(kv, op, node_id, dm_ip, dm_port=27017):
     collection = db.mycollection 
     if op == "write":
         result = await collection.insert_one(kv)
-        logging.info(f"Document inserted with id {result.inserted_id}")
+        # logging.info(f"Document inserted with id {result.inserted_id}")
         return web.Response(text=f"Payload inserted with id\
                              {result.inserted_id}", status=200)
     elif op == "read":
         result = await collection.find_one(kv)
         if result:
-            logging.info(f"Document found: {result}")
+            # logging.info(f"Document found: {result}")
             return web.Response(text=f"Payload inserted with id\
                              {result}", status=200)
         else:
@@ -140,7 +140,7 @@ async def redis_shim_func(kv, op, node_id, dm_ip, dm_port=6379):
     if op == "write":
         try:
             await red_client.set(key, value)
-            logging.info(f"KV pair {key}:{value} inserted!")
+            # logging.info(f"KV pair {key}:{value} inserted!")
             return web.Response(text=f"KV pair {key}:{value} inserted!", status=200)
         except Exception as e:
             logging.error(f"Error in write: {e}")
@@ -150,7 +150,7 @@ async def redis_shim_func(kv, op, node_id, dm_ip, dm_port=6379):
         try:
             value = await red_client.get(key)
             if value:
-                logging.info(f"KV pair {key}:{value} found!")
+                # logging.info(f"KV pair {key}:{value} found!")
                 return web.Response(text=f"KV pair {key}:{value} found!", status=200)
             else:
                 return web.Response(text=f"No entry found for key {key}", status=404)
@@ -168,34 +168,36 @@ def generate_random_string(length):
 async def make_sl_call(sl_dm_nid, async_flag, trace_packet_data):
     try:
         if async_flag == 0: # Call is synchronous
-            logging.info(f"Making Sync SL call to {sl_dm_nid}")
-            response = requests.post(f"http://{sl_dm_nid}:5000/", json=trace_packet_data)
+            # logging.info(f"Making Sync SL call to {sl_dm_nid}")
+            # response = requests.post(f"http://{sl_dm_nid}:5000/", json=trace_packet_data)
+            async with session.post(f"http://{sl_dm_nid}:5000/", json=trace_packet_data) as response:
+                await response.text()
         else: # Call is Asynchronous
-            logging.info(f"Making Async SL call to {sl_dm_nid}")
-            async with aiohttp.ClientSession() as session:
-                await session.post(f"http://{sl_dm_nid}:5000/", json=trace_packet_data) 
+            # logging.info(f"Making Async SL call to {sl_dm_nid}")
+            async with session.post(f"http://{sl_dm_nid}:5000/", json=trace_packet_data) as response:
+                await response.text() 
             response = web.Response(text="Async task created", status=200)
         return response
     except requests.exceptions.RequestException as e:
-        logging.info(f"Error in Sync SL call: {e}")
+        # logging.info(f"Error in Sync SL call: {e}")
         return web.Response(text="Error in Sync SL call", status=500)
     except aiohttp.ClientError as e:
-        logging.info(f"Error in Async SL call: {e}")
+        # logging.info(f"Error in Async SL call: {e}")
         return web.Response(text="Error in Async SL call", status=500)
 
 async def execute_db_call(db_shim_func, kv, op_type, this_nid, dm_nid,\
                          dm_port, tid, db_name, async_flag):
     if async_flag == 0:  # Synchronous call
-        logging.info(f"Making Sync call to {db_name}")
+        # logging.info(f"Making Sync call to {db_name}")
         response = await db_shim_func(kv, op_type, this_nid, dm_ip=dm_nid, dm_port=dm_port)
-        logging.info(f"Logging = {tid}:{this_nid}:{time.time()}")
-        log_in_background(tid, this_nid, time.time(),message="Sync SF")
+        # logging.info(f"Logging = {tid}:{this_nid}:{time.time()}")
+        # log_in_background(tid, this_nid, time.time(),message="Sync SF")
     else:  # Asynchronous call (Fire and forget)
-        logging.info(f"Making Async call to {db_name}")
+        # logging.info(f"Making Async call to {db_name}")
         async def async_db_task():
             response = await db_shim_func(kv, op_type, this_nid, dm_ip=dm_nid, dm_port=dm_port)
-            logging.info(f"Logging = {tid}:{this_nid}:{time.time()}")
-            log_in_background(tid, this_nid, time.time(),message="Async SF")
+            # logging.info(f"Logging = {tid}:{this_nid}:{time.time()}")
+            # log_in_background(tid, this_nid, time.time(),message="Async SF")
         asyncio.create_task(async_db_task())
         response = web.Response(text="Async task created!", status=200)
     return response
@@ -247,7 +249,8 @@ async def process_trace_packet(trace_packet_data):
             await asyncio.sleep(random.choice(proc_times)/1000)  # Simulating processing time
         
         if this_nid in logger_nodes:  # If node is leaf SL, it logs and quits
-            log_in_background(tid, this_nid, time.time())
+            # log_in_background(tid, this_nid, time.time())
+            pass
 
         if not dm_nodes_to_call: # leaf node, no further nodes to call.
             rq_counter -= 1
@@ -273,8 +276,8 @@ async def process_trace_packet(trace_packet_data):
                 try: 
                     task = await make_sl_call(dm_nid, async_flag, trace_packet_data)
                 except Exception as e:
-                    log_in_background("Error in make_sl_call!", this_nid, logged_time=time.time()\
-            , entry_type="ERROR", message=str(e))
+            #         log_in_background("Error in make_sl_call!", this_nid, logged_time=time.time()\
+            # , entry_type="ERROR", message=str(e))
                     logging.error(f"Error in make_sl_call: {e}")
         rq_counter -= 1
 
@@ -289,14 +292,16 @@ async def call_handler(request):
         return web.Response(text="Trace packet processing started!", status=200)
     except Exception as e:
         logging.error(f"Error while handling request: {e}")
-        log_in_background("Request Handler Error!", this_nid, logged_time=time.time()\
-            , entry_type="ERROR", message=str(e))
+        # log_in_background("Request Handler Error!", this_nid, logged_time=time.time()\
+        #     , entry_type="ERROR", message=str(e))
         return web.Response(text="Error occurred! status:", status=500)
         
 
 this_nid = get_container_name()
 
 async def run_server(port=5000):
+    global session
+    session = aiohttp.ClientSession()
     app = web.Application()
     app.router.add_post('/', call_handler)
     app.router.add_get('/', call_handler)
@@ -311,6 +316,9 @@ async def run_server(port=5000):
         await asyncio.Future()  # run forever
     except KeyboardInterrupt:
         print('Shutting down...')
+        await runner.cleanup()
+    finally:
+        await session.close()
         await runner.cleanup()
 
 if __name__ == '__main__':

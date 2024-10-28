@@ -17,3 +17,6 @@ WorkloadConfig:
   async_sync_ratio: 0.5
 
 ExpWorkloadName: dmix1_pg_heavy
+## Datastore mixtures: dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy
+## Consistency exp: consistency_exp
+## Testing: test_run
