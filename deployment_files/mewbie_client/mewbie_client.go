@@ -21,7 +21,7 @@ var (
 	logFileName       = "./logs/client_log.csv"                          // log file path
 	maxLogFileSize    = int64(10 * 1024 * 1024)                          // 10 MB in bytes
 	numBackupFiles    = 5                                                // number of backup files
-	executor          = make(chan func(), 15)                            // channel for managing tasks
+	executor          = make(chan func(), 20)                            // channel for managing tasks
 	statusCheckRegexp = regexp.MustCompile(`Alive request count: (\d+)`) // regex to check status
 )
 
@@ -37,7 +37,8 @@ func initLogger() {
 	if err != nil {
 		log.Fatalf("Failed to open log file: %v", err)
 	}
-	logger = log.New(file, "", log.LstdFlags)
+	logger = log.New(file, "", 0)
+
 	go manageLogRotation(file)
 }
 
@@ -166,7 +167,6 @@ func checkNodeStatus(nodes []string) {
 	}
 }
 
-// Main function to send requests at the desired RPS
 func main() {
 	initLogger()
 	tracePackets, err := loadTracePackets("./all_trace_packets.json")
@@ -177,7 +177,7 @@ func main() {
 
 	// Start task executor
 	var wg sync.WaitGroup
-	for i := 0; i < 15; i++ {
+	for i := 0; i < 30; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
@@ -186,21 +186,22 @@ func main() {
 	}
 
 	fmt.Printf("Running with rps: %d\n", rps)
+	fmt.Printf("Sending Packets......")
 	totalPacketsSent := 0
 	startTime := time.Now()
 	delay := time.Second / time.Duration(rps)
-
+	fmt.Printf("Delay for given rps: %d\n", delay)
 	for tid, tPacket := range tracePacketsDict {
 		initialNode, nodeTypeOk := tPacket["initial_node"].(string)
 		initialNodeType, typeOk := tPacket["initial_node_type"].(string)
 
 		if !nodeTypeOk || !typeOk {
-			fmt.Printf("Skipping packet %s due to missing initial_node or initial_node_type\n", tid)
+			// fmt.Printf("Skipping packet %s due to missing initial_node or initial_node_type\n", tid)
 			continue
 		}
 		start := time.Now()
 		// fmt.Println(tPacket)
-		sendDataInBackground(initialNode, initialNodeType, tid, tPacket)
+		go sendDataInBackground(initialNode, initialNodeType, tid, tPacket)
 		totalPacketsSent++
 		elapsed := time.Since(start)
 		if elapsed < delay {

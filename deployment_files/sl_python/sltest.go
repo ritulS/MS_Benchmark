@@ -20,7 +20,7 @@ import (
 
 var (
 	rqCounter    = 0
-	specialNodes = []string{"n1765", "n2134", "n4376", "n2977", "n942", "n4202", "n5015", "n2436", "n6952", "n6286"}
+	specialNodes = []string{"n1765", "n2134", "n4376", "n2977", "n942", "n4202", "n5015"}
 )
 
 func generateRandomString(length int) string {
@@ -63,7 +63,7 @@ func logToCSVFile(tid, thisNid, loggedTime, entryType, message string) error {
 		return err
 	}
 
-	log.Printf("Log entry for tid=%s, this_nid=%s written successfully", tid, thisNid)
+	// log.Printf("Log entry for tid=%s, this_nid=%s written successfully", tid, thisNid)
 	return nil
 }
 
@@ -119,9 +119,9 @@ func processTracePacket(tracePacketData map[string]interface{}) {
 		rqCounter--
 		mu.Unlock()
 	}()
-	fmt.Println(tracePacketData)
+	// fmt.Println(tracePacketData)
 	thisNID := os.Getenv("CONTAINER_NAME")
-	tid := tracePacketData["tid"].(string)
+	tid := tracePacketData["tid"].(string) // UNCOMMENT// UNCOMMENT// UNCOMMENT// UNCOMMENT
 	nodeCallsDict := tracePacketData["node_calls_dict"].(map[string]interface{})
 	dataOpsDict := tracePacketData["data_ops_dict"].(map[string]interface{})
 	loggerNodes := tracePacketData["logger_nodes"].([]interface{})
@@ -132,7 +132,7 @@ func processTracePacket(tracePacketData map[string]interface{}) {
 		2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7,
 		7, 8, 8, 9, 9, 10, 11, 11, 12, 13, 15, 16, 18, 20, 22, 25,
 		29, 33, 39, 45, 52, 62, 70, 78, 87, 97, 111, 126, 143, 164,
-		188, 220, 254, 289, 331, 379, 446, 3892}
+		188, 220, 254, 289, 331, 379, 846, 38921}
 
 	//Following code is for not special nodes
 	flag := true
@@ -150,14 +150,14 @@ func processTracePacket(tracePacketData map[string]interface{}) {
 	// Log entry if node is a logger node
 	for _, node := range loggerNodes {
 		if node == thisNID {
-			logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "INFO", "")
+			logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Leaf", "") // UNCOMMENT
 		}
 	}
 
 	// Get the list of downstream nodes to call
 	dmNodesToCall, ok := nodeCallsDict[thisNID].([]interface{})
 	if !ok || len(dmNodesToCall) == 0 {
-		logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "INFO", "")
+		// logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Leaf", "")
 		return // No downstream nodes, exit as a leaf node
 	}
 
@@ -182,12 +182,12 @@ func processTracePacket(tracePacketData map[string]interface{}) {
 						log.Printf("Error in async DB call to %s: %v", dmNID, err)
 					}
 				}()
-				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Async", dbName)
+				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Async", dbName) // UNCOMMENT
 			} else { // Sync SF call
 				if _, err := makeDBCall(dmNID, dbName, kv, opType, thisNID); err != nil {
 					log.Printf("Error in sync DB call to %s: %v", dmNID, err)
 				}
-				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Sync", dbName)
+				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Sync", dbName) // UNCOMMENT
 			}
 		} else {
 			// Handle SL call
@@ -216,7 +216,7 @@ func callHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// Process trace packet in the background
 	go processTracePacket(tracePacketData)
-	fmt.Fprintln(w, "Trace packet processing started!")
+	// fmt.Fprintln(w, "Trace packet processing started!")
 }
 
 // Status handler function

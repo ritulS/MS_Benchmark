@@ -14,8 +14,11 @@ import (
 )
 
 var (
-	clientMap = make(map[string]interface{})
-	mu        sync.Mutex
+	clientMap       = make(map[string]interface{})
+	mongoClients    = make(map[string]*mongo.Client)
+	postgresClients = make(map[string]*sql.DB)
+	redisClients    = make(map[string]*redis.Client)
+	mu              sync.Mutex
 )
 
 // Initialize database connections
@@ -24,39 +27,51 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 	mu.Lock()
 	defer mu.Unlock()
 
-	if client, ok := clientMap[nodeID]; ok {
-		return client, nil
-	}
+	// if client, ok := clientMap[nodeID]; ok {
+	// 	return client, nil
+	// }
 
 	switch dbName {
 	case "MongoDB":
+		if client, ok := mongoClients[nodeID]; ok {
+			return client, nil
+		}
 		client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%d", ip, port)))
 		if err != nil {
 			return nil, fmt.Errorf("failed to connect to MongoDB at %s:%d: %v", ip, port, err)
 		}
-		clientMap[nodeID] = client
+		mongoClients[nodeID] = client
+		// clientMap[nodeID] = client
 		return client, nil
 
 	case "Postgres":
+		if client, ok := postgresClients[nodeID]; ok {
+			return client, nil
+		}
 		dsn := fmt.Sprintf("postgres://pguser:pgpass@%s:%d/pg_db?sslmode=disable", ip, port)
 		client, err := sql.Open("postgres", dsn)
 		if err != nil {
 			return nil, fmt.Errorf("failed to connect to Postgres at %s:%d: %v", ip, port, err)
 		}
-		clientMap[nodeID] = client
+		postgresClients[nodeID] = client
+		// clientMap[nodeID] = client
 		if _, err := client.Exec(`CREATE TABLE IF NOT EXISTS mewbie_table (id SERIAL PRIMARY KEY, key TEXT, value TEXT);`); err != nil {
 			return nil, err
 		}
 		return client, nil
 
 	case "Redis":
+		if client, ok := redisClients[nodeID]; ok {
+			return client, nil
+		}
 		client := redis.NewClient(&redis.Options{
 			Addr: fmt.Sprintf("%s:%d", ip, port),
 		})
 		if _, err := client.Ping(context.Background()).Result(); err != nil {
 			return nil, fmt.Errorf("failed to connect to Redis at %s:%d: %v", ip, port, err)
 		}
-		clientMap[nodeID] = client
+		redisClients[nodeID] = client
+		// clientMap[nodeID] = client
 		return client, nil
 
 	default:
@@ -65,11 +80,15 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 }
 
 func MongoShimFunc(ctx context.Context, kv map[string]string, opType, nodeID, dmNID string, port int) (string, error) {
+
 	client, err := dbConInitializer("MongoDB", nodeID, dmNID, port)
 	if err != nil {
 		return "", err
 	}
-	mongoClient := client.(*mongo.Client)
+	mongoClient, ok := client.(*mongo.Client)
+	if !ok {
+		return "", fmt.Errorf("unexpected client type: expected *mongo.Client, got %T for nodeID %s", client, nodeID)
+	}
 	collection := mongoClient.Database("mewbie_db").Collection("mycollection")
 
 	switch opType {
@@ -84,7 +103,7 @@ func MongoShimFunc(ctx context.Context, kv map[string]string, opType, nodeID, dm
 		var result bson.M
 		err := collection.FindOne(ctx, kv).Decode(&result)
 		if err != nil {
-			return "No entry matching the query", err
+			return "No entry matching the query", nil
 		}
 		return fmt.Sprintf("Document found: %v", result), nil
 
@@ -99,7 +118,10 @@ func RedisShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip str
 	if err != nil {
 		return "", err
 	}
-	redisClient := client.(*redis.Client)
+	redisClient, ok := client.(*redis.Client)
+	if !ok {
+		return "", fmt.Errorf("unexpected client type: expected *redis.Client, got %T for nodeID %s", client, nodeID)
+	}
 
 	key, value := "", ""
 	for k, v := range kv {
@@ -134,7 +156,10 @@ func PostgresShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip 
 	if err != nil {
 		return "", err
 	}
-	db := client.(*sql.DB)
+	db, ok := client.(*sql.DB)
+	if !ok {
+		return "", fmt.Errorf("unexpected client type: expected *sql.DB, got %T for nodeID %s", client, nodeID)
+	}
 
 	key, value := "", ""
 	for k, v := range kv {

@@ -151,6 +151,9 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                             'aliases': [cont_name]  
                         }
                     }
+                    # 'deploy': {
+                    #     'replicas': 2  # UNCOMMENT FOR REPLICA COUNT
+                    # }
                 }
         elif service == 'Redis':
             for j in range(service_node_count):
