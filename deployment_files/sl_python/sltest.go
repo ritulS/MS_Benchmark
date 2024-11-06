@@ -20,7 +20,7 @@ import (
 
 var (
 	rqCounter    = 0
-	specialNodes = []string{"n1765", "n2134", "n4376", "n2977", "n942", "n4202", "n5015"}
+	specialNodes = []string{"n1765", "n2134", "n4376", "n2977", "n942"}
 )
 
 func generateRandomString(length int) string {

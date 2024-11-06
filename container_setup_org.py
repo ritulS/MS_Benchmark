@@ -62,10 +62,10 @@ def build_images():
     # path = "./deployment_files/redis_mewbie_img/"
     # subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/redis_mewbie_img", path], check=True)
     # subprocess.run(["docker","push","mewbieregistry.com:5000/redis_mewbie_img:latest"])
-    # Postgres Mewbie
-    path = "./deployment_files/postgres_mewbie_img/"
-    subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/postgres_mewbie_img", path], check=True)
-    subprocess.run(["docker","push","mewbieregistry.com:5000/postgres_mewbie_img:latest"])
+    # # Postgres Mewbie
+    # path = "./deployment_files/postgres_mewbie_img/"
+    # subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/postgres_mewbie_img", path], check=True)
+    # subprocess.run(["docker","push","mewbieregistry.com:5000/postgres_mewbie_img:latest"])
 
 def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
     docker_compose_data = {
@@ -240,12 +240,11 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }
         elif service == 'Postgres':
             cpus_per_container = calc_cpus_per_container(db_cpc)
-            # Loop to gen primary and k replicas
             for j in range(service_node_count):
                 service_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
                 docker_compose_data['services'][service_name] = {
-                    'image': f"mewbieregistry.com:5000/postgres_mewbie_img:latest",
+                    'image': f"postgres:latest",
                     'container_name': cont_name,
                     'networks': {
                         'mewbie_network': {
@@ -256,8 +255,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'POSTGRES_USER=pguser',
                         'POSTGRES_PASSWORD=pgpass',
                         'POSTGRES_DB=pg_db',
-                        'POSTGRES_HOST_AUTH_METHOD=trust',
-                        'IS_REPLICA=false'
+                        'POSTGRES_HOST_AUTH_METHOD=trust'
                     ],
                     'deploy': {
                         'resources': {
@@ -267,37 +265,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                             }
                         }
                     }
-                }
-                # Generate replicas
-                for k in range(1):
-                    replica_service_name = f"{service_name}-replica-{k}"
-                    replica_cont_name = f"{cont_name}-replica-{k}"
-                    docker_compose_data['services'][replica_service_name] = {
-                        'image': 'mewbieregistry.com:5000/postgres_mewbie_img:latest',
-                        'container_name': replica_cont_name,
-                        'networks': {
-                            'mewbie_network': {
-                                'aliases': [cont_name]  
-                            }
-                        },
-                        'environment': [
-                            'POSTGRES_USER=pguser',
-                            'POSTGRES_PASSWORD=pgpass',
-                            'POSTGRES_DB=pg_db',
-                            'POSTGRES_HOST_AUTH_METHOD=trust',
-                            f'REPLICATE_FROM={service_name}',
-                            'IS_REPLICA=true'
-                        ],
-                        'deploy': {
-                            'resources': {
-                                'limits': {
-                                    'cpus': '1',  
-                                    'memory': '2G'  
-                                }
-                            }
-                        },
-                        'depends_on': [service_name]
-                    }
+                }  
 
     return yaml.dump(docker_compose_data, default_flow_style=False, sort_keys=False)
 

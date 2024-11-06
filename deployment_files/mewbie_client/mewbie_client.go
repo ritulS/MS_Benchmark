@@ -12,11 +12,12 @@ import (
 	"regexp"
 	"strconv"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
 var (
-	rps               = 1000                                             // packets per second                            // trace packets data loaded from JSON
+	rps               = 500                                              // packets per second                            // trace packets data loaded from JSON
 	logger            *log.Logger                                        // logger for rotating log file
 	logFileName       = "./logs/client_log.csv"                          // log file path
 	maxLogFileSize    = int64(10 * 1024 * 1024)                          // 10 MB in bytes
@@ -174,56 +175,138 @@ func main() {
 		log.Fatalf("Failed to load trace packets: %v", err)
 	}
 	tracePacketsDict := tracePackets
-
 	// Start task executor
-	var wg sync.WaitGroup
-	for i := 0; i < 30; i++ {
-		wg.Add(1)
+	var wge sync.WaitGroup
+	for i := 0; i < 20; i++ {
+		wge.Add(1)
 		go func() {
-			defer wg.Done()
+			defer wge.Done()
 			taskExecutor()
 		}()
 	}
 
-	fmt.Printf("Running with rps: %d\n", rps)
-	fmt.Printf("Sending Packets......")
-	totalPacketsSent := 0
-	startTime := time.Now()
-	delay := time.Second / time.Duration(rps)
-	fmt.Printf("Delay for given rps: %d\n", delay)
-	for tid, tPacket := range tracePacketsDict {
-		initialNode, nodeTypeOk := tPacket["initial_node"].(string)
-		initialNodeType, typeOk := tPacket["initial_node_type"].(string)
+	// Define the number of goroutines
+	numGoroutines := 4
 
-		if !nodeTypeOk || !typeOk {
-			// fmt.Printf("Skipping packet %s due to missing initial_node or initial_node_type\n", tid)
-			continue
-		}
-		start := time.Now()
-		// fmt.Println(tPacket)
-		go sendDataInBackground(initialNode, initialNodeType, tid, tPacket)
-		totalPacketsSent++
-		elapsed := time.Since(start)
-		if elapsed < delay {
-			time.Sleep(delay - elapsed)
-		}
+	// Split tracePacketsDict into chunks for each goroutine
+	chunks := make([]map[string]map[string]interface{}, 0, numGoroutines)
+	for i := 0; i < numGoroutines; i++ {
+		chunks = append(chunks, make(map[string]map[string]interface{}))
 	}
 
-	endTime := time.Now()
-	totalExpRuntime := endTime.Sub(startTime).Seconds()
+	i := 0
+	for tid, packet := range tracePacketsDict {
+		chunkIndex := i / ((len(tracePacketsDict) + numGoroutines - 1) / numGoroutines)
+		if chunkIndex >= numGoroutines {
+			chunkIndex = numGoroutines - 1
+		}
+		chunks[chunkIndex][tid] = packet
+		i++
+	}
+
+	// Calculate the per-goroutine RPS
+	rpsPerGoroutine := rps / numGoroutines
+	delay := time.Second / time.Duration(rpsPerGoroutine)
+	fmt.Printf("Running with total RPS: %d\n", rps)
+	fmt.Printf("Delay per goroutine for target RPS: %v\n", delay)
+
+	var wg sync.WaitGroup
+	var totalPacketsSent int64
+	startTime := time.Now()
+
+	// Start goroutines to send packets
+	for _, chunk := range chunks {
+		wg.Add(1)
+		go func(chunk map[string]map[string]interface{}) {
+			defer wg.Done()
+			ticker := time.NewTicker(delay)
+			defer ticker.Stop()
+
+			for tid, packet := range chunk {
+				<-ticker.C // Wait for the ticker to signal when to send the next packet
+				initialNode, nodeTypeOk := packet["initial_node"].(string)
+				initialNodeType, typeOk := packet["initial_node_type"].(string)
+				if !nodeTypeOk || !typeOk {
+					continue
+				}
+
+				sendDataInBackground(initialNode, initialNodeType, tid, packet)
+				atomic.AddInt64(&totalPacketsSent, 1)
+			}
+		}(chunk)
+	}
+
+	wg.Wait()
+
+	totalExpRuntime := time.Since(startTime).Seconds()
 	avgReqPs := float64(totalPacketsSent) / totalExpRuntime
 
 	fmt.Println("Finished sending all packets!")
 	fmt.Printf("Total packets sent: %d\n", totalPacketsSent)
-	fmt.Printf("Total exp runtime: %.2f seconds\n", totalExpRuntime)
+	fmt.Printf("Total experiment runtime: %.2f seconds\n", totalExpRuntime)
 	fmt.Printf("Average requests per second: %.2f\n", avgReqPs)
 
 	// Close executor and wait for tasks to complete
 	close(executor)
-	wg.Wait()
-
-	// Check status of each node
-	// nodes := os.Getenv("SL_NODES")
-	// nodeList := regexp.MustCompile(`,\s*`).Split(nodes, -1)
-	// checkNodeStatus(nodeList)
 }
+
+// func main() {
+// 	initLogger()
+// 	tracePackets, err := loadTracePackets("./all_trace_packets.json")
+// 	if err != nil {
+// 		log.Fatalf("Failed to load trace packets: %v", err)
+// 	}
+// 	tracePacketsDict := tracePackets
+
+// // Start task executor
+// var wg sync.WaitGroup
+// for i := 0; i < 30; i++ {
+// 	wg.Add(1)
+// 	go func() {
+// 		defer wg.Done()
+// 		taskExecutor()
+// 	}()
+// }
+
+// 	fmt.Printf("Running with rps: %d\n", rps)
+// 	fmt.Printf("Sending Packets......")
+// 	totalPacketsSent := 0
+// 	startTime := time.Now()
+// 	delay := time.Second / time.Duration(rps)
+// 	fmt.Printf("Delay for given rps: %d\n", delay)
+// 	for tid, tPacket := range tracePacketsDict {
+// 		initialNode, nodeTypeOk := tPacket["initial_node"].(string)
+// 		initialNodeType, typeOk := tPacket["initial_node_type"].(string)
+
+// 		if !nodeTypeOk || !typeOk {
+// 			// fmt.Printf("Skipping packet %s due to missing initial_node or initial_node_type\n", tid)
+// 			continue
+// 		}
+// 		start := time.Now()
+// 		// fmt.Println(tPacket)
+// 		go sendDataInBackground(initialNode, initialNodeType, tid, tPacket)
+// 		totalPacketsSent++
+// 		elapsed := time.Since(start)
+// 		if elapsed < delay {
+// 			time.Sleep(delay - elapsed)
+// 		}
+// 	}
+
+// 	endTime := time.Now()
+// 	totalExpRuntime := endTime.Sub(startTime).Seconds()
+// 	avgReqPs := float64(totalPacketsSent) / totalExpRuntime
+
+// 	fmt.Println("Finished sending all packets!")
+// 	fmt.Printf("Total packets sent: %d\n", totalPacketsSent)
+// 	fmt.Printf("Total exp runtime: %.2f seconds\n", totalExpRuntime)
+// 	fmt.Printf("Average requests per second: %.2f\n", avgReqPs)
+
+// 	// Close executor and wait for tasks to complete
+// 	close(executor)
+// 	wg.Wait()
+
+// 	// Check status of each node
+// 	// nodes := os.Getenv("SL_NODES")
+// 	// nodeList := regexp.MustCompile(`,\s*`).Split(nodes, -1)
+// 	// checkNodeStatus(nodeList)
+// }
