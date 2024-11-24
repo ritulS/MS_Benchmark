@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	rps               = 500                                              // packets per second                            // trace packets data loaded from JSON
+	rps               = 600                                              // packets per second                            // trace packets data loaded from JSON
 	logger            *log.Logger                                        // logger for rotating log file
 	logFileName       = "./logs/client_log.csv"                          // log file path
 	maxLogFileSize    = int64(10 * 1024 * 1024)                          // 10 MB in bytes

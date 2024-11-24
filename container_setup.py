@@ -22,10 +22,10 @@ conts_to_setup = {
 
 config = read_yaml('enrichment_config.yaml')
 workload_name = config['ExpWorkloadName']
-
+# print(workload_name)
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
 node_split = load_dict_from_json(f"./enrichment_runs/{workload_name}/node_split_output.json")
-unique_nodes = load_dict_from_json(f"./node_and_trace_details/495_100k_unique_nodes.json")
+unique_nodes = load_dict_from_json("./node_and_trace_details/500_100k_unique_nodes.json")
 unique_nodes_str = ",".join(unique_nodes)
 # extract sl node info: count, sl nodeids
 total_sl_count = 0
@@ -62,10 +62,10 @@ def build_images():
     # path = "./deployment_files/redis_mewbie_img/"
     # subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/redis_mewbie_img", path], check=True)
     # subprocess.run(["docker","push","mewbieregistry.com:5000/redis_mewbie_img:latest"])
-    # Postgres Mewbie
-    path = "./deployment_files/postgres_mewbie_img/"
-    subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/postgres_mewbie_img", path], check=True)
-    subprocess.run(["docker","push","mewbieregistry.com:5000/postgres_mewbie_img:latest"])
+    # # Postgres Mewbie
+    # path = "./deployment_files/postgres_mewbie_img/"
+    # subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/postgres_mewbie_img", path], check=True)
+    # subprocess.run(["docker","push","mewbieregistry.com:5000/postgres_mewbie_img:latest"])
 
 def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
     docker_compose_data = {
@@ -141,6 +141,8 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
         return 1.0/cpc
 
     special_nodes = ["n1765", "n2134", "n4376", "n2977", "n942"]
+    sf_hot_nodes = ["n4037", "n7049", "n3882", "n2127", "n6572"]
+    
     for service in conts_to_setup:
         service_node_count = conts_to_setup[service]['count']
         nodes_for_service = conts_to_setup[service]['nodes_list']
@@ -180,23 +182,27 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }
                 if cont_name in special_nodes:
                     docker_compose_data['services'][service_name]['deploy'] = {
-                            'replicas': 2,
-                            'placement': {
-                                'constraints': [
-                                    'node.labels.sl_node == true'
-                                ]
-                            },
+                            # 'replicas': 2,
+                            # 'placement': {
+                            #     'constraints': [
+                            #         'node.labels.sl_node == true'
+                            #     ]
+                            # },
                             'resources': {
                                 'limits': {
-                                    'cpus': '3',  # CPU limit
+                                    'cpus': '4',  # CPU limit
                                     'memory': '5G'  # Memory limit, adjust as needed
                                 }
                             }  
                     }
+        
         elif service == 'Redis':
             for j in range(service_node_count):
+                db_cpu = 0.5
                 service_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
+                if cont_name in sf_hot_nodes:
+                    db_cpu = 1
                 docker_compose_data['services'][service_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
@@ -209,7 +215,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         # 'replicas': 2,
                         'resources': {
                             'limits': {
-                                'cpus': '1', 
+                                'cpus': f'{db_cpu}',
                                 'memory': '2G'  
                             }
                         }
@@ -217,8 +223,11 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }           
         elif service == 'MongoDB':
             for j in range(service_node_count):
+                db_cpu = 0.5
                 service_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
+                if cont_name in sf_hot_nodes:
+                    db_cpu = 1
                 docker_compose_data['services'][service_name] = {
                     'image': f"mongo:latest",
                     'container_name': cont_name,
@@ -232,7 +241,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         # 'replicas': 2,  # Number of replicas set to 2
                         'resources': {
                             'limits': {
-                                'cpus': '1', 
+                                'cpus': f'{db_cpu}',
                                 'memory': '2G' 
                             }
                         }
@@ -240,12 +249,14 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }
         elif service == 'Postgres':
             cpus_per_container = calc_cpus_per_container(db_cpc)
-            # Loop to gen primary and k replicas
             for j in range(service_node_count):
+                db_cpu = 0.5
                 service_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
+                if cont_name in sf_hot_nodes:
+                    db_cpu = 1
                 docker_compose_data['services'][service_name] = {
-                    'image': f"mewbieregistry.com:5000/postgres_mewbie_img:latest",
+                    'image': f"postgres:latest",
                     'container_name': cont_name,
                     'networks': {
                         'mewbie_network': {
@@ -256,48 +267,17 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'POSTGRES_USER=pguser',
                         'POSTGRES_PASSWORD=pgpass',
                         'POSTGRES_DB=pg_db',
-                        'POSTGRES_HOST_AUTH_METHOD=trust',
-                        'IS_REPLICA=false'
+                        'POSTGRES_HOST_AUTH_METHOD=trust'
                     ],
                     'deploy': {
                         'resources': {
                             'limits': {
-                                'cpus': '1',  
+                                'cpus': f'{db_cpu}',
                                 'memory': '2G'  
                             }
                         }
                     }
-                }
-                # Generate replicas
-                for k in range(1):
-                    replica_service_name = f"{service_name}-replica-{k}"
-                    replica_cont_name = f"{cont_name}-replica-{k}"
-                    docker_compose_data['services'][replica_service_name] = {
-                        'image': 'mewbieregistry.com:5000/postgres_mewbie_img:latest',
-                        'container_name': replica_cont_name,
-                        'networks': {
-                            'mewbie_network': {
-                                'aliases': [cont_name]  
-                            }
-                        },
-                        'environment': [
-                            'POSTGRES_USER=pguser',
-                            'POSTGRES_PASSWORD=pgpass',
-                            'POSTGRES_DB=pg_db',
-                            'POSTGRES_HOST_AUTH_METHOD=trust',
-                            f'REPLICATE_FROM={service_name}',
-                            'IS_REPLICA=true'
-                        ],
-                        'deploy': {
-                            'resources': {
-                                'limits': {
-                                    'cpus': '1',  
-                                    'memory': '2G'  
-                                }
-                            }
-                        },
-                        'depends_on': [service_name]
-                    }
+                }  
 
     return yaml.dump(docker_compose_data, default_flow_style=False, sort_keys=False)
 

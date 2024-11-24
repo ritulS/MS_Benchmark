@@ -19,13 +19,13 @@ services:
     image: mewbieregistry.com:5000/mewbie_img:latest
     container_name: mewbie_client
     volumes:
-    - ./enrichment_runs/test_run/all_trace_packets.json:/app/all_trace_packets.json
+    - ./enrichment_runs/dmix1_pg_heavy/all_trace_packets.json:/app/all_trace_packets.json
     - ./deployment_files/mewbie_client/mewbie_client.go:/app/mewbie_client.go
     - ritul_logs:/app/logs/
     environment:
     - CONTAINER_NAME=mewbie_client
-    - WORKLOAD_NAME=test_run
-    - SL_NODES=n2134,n942,n4202,n1765,n3827,n3756,n4376,n5182,n6286,n1725,n4408,n8216,n6096,n4294,n2415,n6952,n7510,n1220,n6779,n7144,n4578,n776,n668,n5871,n1604,n6689,n7370,n4912,n3703,n366,n1962,n3432,n945,n2172,n165,n7964,n7045,n4748,n1011,n7924,n6342,n2003,n5510,n3820,n5735,n8167,n1990,n812,n486,n1581,n5015,n4923,n5155,n4864,n6141,n1860,n6973,n6068,n7092,n7006,n7356,n2977,n6697,n1513,n6486,n2685,n7918,n7731,n5601,n6790,n4709,n2759,n5541,n1148,n1287,n1606,n8147,n3549,n8049,n272,n8275,n1417,n6576,n1407,n6281,n3127,n3941,n2609,n2826,n1076,n8261,n3674,n4310,n2436,n2029,n5790,n7642,n2630,n8030,n630,n6255,n4690,n5559,n423,n4850,n1747,n2526,n2409,n5703,n2502,n7352,n704,n3634,n3395,n1875,n2068,n6042,n3622,n6109,n8032,n3411,n1964,n3734,n5912,n3907,n1850,n3534,n4101,n7551,n5323,n5899,n3960,n4726,n8188,n3404,n1225,n3951,n7994,n309,n4260,n2868,n5402,n2663,n2838,n287,n2309,n5775,n6693,n158,n2888,n3441,n6212,n2882,n3392,n1595,n2354,n1410,n1662,n4189,n5500,n6678,n7266,n1673,n2484,n3247,n2857,n7549,n2661,n8132,n7044,n7206,n1333,n5064,n4410,n205,n3599,n5447,n7960,n341,n1914,n3492,n1937,n5481,n5459,n3727,n5081,n4797,n1748,n1021,n1868,n7475,n2769,n895,n9,n2587,n224,n7200,n6076,n1439,n728,n3155,n572,n3803,n4450,n8307,n7900,n1562,n3826,n2637,n4482,n2929,n4388,n1928,n5829,n3460,n4067,n6378,n6487,n136,n6899,n5401,n6171,n6111,n127,n5691,n218,n3223,n2492,n6232,n4509,n2784,n5482,n2119,n3514,n8005,n2222,n2036,n2557,n6300,n418,n4800,n3921,n2458,n2756,n7982,n377,n1685,n2599,n599,n5778,n804,n4927,n3682,n5406,n7421,n2744,n1041,n2521,n4904,n8290,n1479,n5171,n8221,n7440,n6840,n4426,n6563,n4667,n8082,n1459,n7253,n358,n6617,n5724,n7153,n263,n772,n4660,n2341,n6660,n4063,n995,n7831,n4815,n5083,n7595,n7567,n2444,n5657,n6573,n2158,n3989,n4715,n5681,n6282,n6977,n2327,n2083,n4868,n7870,n4490,n7695,n7016,n5856,n5227,n6516,n5095,n7482,n8176,n7084,n5774,n1608,n1787,n2734,n3297,n2950,n3754,n7455,n6650,n2273,n4610,n5259,n2177,n7826,n4124,n6420,n7565,n3022,n2413,n3221,n4500,n6224,n824,n6046,n6248,n7203,n785,n8146,n7576,n2819,n896,n3779,n4162,n1911,n5986,n2530,n1361,n4156,n615,n4223,n5598,n73,n3508,n7361,n2453,n1200,n1357,n2289,n2764,n4558,n7290,n3888,n5416,n66,n1119,n227,n7456,n3291,n7796,n4703,n2439,n7070,n4030,n7350,n3570,n3078,n6774,n7033,n4843,n645,n2194,n7113,n967,n6035,n4592,n5206,n4909,n7734,n1343,n8286,n2728,n3613,n5008,n3694,n6670,n1436,n1412,n622,n1297,n7547,n4937,n3427,n903,n4975,n6974,n1985,n1749,n231,n5925,n6918,n2230,n3636,n3772,n5952,n8081,n6969,n434,n1480,n3334,n4550,n5971,n2291,n6648,n5732,n7248,n6469,n988,n7666,n421,n6986,n3642,n1554,n8085,n7061,n6454,n2649,n4365,n4750,n4324,n1033,n1389,n2739,n6134,n5556,n5508,n5317,n4824,n5247,n3148,n5628,n876,n7691,n6268,n429,n2136,n6223,n8037,n760,n2634,n4770,n1270,n4300,n1485,n8250,n138,n4680,n6803,n7422,n1944,n7476,n863,n6382,n3897,n412,n5410,n5004,n132,n6014,n2996,n2224,n3207,n1026,n2416,n2250,n4226,n6531,n7555,n3114,n6800,n6182,n6474,n681,n7222,n8301,n3035
+    - WORKLOAD_NAME=dmix1_pg_heavy
+    - SL_NODES=n52,n7049,n5507,n7709,n2127,n2915,n6572,n3882,n2405,n1410,n7732,n6292,n4651,n3943,n3054,n5991,n4037,n7529,n3843,n25,n298,n3496,n7028,n7699,n2054,n1010,n4895,n2687,n2841,n1702,n4818,n1063,n817,n7264,n7957,n1016,n3611,n699,n355,n1194,n5043,n326,n4760,n6091,n2609,n5122,n870,n6343,n676,n3441,n1519,n2978,n5000,n1988,n6470,n7907,n4468,n7286,n6936,n5466,n3033,n4210,n530,n1720,n7567,n5403,n8006,n4897,n6256,n6768,n3609,n1767,n5124,n84,n5038,n739,n2157,n6909,n2800,n2025,n4365,n8009,n2679,n2725,n4996,n617,n6077,n385,n3507,n6943,n4373,n7207,n1865,n7054,n1147,n1249,n32,n847,n4510,n4378,n7358,n289,n976,n7137,n3190,n6279,n7592,n6763,n492,n7420,n7753,n8,n7904,n1365,n1242,n3573,n1570,n1450,n2382,n6761,n4767,n5531,n1485,n3978,n3504,n2695,n591,n1716,n1094,n6634,n3434,n6794,n6554,n6915,n1749,n1961,n3040,n178,n4275,n7113,n2227,n4936,n301,n1394,n4400,n377,n234,n988,n5076,n4641,n7823,n964,n3442,n3976,n5661,n6890,n2518,n3894,n208,n7730,n1919,n6693,n905,n1187,n2006,n29,n2853,n841,n2839,n3428,n4997,n4406,n643,n3141,n2154,n2416,n4444,n125,n5577,n6781,n2364,n2949,n1214,n6491,n6733,n1627,n3340,n7601,n55,n3488,n7824,n6578,n4249,n3814,n2226,n5372,n6263,n5411,n7147,n5339,n516,n7036,n4934,n6499,n7789,n4707,n1069,n7822,n3089,n7921,n607,n1345,n7295,n5056,n5933,n288,n5886,n6759,n4821,n1913,n3389,n6058,n2566,n1361,n1624,n4100,n2902,n33,n6573,n7929,n3264,n3125,n13,n6456,n6260,n7614,n2635,n7477,n192,n6959,n5830,n6801,n5223,n3088,n2956,n223,n627,n1279,n2439,n1465,n4779,n1301,n624,n3599,n4282,n6493,n644,n922,n7727,n3062,n2506,n7559,n5288,n6475,n216,n5329,n7905,n5435,n6664,n4433,n7451,n1806,n2041,n3053,n6810,n4845,n2081,n5904,n1311,n816,n4175,n6621,n3715,n2780,n1523,n2212,n3836,n4393,n5565,n4900,n2821,n2617,n1791,n1122,n7006,n6970,n6624,n2269,n5024,n4478,n7197,n7674,n371,n1672,n2381,n4820,n2003,n556,n2369,n2487,n7916,n7670,n4655,n7185,n6399,n31,n5894,n796,n6278,n1957,n3052,n236,n4672,n2178,n4771,n7457,n3480,n16,n5443,n6827,n3897,n3007,n117,n3100,n6662,n4240,n6392,n1901,n4778,n1347,n3986,n2266,n5346,n4052,n6769,n6149,n5105,n805,n4332,n4347,n3064,n1472,n7635,n2996,n4226,n5620,n3274,n3856,n3158,n7074,n2954,n7361,n6684,n2636,n5146,n6438,n1967,n5913,n2464,n2257,n7597,n7381,n1098,n5469,n1408,n6818,n662,n310,n3823,n1649,n7088,n5941,n2533,n6505,n7825,n2937,n2671,n7180,n2050,n4425,n951,n6941,n2162,n3510,n6717,n5358,n1835,n6054,n3101,n2532,n127,n513,n215,n5528,n7525,n281,n5665,n5103,n3819,n4709,n7611,n2187,n1571,n2515,n3872,n3241,n3230,n2267,n350,n3302,n3124,n5977,n5027,n7883,n6924,n1039,n386,n2163,n1299,n7408,n5205,n7946,n7976,n5794,n2655,n2789,n5145,n6688,n6659,n3857,n1837,n1466,n2378,n6347,n5503,n7895
     command: sh -c "tail -f /dev/null"
     networks:
     - mewbie_network
@@ -33,92 +33,7163 @@ services:
       placement:
         constraints:
         - node.role == manager
-  Postgres-0_n8216:
-    image: mewbieregistry.com:5000/postgres_mewbie_img:latest
-    container_name: n8216
+  MongoDB-0_n355:
+    image: mongo:latest
+    container_name: n355
     networks:
       mewbie_network:
         aliases:
-        - n8216
+        - n355
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-1_n6761:
+    image: mongo:latest
+    container_name: n6761
+    networks:
+      mewbie_network:
+        aliases:
+        - n6761
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-2_n5358:
+    image: mongo:latest
+    container_name: n5358
+    networks:
+      mewbie_network:
+        aliases:
+        - n5358
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-3_n6456:
+    image: mongo:latest
+    container_name: n6456
+    networks:
+      mewbie_network:
+        aliases:
+        - n6456
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-4_n5288:
+    image: mongo:latest
+    container_name: n5288
+    networks:
+      mewbie_network:
+        aliases:
+        - n5288
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-5_n3125:
+    image: mongo:latest
+    container_name: n3125
+    networks:
+      mewbie_network:
+        aliases:
+        - n3125
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-6_n1624:
+    image: mongo:latest
+    container_name: n1624
+    networks:
+      mewbie_network:
+        aliases:
+        - n1624
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-7_n5124:
+    image: mongo:latest
+    container_name: n5124
+    networks:
+      mewbie_network:
+        aliases:
+        - n5124
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-8_n350:
+    image: mongo:latest
+    container_name: n350
+    networks:
+      mewbie_network:
+        aliases:
+        - n350
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-9_n7006:
+    image: mongo:latest
+    container_name: n7006
+    networks:
+      mewbie_network:
+        aliases:
+        - n7006
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-10_n4282:
+    image: mongo:latest
+    container_name: n4282
+    networks:
+      mewbie_network:
+        aliases:
+        - n4282
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-11_n7709:
+    image: mongo:latest
+    container_name: n7709
+    networks:
+      mewbie_network:
+        aliases:
+        - n7709
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  MongoDB-12_n7614:
+    image: mongo:latest
+    container_name: n7614
+    networks:
+      mewbie_network:
+        aliases:
+        - n7614
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-0_n624:
+    image: redis:latest
+    container_name: n624
+    networks:
+      mewbie_network:
+        aliases:
+        - n624
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-1_n7264:
+    image: redis:latest
+    container_name: n7264
+    networks:
+      mewbie_network:
+        aliases:
+        - n7264
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-2_n2382:
+    image: redis:latest
+    container_name: n2382
+    networks:
+      mewbie_network:
+        aliases:
+        - n2382
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-3_n2800:
+    image: redis:latest
+    container_name: n2800
+    networks:
+      mewbie_network:
+        aliases:
+        - n2800
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-4_n2154:
+    image: redis:latest
+    container_name: n2154
+    networks:
+      mewbie_network:
+        aliases:
+        - n2154
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-5_n3442:
+    image: redis:latest
+    container_name: n3442
+    networks:
+      mewbie_network:
+        aliases:
+        - n3442
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-6_n7601:
+    image: redis:latest
+    container_name: n7601
+    networks:
+      mewbie_network:
+        aliases:
+        - n7601
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-7_n6438:
+    image: redis:latest
+    container_name: n6438
+    networks:
+      mewbie_network:
+        aliases:
+        - n6438
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-8_n7361:
+    image: redis:latest
+    container_name: n7361
+    networks:
+      mewbie_network:
+        aliases:
+        - n7361
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-9_n33:
+    image: redis:latest
+    container_name: n33
+    networks:
+      mewbie_network:
+        aliases:
+        - n33
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-10_n6578:
+    image: redis:latest
+    container_name: n6578
+    networks:
+      mewbie_network:
+        aliases:
+        - n6578
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-11_n1063:
+    image: redis:latest
+    container_name: n1063
+    networks:
+      mewbie_network:
+        aliases:
+        - n1063
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-12_n2695:
+    image: redis:latest
+    container_name: n2695
+    networks:
+      mewbie_network:
+        aliases:
+        - n2695
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Redis-13_n4895:
+    image: redis:latest
+    container_name: n4895
+    networks:
+      mewbie_network:
+        aliases:
+        - n4895
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-0_n29:
+    image: postgres:latest
+    container_name: n29
+    networks:
+      mewbie_network:
+        aliases:
+        - n29
     environment:
     - POSTGRES_USER=pguser
     - POSTGRES_PASSWORD=pgpass
     - POSTGRES_DB=pg_db
     - POSTGRES_HOST_AUTH_METHOD=trust
-    - IS_REPLICA=false
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '0.5'
           memory: 2G
-  Postgres-0_n8216-replica-0:
-    image: mewbieregistry.com:5000/postgres_mewbie_img:latest
-    container_name: n8216-replica-0
+  Postgres-1_n1791:
+    image: postgres:latest
+    container_name: n1791
     networks:
       mewbie_network:
         aliases:
-        - Postgres-0_n8216
+        - n1791
     environment:
     - POSTGRES_USER=pguser
     - POSTGRES_PASSWORD=pgpass
     - POSTGRES_DB=pg_db
     - POSTGRES_HOST_AUTH_METHOD=trust
-    - REPLICATE_FROM=n8216
-    - IS_REPLICA=true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-2_n2915:
+    image: postgres:latest
+    container_name: n2915
+    networks:
+      mewbie_network:
+        aliases:
+        - n2915
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-3_n1122:
+    image: postgres:latest
+    container_name: n1122
+    networks:
+      mewbie_network:
+        aliases:
+        - n1122
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-4_n4037:
+    image: postgres:latest
+    container_name: n4037
+    networks:
+      mewbie_network:
+        aliases:
+        - n4037
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
     deploy:
       resources:
         limits:
           cpus: '1'
           memory: 2G
-    depends_on:
-    - Postgres-0_n8216
-  Python-0_n4408:
+  Postgres-5_n2054:
+    image: postgres:latest
+    container_name: n2054
+    networks:
+      mewbie_network:
+        aliases:
+        - n2054
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-6_n2127:
+    image: postgres:latest
+    container_name: n2127
+    networks:
+      mewbie_network:
+        aliases:
+        - n2127
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+  Postgres-7_n3843:
+    image: postgres:latest
+    container_name: n3843
+    networks:
+      mewbie_network:
+        aliases:
+        - n3843
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-8_n4393:
+    image: postgres:latest
+    container_name: n4393
+    networks:
+      mewbie_network:
+        aliases:
+        - n4393
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-9_n6717:
+    image: postgres:latest
+    container_name: n6717
+    networks:
+      mewbie_network:
+        aliases:
+        - n6717
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-10_n7028:
+    image: postgres:latest
+    container_name: n7028
+    networks:
+      mewbie_network:
+        aliases:
+        - n7028
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-11_n25:
+    image: postgres:latest
+    container_name: n25
+    networks:
+      mewbie_network:
+        aliases:
+        - n25
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-12_n3882:
+    image: postgres:latest
+    container_name: n3882
+    networks:
+      mewbie_network:
+        aliases:
+        - n3882
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+  Postgres-13_n7049:
+    image: postgres:latest
+    container_name: n7049
+    networks:
+      mewbie_network:
+        aliases:
+        - n7049
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+  Postgres-14_n2006:
+    image: postgres:latest
+    container_name: n2006
+    networks:
+      mewbie_network:
+        aliases:
+        - n2006
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-15_n6818:
+    image: postgres:latest
+    container_name: n6818
+    networks:
+      mewbie_network:
+        aliases:
+        - n6818
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-16_n3428:
+    image: postgres:latest
+    container_name: n3428
+    networks:
+      mewbie_network:
+        aliases:
+        - n3428
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-17_n7957:
+    image: postgres:latest
+    container_name: n7957
+    networks:
+      mewbie_network:
+        aliases:
+        - n7957
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-18_n6941:
+    image: postgres:latest
+    container_name: n6941
+    networks:
+      mewbie_network:
+        aliases:
+        - n6941
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-19_n5913:
+    image: postgres:latest
+    container_name: n5913
+    networks:
+      mewbie_network:
+        aliases:
+        - n5913
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-20_n7529:
+    image: postgres:latest
+    container_name: n7529
+    networks:
+      mewbie_network:
+        aliases:
+        - n7529
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-21_n988:
+    image: postgres:latest
+    container_name: n988
+    networks:
+      mewbie_network:
+        aliases:
+        - n988
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-22_n2996:
+    image: postgres:latest
+    container_name: n2996
+    networks:
+      mewbie_network:
+        aliases:
+        - n2996
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-23_n7905:
+    image: postgres:latest
+    container_name: n7905
+    networks:
+      mewbie_network:
+        aliases:
+        - n7905
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-24_n7921:
+    image: postgres:latest
+    container_name: n7921
+    networks:
+      mewbie_network:
+        aliases:
+        - n7921
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-25_n3340:
+    image: postgres:latest
+    container_name: n3340
+    networks:
+      mewbie_network:
+        aliases:
+        - n3340
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-26_n5577:
+    image: postgres:latest
+    container_name: n5577
+    networks:
+      mewbie_network:
+        aliases:
+        - n5577
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-27_n870:
+    image: postgres:latest
+    container_name: n870
+    networks:
+      mewbie_network:
+        aliases:
+        - n870
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-28_n3814:
+    image: postgres:latest
+    container_name: n3814
+    networks:
+      mewbie_network:
+        aliases:
+        - n3814
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-29_n5661:
+    image: postgres:latest
+    container_name: n5661
+    networks:
+      mewbie_network:
+        aliases:
+        - n5661
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-30_n847:
+    image: postgres:latest
+    container_name: n847
+    networks:
+      mewbie_network:
+        aliases:
+        - n847
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-31_n8006:
+    image: postgres:latest
+    container_name: n8006
+    networks:
+      mewbie_network:
+        aliases:
+        - n8006
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-32_n1069:
+    image: postgres:latest
+    container_name: n1069
+    networks:
+      mewbie_network:
+        aliases:
+        - n1069
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-33_n7074:
+    image: postgres:latest
+    container_name: n7074
+    networks:
+      mewbie_network:
+        aliases:
+        - n7074
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-34_n377:
+    image: postgres:latest
+    container_name: n377
+    networks:
+      mewbie_network:
+        aliases:
+        - n377
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-35_n662:
+    image: postgres:latest
+    container_name: n662
+    networks:
+      mewbie_network:
+        aliases:
+        - n662
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-36_n6554:
+    image: postgres:latest
+    container_name: n6554
+    networks:
+      mewbie_network:
+        aliases:
+        - n6554
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-37_n4707:
+    image: postgres:latest
+    container_name: n4707
+    networks:
+      mewbie_network:
+        aliases:
+        - n4707
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-38_n5507:
+    image: postgres:latest
+    container_name: n5507
+    networks:
+      mewbie_network:
+        aliases:
+        - n5507
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-39_n6260:
+    image: postgres:latest
+    container_name: n6260
+    networks:
+      mewbie_network:
+        aliases:
+        - n6260
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-40_n607:
+    image: postgres:latest
+    container_name: n607
+    networks:
+      mewbie_network:
+        aliases:
+        - n607
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-41_n1702:
+    image: postgres:latest
+    container_name: n1702
+    networks:
+      mewbie_network:
+        aliases:
+        - n1702
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-42_n922:
+    image: postgres:latest
+    container_name: n922
+    networks:
+      mewbie_network:
+        aliases:
+        - n922
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-43_n4672:
+    image: postgres:latest
+    container_name: n4672
+    networks:
+      mewbie_network:
+        aliases:
+        - n4672
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-44_n7904:
+    image: postgres:latest
+    container_name: n7904
+    networks:
+      mewbie_network:
+        aliases:
+        - n7904
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-45_n7822:
+    image: postgres:latest
+    container_name: n7822
+    networks:
+      mewbie_network:
+        aliases:
+        - n7822
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-46_n3836:
+    image: postgres:latest
+    container_name: n3836
+    networks:
+      mewbie_network:
+        aliases:
+        - n3836
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-47_n5146:
+    image: postgres:latest
+    container_name: n5146
+    networks:
+      mewbie_network:
+        aliases:
+        - n5146
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-48_n4818:
+    image: postgres:latest
+    container_name: n4818
+    networks:
+      mewbie_network:
+        aliases:
+        - n4818
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-49_n7036:
+    image: postgres:latest
+    container_name: n7036
+    networks:
+      mewbie_network:
+        aliases:
+        - n7036
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-50_n6572:
+    image: postgres:latest
+    container_name: n6572
+    networks:
+      mewbie_network:
+        aliases:
+        - n6572
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+  Postgres-51_n4936:
+    image: postgres:latest
+    container_name: n4936
+    networks:
+      mewbie_network:
+        aliases:
+        - n4936
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-52_n6256:
+    image: postgres:latest
+    container_name: n6256
+    networks:
+      mewbie_network:
+        aliases:
+        - n6256
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-53_n2162:
+    image: postgres:latest
+    container_name: n2162
+    networks:
+      mewbie_network:
+        aliases:
+        - n2162
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-54_n6794:
+    image: postgres:latest
+    container_name: n6794
+    networks:
+      mewbie_network:
+        aliases:
+        - n6794
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-55_n7699:
+    image: postgres:latest
+    container_name: n7699
+    networks:
+      mewbie_network:
+        aliases:
+        - n7699
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-56_n6733:
+    image: postgres:latest
+    container_name: n6733
+    networks:
+      mewbie_network:
+        aliases:
+        - n6733
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-57_n1485:
+    image: postgres:latest
+    container_name: n1485
+    networks:
+      mewbie_network:
+        aliases:
+        - n1485
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-58_n4997:
+    image: postgres:latest
+    container_name: n4997
+    networks:
+      mewbie_network:
+        aliases:
+        - n4997
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-59_n530:
+    image: postgres:latest
+    container_name: n530
+    networks:
+      mewbie_network:
+        aliases:
+        - n530
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-60_n1649:
+    image: postgres:latest
+    container_name: n1649
+    networks:
+      mewbie_network:
+        aliases:
+        - n1649
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-61_n2841:
+    image: postgres:latest
+    container_name: n2841
+    networks:
+      mewbie_network:
+        aliases:
+        - n2841
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-62_n6470:
+    image: postgres:latest
+    container_name: n6470
+    networks:
+      mewbie_network:
+        aliases:
+        - n6470
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-63_n6621:
+    image: postgres:latest
+    container_name: n6621
+    networks:
+      mewbie_network:
+        aliases:
+        - n6621
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-64_n3510:
+    image: postgres:latest
+    container_name: n3510
+    networks:
+      mewbie_network:
+        aliases:
+        - n3510
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-65_n55:
+    image: postgres:latest
+    container_name: n55
+    networks:
+      mewbie_network:
+        aliases:
+        - n55
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-66_n1010:
+    image: postgres:latest
+    container_name: n1010
+    networks:
+      mewbie_network:
+        aliases:
+        - n1010
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-67_n3715:
+    image: postgres:latest
+    container_name: n3715
+    networks:
+      mewbie_network:
+        aliases:
+        - n3715
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-68_n4934:
+    image: postgres:latest
+    container_name: n4934
+    networks:
+      mewbie_network:
+        aliases:
+        - n4934
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-69_n4378:
+    image: postgres:latest
+    container_name: n4378
+    networks:
+      mewbie_network:
+        aliases:
+        - n4378
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-70_n5565:
+    image: postgres:latest
+    container_name: n5565
+    networks:
+      mewbie_network:
+        aliases:
+        - n5565
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-71_n5411:
+    image: postgres:latest
+    container_name: n5411
+    networks:
+      mewbie_network:
+        aliases:
+        - n5411
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-72_n2566:
+    image: postgres:latest
+    container_name: n2566
+    networks:
+      mewbie_network:
+        aliases:
+        - n2566
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-73_n6684:
+    image: postgres:latest
+    container_name: n6684
+    networks:
+      mewbie_network:
+        aliases:
+        - n6684
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-74_n3053:
+    image: postgres:latest
+    container_name: n3053
+    networks:
+      mewbie_network:
+        aliases:
+        - n3053
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-75_n4226:
+    image: postgres:latest
+    container_name: n4226
+    networks:
+      mewbie_network:
+        aliases:
+        - n4226
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-76_n7286:
+    image: postgres:latest
+    container_name: n7286
+    networks:
+      mewbie_network:
+        aliases:
+        - n7286
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-77_n5904:
+    image: postgres:latest
+    container_name: n5904
+    networks:
+      mewbie_network:
+        aliases:
+        - n5904
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-78_n5223:
+    image: postgres:latest
+    container_name: n5223
+    networks:
+      mewbie_network:
+        aliases:
+        - n5223
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-79_n2416:
+    image: postgres:latest
+    container_name: n2416
+    networks:
+      mewbie_network:
+        aliases:
+        - n2416
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-80_n310:
+    image: postgres:latest
+    container_name: n310
+    networks:
+      mewbie_network:
+        aliases:
+        - n310
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-81_n4655:
+    image: postgres:latest
+    container_name: n4655
+    networks:
+      mewbie_network:
+        aliases:
+        - n4655
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-82_n1408:
+    image: postgres:latest
+    container_name: n1408
+    networks:
+      mewbie_network:
+        aliases:
+        - n1408
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-83_n7451:
+    image: postgres:latest
+    container_name: n7451
+    networks:
+      mewbie_network:
+        aliases:
+        - n7451
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-84_n6475:
+    image: postgres:latest
+    container_name: n6475
+    networks:
+      mewbie_network:
+        aliases:
+        - n6475
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-85_n1194:
+    image: postgres:latest
+    container_name: n1194
+    networks:
+      mewbie_network:
+        aliases:
+        - n1194
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-86_n5528:
+    image: postgres:latest
+    container_name: n5528
+    networks:
+      mewbie_network:
+        aliases:
+        - n5528
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-87_n6801:
+    image: postgres:latest
+    container_name: n6801
+    networks:
+      mewbie_network:
+        aliases:
+        - n6801
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-88_n7732:
+    image: postgres:latest
+    container_name: n7732
+    networks:
+      mewbie_network:
+        aliases:
+        - n7732
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-89_n2025:
+    image: postgres:latest
+    container_name: n2025
+    networks:
+      mewbie_network:
+        aliases:
+        - n2025
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-90_n2839:
+    image: postgres:latest
+    container_name: n2839
+    networks:
+      mewbie_network:
+        aliases:
+        - n2839
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-91_n7592:
+    image: postgres:latest
+    container_name: n7592
+    networks:
+      mewbie_network:
+        aliases:
+        - n7592
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-92_n216:
+    image: postgres:latest
+    container_name: n216
+    networks:
+      mewbie_network:
+        aliases:
+        - n216
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-93_n2405:
+    image: postgres:latest
+    container_name: n2405
+    networks:
+      mewbie_network:
+        aliases:
+        - n2405
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-94_n2687:
+    image: postgres:latest
+    container_name: n2687
+    networks:
+      mewbie_network:
+        aliases:
+        - n2687
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-95_n125:
+    image: postgres:latest
+    container_name: n125
+    networks:
+      mewbie_network:
+        aliases:
+        - n125
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-96_n5024:
+    image: postgres:latest
+    container_name: n5024
+    networks:
+      mewbie_network:
+        aliases:
+        - n5024
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-97_n6781:
+    image: postgres:latest
+    container_name: n6781
+    networks:
+      mewbie_network:
+        aliases:
+        - n6781
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-98_n1347:
+    image: postgres:latest
+    container_name: n1347
+    networks:
+      mewbie_network:
+        aliases:
+        - n1347
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-99_n7088:
+    image: postgres:latest
+    container_name: n7088
+    networks:
+      mewbie_network:
+        aliases:
+        - n7088
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-100_n3894:
+    image: postgres:latest
+    container_name: n3894
+    networks:
+      mewbie_network:
+        aliases:
+        - n3894
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-101_n3496:
+    image: postgres:latest
+    container_name: n3496
+    networks:
+      mewbie_network:
+        aliases:
+        - n3496
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-102_n1749:
+    image: postgres:latest
+    container_name: n1749
+    networks:
+      mewbie_network:
+        aliases:
+        - n1749
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-103_n4365:
+    image: postgres:latest
+    container_name: n4365
+    networks:
+      mewbie_network:
+        aliases:
+        - n4365
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-104_n8:
+    image: postgres:latest
+    container_name: n8
+    networks:
+      mewbie_network:
+        aliases:
+        - n8
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-105_n3054:
+    image: postgres:latest
+    container_name: n3054
+    networks:
+      mewbie_network:
+        aliases:
+        - n3054
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-106_n2954:
+    image: postgres:latest
+    container_name: n2954
+    networks:
+      mewbie_network:
+        aliases:
+        - n2954
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Postgres-107_n3823:
+    image: postgres:latest
+    container_name: n3823
+    networks:
+      mewbie_network:
+        aliases:
+        - n3823
+    environment:
+    - POSTGRES_USER=pguser
+    - POSTGRES_PASSWORD=pgpass
+    - POSTGRES_DB=pg_db
+    - POSTGRES_HOST_AUTH_METHOD=trust
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+  Python-0_n1242:
     image: mewbieregistry.com:5000/slp_img:latest
-    container_name: n4408
+    container_name: n1242
     volumes:
     - ritul_logs:/app/logs/
     environment:
-    - CONTAINER_NAME=n4408
+    - CONTAINER_NAME=n1242
     networks:
       mewbie_network:
         aliases:
-        - n4408
+        - n1242
     deploy:
       resources:
         limits:
           cpus: '2'
           memory: 5G
-  Python-1_n2134:
+  Python-1_n5503:
     image: mewbieregistry.com:5000/slp_img:latest
-    container_name: n2134
+    container_name: n5503
     volumes:
     - ritul_logs:/app/logs/
     environment:
-    - CONTAINER_NAME=n2134
+    - CONTAINER_NAME=n5503
     networks:
       mewbie_network:
         aliases:
-        - n2134
+        - n5503
     deploy:
-      replicas: 2
-      placement:
-        constraints:
-        - node.labels.sl_node == true
       resources:
         limits:
-          cpus: '3'
+          cpus: '2'
           memory: 5G
-  Python-2_n1725:
+  Python-2_n2227:
     image: mewbieregistry.com:5000/slp_img:latest
-    container_name: n1725
+    container_name: n2227
     volumes:
     - ritul_logs:/app/logs/
     environment:
-    - CONTAINER_NAME=n1725
+    - CONTAINER_NAME=n2227
     networks:
       mewbie_network:
         aliases:
-        - n1725
+        - n2227
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-3_n1472:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1472
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1472
+    networks:
+      mewbie_network:
+        aliases:
+        - n1472
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-4_n5122:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5122
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5122
+    networks:
+      mewbie_network:
+        aliases:
+        - n5122
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-5_n2518:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2518
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2518
+    networks:
+      mewbie_network:
+        aliases:
+        - n2518
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-6_n4641:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4641
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4641
+    networks:
+      mewbie_network:
+        aliases:
+        - n4641
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-7_n7976:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7976
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7976
+    networks:
+      mewbie_network:
+        aliases:
+        - n7976
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-8_n385:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n385
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n385
+    networks:
+      mewbie_network:
+        aliases:
+        - n385
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-9_n1039:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1039
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1039
+    networks:
+      mewbie_network:
+        aliases:
+        - n1039
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-10_n2041:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2041
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2041
+    networks:
+      mewbie_network:
+        aliases:
+        - n2041
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-11_n4760:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4760
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4760
+    networks:
+      mewbie_network:
+        aliases:
+        - n4760
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-12_n1098:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1098
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1098
+    networks:
+      mewbie_network:
+        aliases:
+        - n1098
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-13_n1094:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1094
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1094
+    networks:
+      mewbie_network:
+        aliases:
+        - n1094
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-14_n6759:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6759
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6759
+    networks:
+      mewbie_network:
+        aliases:
+        - n6759
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-15_n5977:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5977
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5977
+    networks:
+      mewbie_network:
+        aliases:
+        - n5977
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-16_n676:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n676
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n676
+    networks:
+      mewbie_network:
+        aliases:
+        - n676
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-17_n16:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n16
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n16
+    networks:
+      mewbie_network:
+        aliases:
+        - n16
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-18_n1919:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1919
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1919
+    networks:
+      mewbie_network:
+        aliases:
+        - n1919
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-19_n3007:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3007
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3007
+    networks:
+      mewbie_network:
+        aliases:
+        - n3007
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-20_n5665:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5665
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5665
+    networks:
+      mewbie_network:
+        aliases:
+        - n5665
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-21_n5205:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5205
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5205
+    networks:
+      mewbie_network:
+        aliases:
+        - n5205
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-22_n4996:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4996
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4996
+    networks:
+      mewbie_network:
+        aliases:
+        - n4996
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-23_n3062:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3062
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3062
+    networks:
+      mewbie_network:
+        aliases:
+        - n3062
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-24_n4100:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4100
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4100
+    networks:
+      mewbie_network:
+        aliases:
+        - n4100
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-25_n699:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n699
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n699
+    networks:
+      mewbie_network:
+        aliases:
+        - n699
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-26_n1394:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1394
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1394
+    networks:
+      mewbie_network:
+        aliases:
+        - n1394
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-27_n2636:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2636
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2636
+    networks:
+      mewbie_network:
+        aliases:
+        - n2636
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-28_n1214:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1214
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1214
+    networks:
+      mewbie_network:
+        aliases:
+        - n1214
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-29_n6659:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6659
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6659
+    networks:
+      mewbie_network:
+        aliases:
+        - n6659
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-30_n5620:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5620
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5620
+    networks:
+      mewbie_network:
+        aliases:
+        - n5620
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-31_n2178:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2178
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2178
+    networks:
+      mewbie_network:
+        aliases:
+        - n2178
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-32_n5403:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5403
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5403
+    networks:
+      mewbie_network:
+        aliases:
+        - n5403
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-33_n3976:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3976
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3976
+    networks:
+      mewbie_network:
+        aliases:
+        - n3976
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-34_n6505:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6505
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6505
+    networks:
+      mewbie_network:
+        aliases:
+        - n6505
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-35_n1720:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1720
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1720
+    networks:
+      mewbie_network:
+        aliases:
+        - n1720
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-36_n8009:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n8009
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n8009
+    networks:
+      mewbie_network:
+        aliases:
+        - n8009
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-37_n1345:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1345
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1345
+    networks:
+      mewbie_network:
+        aliases:
+        - n1345
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-38_n7180:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7180
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7180
+    networks:
+      mewbie_network:
+        aliases:
+        - n7180
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-39_n5056:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5056
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5056
+    networks:
+      mewbie_network:
+        aliases:
+        - n5056
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-40_n5372:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5372
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5372
+    networks:
+      mewbie_network:
+        aliases:
+        - n5372
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-41_n6662:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6662
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6662
+    networks:
+      mewbie_network:
+        aliases:
+        - n6662
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-42_n1147:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1147
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1147
+    networks:
+      mewbie_network:
+        aliases:
+        - n1147
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-43_n371:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n371
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n371
+    networks:
+      mewbie_network:
+        aliases:
+        - n371
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-44_n7883:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7883
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7883
+    networks:
+      mewbie_network:
+        aliases:
+        - n7883
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-45_n2780:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2780
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2780
+    networks:
+      mewbie_network:
+        aliases:
+        - n2780
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-46_n7381:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7381
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7381
+    networks:
+      mewbie_network:
+        aliases:
+        - n7381
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-47_n7525:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7525
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7525
+    networks:
+      mewbie_network:
+        aliases:
+        - n7525
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-48_n1299:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1299
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1299
+    networks:
+      mewbie_network:
+        aliases:
+        - n1299
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-49_n643:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n643
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n643
+    networks:
+      mewbie_network:
+        aliases:
+        - n643
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-50_n7420:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7420
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7420
+    networks:
+      mewbie_network:
+        aliases:
+        - n7420
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-51_n5103:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5103
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5103
+    networks:
+      mewbie_network:
+        aliases:
+        - n5103
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-52_n5894:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5894
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5894
+    networks:
+      mewbie_network:
+        aliases:
+        - n5894
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-53_n4433:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4433
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4433
+    networks:
+      mewbie_network:
+        aliases:
+        - n4433
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-54_n4425:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4425
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4425
+    networks:
+      mewbie_network:
+        aliases:
+        - n4425
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-55_n6763:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6763
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6763
+    networks:
+      mewbie_network:
+        aliases:
+        - n6763
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-56_n4400:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4400
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4400
+    networks:
+      mewbie_network:
+        aliases:
+        - n4400
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-57_n1361:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1361
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1361
+    networks:
+      mewbie_network:
+        aliases:
+        - n1361
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-58_n7727:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7727
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7727
+    networks:
+      mewbie_network:
+        aliases:
+        - n7727
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-59_n7295:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7295
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7295
+    networks:
+      mewbie_network:
+        aliases:
+        - n7295
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-60_n52:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n52
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n52
+    networks:
+      mewbie_network:
+        aliases:
+        - n52
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-61_n3609:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3609
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3609
+    networks:
+      mewbie_network:
+        aliases:
+        - n3609
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-62_n3389:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3389
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3389
+    networks:
+      mewbie_network:
+        aliases:
+        - n3389
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-63_n6688:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6688
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6688
+    networks:
+      mewbie_network:
+        aliases:
+        - n6688
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-64_n3302:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3302
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3302
+    networks:
+      mewbie_network:
+        aliases:
+        - n3302
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-65_n7825:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7825
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7825
+    networks:
+      mewbie_network:
+        aliases:
+        - n7825
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-66_n2257:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2257
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2257
+    networks:
+      mewbie_network:
+        aliases:
+        - n2257
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-67_n4897:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4897
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4897
+    networks:
+      mewbie_network:
+        aliases:
+        - n4897
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-68_n2853:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2853
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2853
+    networks:
+      mewbie_network:
+        aliases:
+        - n2853
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-69_n3033:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3033
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3033
+    networks:
+      mewbie_network:
+        aliases:
+        - n3033
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-70_n6493:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6493
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6493
+    networks:
+      mewbie_network:
+        aliases:
+        - n6493
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-71_n6392:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6392
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6392
+    networks:
+      mewbie_network:
+        aliases:
+        - n6392
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-72_n6624:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6624
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6624
+    networks:
+      mewbie_network:
+        aliases:
+        - n6624
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-73_n13:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n13
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n13
+    networks:
+      mewbie_network:
+        aliases:
+        - n13
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-74_n5145:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5145
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5145
+    networks:
+      mewbie_network:
+        aliases:
+        - n5145
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-75_n7635:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7635
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7635
+    networks:
+      mewbie_network:
+        aliases:
+        - n7635
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-76_n3141:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3141
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3141
+    networks:
+      mewbie_network:
+        aliases:
+        - n3141
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-77_n7895:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7895
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7895
+    networks:
+      mewbie_network:
+        aliases:
+        - n7895
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-78_n7824:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7824
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7824
+    networks:
+      mewbie_network:
+        aliases:
+        - n7824
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-79_n5043:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5043
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5043
+    networks:
+      mewbie_network:
+        aliases:
+        - n5043
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-80_n7147:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7147
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7147
+    networks:
+      mewbie_network:
+        aliases:
+        - n7147
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-81_n4210:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4210
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4210
+    networks:
+      mewbie_network:
+        aliases:
+        - n4210
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-82_n6091:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6091
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6091
+    networks:
+      mewbie_network:
+        aliases:
+        - n6091
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-83_n3599:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3599
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3599
+    networks:
+      mewbie_network:
+        aliases:
+        - n3599
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-84_n3274:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3274
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3274
+    networks:
+      mewbie_network:
+        aliases:
+        - n3274
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-85_n2725:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2725
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2725
+    networks:
+      mewbie_network:
+        aliases:
+        - n2725
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-86_n5941:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5941
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5941
+    networks:
+      mewbie_network:
+        aliases:
+        - n5941
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-87_n2978:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2978
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2978
+    networks:
+      mewbie_network:
+        aliases:
+        - n2978
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-88_n2617:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2617
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2617
+    networks:
+      mewbie_network:
+        aliases:
+        - n2617
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-89_n127:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n127
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n127
+    networks:
+      mewbie_network:
+        aliases:
+        - n127
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-90_n1311:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1311
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1311
+    networks:
+      mewbie_network:
+        aliases:
+        - n1311
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-91_n2439:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2439
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2439
+    networks:
+      mewbie_network:
+        aliases:
+        - n2439
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-92_n1016:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1016
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1016
+    networks:
+      mewbie_network:
+        aliases:
+        - n1016
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-93_n2487:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2487
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2487
+    networks:
+      mewbie_network:
+        aliases:
+        - n2487
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-94_n2789:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2789
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2789
+    networks:
+      mewbie_network:
+        aliases:
+        - n2789
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-95_n4175:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4175
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4175
+    networks:
+      mewbie_network:
+        aliases:
+        - n4175
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-96_n3872:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3872
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3872
+    networks:
+      mewbie_network:
+        aliases:
+        - n3872
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-97_n1466:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1466
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1466
+    networks:
+      mewbie_network:
+        aliases:
+        - n1466
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-98_n4767:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4767
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4767
+    networks:
+      mewbie_network:
+        aliases:
+        - n4767
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-99_n7753:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7753
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7753
+    networks:
+      mewbie_network:
+        aliases:
+        - n7753
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-100_n2609:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2609
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2609
+    networks:
+      mewbie_network:
+        aliases:
+        - n2609
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-101_n1571:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1571
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1571
+    networks:
+      mewbie_network:
+        aliases:
+        - n1571
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-102_n6664:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6664
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6664
+    networks:
+      mewbie_network:
+        aliases:
+        - n6664
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-103_n951:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n951
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n951
+    networks:
+      mewbie_network:
+        aliases:
+        - n951
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-104_n4249:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4249
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4249
+    networks:
+      mewbie_network:
+        aliases:
+        - n4249
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-105_n4468:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4468
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4468
+    networks:
+      mewbie_network:
+        aliases:
+        - n4468
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-106_n2655:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2655
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2655
+    networks:
+      mewbie_network:
+        aliases:
+        - n2655
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-107_n3064:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3064
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3064
+    networks:
+      mewbie_network:
+        aliases:
+        - n3064
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-108_n4444:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4444
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4444
+    networks:
+      mewbie_network:
+        aliases:
+        - n4444
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-109_n5933:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5933
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5933
+    networks:
+      mewbie_network:
+        aliases:
+        - n5933
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-110_n7137:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7137
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7137
+    networks:
+      mewbie_network:
+        aliases:
+        - n7137
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-111_n4900:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4900
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4900
+    networks:
+      mewbie_network:
+        aliases:
+        - n4900
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-112_n1187:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1187
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1187
+    networks:
+      mewbie_network:
+        aliases:
+        - n1187
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-113_n6054:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6054
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6054
+    networks:
+      mewbie_network:
+        aliases:
+        - n6054
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-114_n6263:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6263
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6263
+    networks:
+      mewbie_network:
+        aliases:
+        - n6263
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-115_n3089:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3089
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3089
+    networks:
+      mewbie_network:
+        aliases:
+        - n3089
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-116_n7477:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7477
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7477
+    networks:
+      mewbie_network:
+        aliases:
+        - n7477
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-117_n6077:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6077
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6077
+    networks:
+      mewbie_network:
+        aliases:
+        - n6077
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-118_n7916:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7916
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7916
+    networks:
+      mewbie_network:
+        aliases:
+        - n7916
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-119_n1716:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1716
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1716
+    networks:
+      mewbie_network:
+        aliases:
+        - n1716
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-120_n2081:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2081
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2081
+    networks:
+      mewbie_network:
+        aliases:
+        - n2081
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-121_n2266:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2266
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2266
+    networks:
+      mewbie_network:
+        aliases:
+        - n2266
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-122_n3504:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3504
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3504
+    networks:
+      mewbie_network:
+        aliases:
+        - n3504
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-123_n4332:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4332
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4332
+    networks:
+      mewbie_network:
+        aliases:
+        - n4332
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-124_n6292:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6292
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6292
+    networks:
+      mewbie_network:
+        aliases:
+        - n6292
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-125_n2381:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2381
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2381
+    networks:
+      mewbie_network:
+        aliases:
+        - n2381
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-126_n2635:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2635
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2635
+    networks:
+      mewbie_network:
+        aliases:
+        - n2635
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-127_n816:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n816
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n816
+    networks:
+      mewbie_network:
+        aliases:
+        - n816
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-128_n1570:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1570
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1570
+    networks:
+      mewbie_network:
+        aliases:
+        - n1570
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-129_n7197:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7197
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7197
+    networks:
+      mewbie_network:
+        aliases:
+        - n7197
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-130_n2533:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2533
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2533
+    networks:
+      mewbie_network:
+        aliases:
+        - n2533
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-131_n4052:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4052
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4052
+    networks:
+      mewbie_network:
+        aliases:
+        - n4052
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-132_n6278:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6278
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6278
+    networks:
+      mewbie_network:
+        aliases:
+        - n6278
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-133_n6693:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6693
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6693
+    networks:
+      mewbie_network:
+        aliases:
+        - n6693
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-134_n5830:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5830
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5830
+    networks:
+      mewbie_network:
+        aliases:
+        - n5830
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-135_n3441:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3441
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3441
+    networks:
+      mewbie_network:
+        aliases:
+        - n3441
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-136_n1767:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1767
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1767
+    networks:
+      mewbie_network:
+        aliases:
+        - n1767
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-137_n1627:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1627
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1627
+    networks:
+      mewbie_network:
+        aliases:
+        - n1627
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-138_n298:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n298
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n298
+    networks:
+      mewbie_network:
+        aliases:
+        - n298
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-139_n2212:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2212
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2212
+    networks:
+      mewbie_network:
+        aliases:
+        - n2212
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-140_n1249:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1249
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1249
+    networks:
+      mewbie_network:
+        aliases:
+        - n1249
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-141_n6890:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6890
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6890
+    networks:
+      mewbie_network:
+        aliases:
+        - n6890
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-142_n4478:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4478
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4478
+    networks:
+      mewbie_network:
+        aliases:
+        - n4478
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-143_n1913:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1913
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1913
+    networks:
+      mewbie_network:
+        aliases:
+        - n1913
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-144_n2364:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2364
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2364
+    networks:
+      mewbie_network:
+        aliases:
+        - n2364
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-145_n4510:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4510
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4510
+    networks:
+      mewbie_network:
+        aliases:
+        - n4510
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-146_n6970:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6970
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6970
+    networks:
+      mewbie_network:
+        aliases:
+        - n6970
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-147_n6347:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6347
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6347
+    networks:
+      mewbie_network:
+        aliases:
+        - n6347
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-148_n6279:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6279
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6279
+    networks:
+      mewbie_network:
+        aliases:
+        - n6279
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-149_n6769:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6769
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6769
+    networks:
+      mewbie_network:
+        aliases:
+        - n6769
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-150_n3943:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3943
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3943
+    networks:
+      mewbie_network:
+        aliases:
+        - n3943
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-151_n4651:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4651
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4651
+    networks:
+      mewbie_network:
+        aliases:
+        - n4651
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-152_n7054:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7054
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7054
+    networks:
+      mewbie_network:
+        aliases:
+        - n7054
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-153_n3573:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3573
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3573
+    networks:
+      mewbie_network:
+        aliases:
+        - n3573
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-154_n3480:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3480
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3480
+    networks:
+      mewbie_network:
+        aliases:
+        - n3480
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-155_n5038:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5038
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5038
+    networks:
+      mewbie_network:
+        aliases:
+        - n5038
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-156_n208:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n208
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n208
+    networks:
+      mewbie_network:
+        aliases:
+        - n208
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-157_n6343:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6343
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6343
+    networks:
+      mewbie_network:
+        aliases:
+        - n6343
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-158_n6924:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6924
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6924
+    networks:
+      mewbie_network:
+        aliases:
+        - n6924
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-159_n2369:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2369
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2369
+    networks:
+      mewbie_network:
+        aliases:
+        - n2369
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-160_n3100:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3100
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3100
+    networks:
+      mewbie_network:
+        aliases:
+        - n3100
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-161_n3124:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3124
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3124
+    networks:
+      mewbie_network:
+        aliases:
+        - n3124
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-162_n2163:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2163
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2163
+    networks:
+      mewbie_network:
+        aliases:
+        - n2163
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-163_n4820:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4820
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4820
+    networks:
+      mewbie_network:
+        aliases:
+        - n4820
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-164_n7929:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7929
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7929
+    networks:
+      mewbie_network:
+        aliases:
+        - n7929
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-165_n5469:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5469
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5469
+    networks:
+      mewbie_network:
+        aliases:
+        - n5469
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-166_n1961:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1961
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1961
+    networks:
+      mewbie_network:
+        aliases:
+        - n1961
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-167_n5435:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5435
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5435
+    networks:
+      mewbie_network:
+        aliases:
+        - n5435
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-168_n644:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n644
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n644
+    networks:
+      mewbie_network:
+        aliases:
+        - n644
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-169_n4709:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4709
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4709
+    networks:
+      mewbie_network:
+        aliases:
+        - n4709
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-170_n1837:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1837
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1837
+    networks:
+      mewbie_network:
+        aliases:
+        - n1837
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-171_n1901:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1901
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1901
+    networks:
+      mewbie_network:
+        aliases:
+        - n1901
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-172_n3978:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3978
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3978
+    networks:
+      mewbie_network:
+        aliases:
+        - n3978
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-173_n3230:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3230
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3230
+    networks:
+      mewbie_network:
+        aliases:
+        - n3230
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-174_n3101:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3101
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3101
+    networks:
+      mewbie_network:
+        aliases:
+        - n3101
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-175_n2050:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2050
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2050
+    networks:
+      mewbie_network:
+        aliases:
+        - n2050
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-176_n964:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n964
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n964
+    networks:
+      mewbie_network:
+        aliases:
+        - n964
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-177_n4406:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4406
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4406
+    networks:
+      mewbie_network:
+        aliases:
+        - n4406
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-178_n2532:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2532
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2532
+    networks:
+      mewbie_network:
+        aliases:
+        - n2532
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-179_n7408:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7408
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7408
+    networks:
+      mewbie_network:
+        aliases:
+        - n7408
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-180_n7457:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7457
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7457
+    networks:
+      mewbie_network:
+        aliases:
+        - n7457
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-181_n841:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n841
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n841
+    networks:
+      mewbie_network:
+        aliases:
+        - n841
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-182_n2937:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2937
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2937
+    networks:
+      mewbie_network:
+        aliases:
+        - n2937
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-183_n6810:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6810
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6810
+    networks:
+      mewbie_network:
+        aliases:
+        - n6810
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-184_n6827:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6827
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6827
+    networks:
+      mewbie_network:
+        aliases:
+        - n6827
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-185_n3264:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3264
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3264
+    networks:
+      mewbie_network:
+        aliases:
+        - n3264
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-186_n2269:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2269
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2269
+    networks:
+      mewbie_network:
+        aliases:
+        - n2269
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-187_n905:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n905
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n905
+    networks:
+      mewbie_network:
+        aliases:
+        - n905
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-188_n5105:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5105
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5105
+    networks:
+      mewbie_network:
+        aliases:
+        - n5105
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-189_n6149:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6149
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6149
+    networks:
+      mewbie_network:
+        aliases:
+        - n6149
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-190_n5346:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5346
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5346
+    networks:
+      mewbie_network:
+        aliases:
+        - n5346
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-191_n6909:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6909
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6909
+    networks:
+      mewbie_network:
+        aliases:
+        - n6909
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-192_n3507:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3507
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3507
+    networks:
+      mewbie_network:
+        aliases:
+        - n3507
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-193_n4845:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4845
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4845
+    networks:
+      mewbie_network:
+        aliases:
+        - n4845
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-194_n2956:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2956
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2956
+    networks:
+      mewbie_network:
+        aliases:
+        - n2956
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-195_n84:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n84
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n84
+    networks:
+      mewbie_network:
+        aliases:
+        - n84
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-196_n805:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n805
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n805
+    networks:
+      mewbie_network:
+        aliases:
+        - n805
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-197_n1967:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1967
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1967
+    networks:
+      mewbie_network:
+        aliases:
+        - n1967
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-198_n4275:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4275
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4275
+    networks:
+      mewbie_network:
+        aliases:
+        - n4275
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-199_n6573:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6573
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6573
+    networks:
+      mewbie_network:
+        aliases:
+        - n6573
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-200_n1301:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1301
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1301
+    networks:
+      mewbie_network:
+        aliases:
+        - n1301
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-201_n7611:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7611
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7611
+    networks:
+      mewbie_network:
+        aliases:
+        - n7611
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-202_n1865:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1865
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1865
+    networks:
+      mewbie_network:
+        aliases:
+        - n1865
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-203_n4240:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4240
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4240
+    networks:
+      mewbie_network:
+        aliases:
+        - n4240
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-204_n5076:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5076
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5076
+    networks:
+      mewbie_network:
+        aliases:
+        - n5076
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-205_n4778:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4778
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4778
+    networks:
+      mewbie_network:
+        aliases:
+        - n4778
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-206_n5991:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5991
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5991
+    networks:
+      mewbie_network:
+        aliases:
+        - n5991
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-207_n3241:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3241
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3241
+    networks:
+      mewbie_network:
+        aliases:
+        - n3241
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-208_n1835:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1835
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1835
+    networks:
+      mewbie_network:
+        aliases:
+        - n1835
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-209_n2464:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2464
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2464
+    networks:
+      mewbie_network:
+        aliases:
+        - n2464
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-210_n236:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n236
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n236
+    networks:
+      mewbie_network:
+        aliases:
+        - n236
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-211_n2506:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2506
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2506
+    networks:
+      mewbie_network:
+        aliases:
+        - n2506
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-212_n3040:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3040
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3040
+    networks:
+      mewbie_network:
+        aliases:
+        - n3040
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-213_n5466:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5466
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5466
+    networks:
+      mewbie_network:
+        aliases:
+        - n5466
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-214_n3819:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3819
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3819
+    networks:
+      mewbie_network:
+        aliases:
+        - n3819
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-215_n32:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n32
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n32
+    networks:
+      mewbie_network:
+        aliases:
+        - n32
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-216_n2157:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2157
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2157
+    networks:
+      mewbie_network:
+        aliases:
+        - n2157
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-217_n1365:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1365
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1365
+    networks:
+      mewbie_network:
+        aliases:
+        - n1365
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-218_n3488:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3488
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3488
+    networks:
+      mewbie_network:
+        aliases:
+        - n3488
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-219_n492:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n492
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n492
+    networks:
+      mewbie_network:
+        aliases:
+        - n492
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-220_n5794:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5794
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5794
+    networks:
+      mewbie_network:
+        aliases:
+        - n5794
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-221_n5339:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5339
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5339
+    networks:
+      mewbie_network:
+        aliases:
+        - n5339
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-222_n3611:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3611
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3611
+    networks:
+      mewbie_network:
+        aliases:
+        - n3611
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-223_n739:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n739
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n739
+    networks:
+      mewbie_network:
+        aliases:
+        - n739
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-224_n5027:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5027
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5027
+    networks:
+      mewbie_network:
+        aliases:
+        - n5027
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-225_n556:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n556
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n556
+    networks:
+      mewbie_network:
+        aliases:
+        - n556
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-226_n2671:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2671
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2671
+    networks:
+      mewbie_network:
+        aliases:
+        - n2671
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-227_n6499:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6499
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6499
+    networks:
+      mewbie_network:
+        aliases:
+        - n6499
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-228_n7358:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7358
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7358
+    networks:
+      mewbie_network:
+        aliases:
+        - n7358
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-229_n1450:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1450
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1450
+    networks:
+      mewbie_network:
+        aliases:
+        - n1450
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-230_n223:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n223
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n223
+    networks:
+      mewbie_network:
+        aliases:
+        - n223
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-231_n7907:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7907
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7907
+    networks:
+      mewbie_network:
+        aliases:
+        - n7907
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-232_n7559:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7559
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7559
+    networks:
+      mewbie_network:
+        aliases:
+        - n7559
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-233_n796:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n796
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n796
+    networks:
+      mewbie_network:
+        aliases:
+        - n796
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-234_n7674:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7674
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7674
+    networks:
+      mewbie_network:
+        aliases:
+        - n7674
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-235_n7946:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7946
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7946
+    networks:
+      mewbie_network:
+        aliases:
+        - n7946
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-236_n3986:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3986
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3986
+    networks:
+      mewbie_network:
+        aliases:
+        - n3986
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-237_n1279:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1279
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1279
+    networks:
+      mewbie_network:
+        aliases:
+        - n1279
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-238_n5886:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5886
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5886
+    networks:
+      mewbie_network:
+        aliases:
+        - n5886
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-239_n3856:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3856
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3856
+    networks:
+      mewbie_network:
+        aliases:
+        - n3856
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-240_n3434:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3434
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3434
+    networks:
+      mewbie_network:
+        aliases:
+        - n3434
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-241_n1672:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1672
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1672
+    networks:
+      mewbie_network:
+        aliases:
+        - n1672
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-242_n6768:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6768
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6768
+    networks:
+      mewbie_network:
+        aliases:
+        - n6768
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-243_n3158:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3158
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3158
+    networks:
+      mewbie_network:
+        aliases:
+        - n3158
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-244_n234:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n234
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n234
+    networks:
+      mewbie_network:
+        aliases:
+        - n234
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-245_n2267:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2267
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2267
+    networks:
+      mewbie_network:
+        aliases:
+        - n2267
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-246_n386:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n386
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n386
+    networks:
+      mewbie_network:
+        aliases:
+        - n386
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-247_n6936:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6936
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6936
+    networks:
+      mewbie_network:
+        aliases:
+        - n6936
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-248_n1806:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1806
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1806
+    networks:
+      mewbie_network:
+        aliases:
+        - n1806
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-249_n2902:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2902
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2902
+    networks:
+      mewbie_network:
+        aliases:
+        - n2902
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-250_n1523:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1523
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1523
+    networks:
+      mewbie_network:
+        aliases:
+        - n1523
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-251_n6058:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6058
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6058
+    networks:
+      mewbie_network:
+        aliases:
+        - n6058
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-252_n6399:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6399
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6399
+    networks:
+      mewbie_network:
+        aliases:
+        - n6399
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-253_n7670:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7670
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7670
+    networks:
+      mewbie_network:
+        aliases:
+        - n7670
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-254_n3190:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3190
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3190
+    networks:
+      mewbie_network:
+        aliases:
+        - n3190
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-255_n289:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n289
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n289
+    networks:
+      mewbie_network:
+        aliases:
+        - n289
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-256_n5329:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5329
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5329
+    networks:
+      mewbie_network:
+        aliases:
+        - n5329
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-257_n7567:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7567
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7567
+    networks:
+      mewbie_network:
+        aliases:
+        - n7567
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-258_n1465:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1465
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1465
+    networks:
+      mewbie_network:
+        aliases:
+        - n1465
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-259_n281:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n281
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n281
+    networks:
+      mewbie_network:
+        aliases:
+        - n281
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-260_n617:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n617
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n617
+    networks:
+      mewbie_network:
+        aliases:
+        - n617
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-261_n3897:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3897
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3897
+    networks:
+      mewbie_network:
+        aliases:
+        - n3897
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-262_n2949:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2949
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2949
+    networks:
+      mewbie_network:
+        aliases:
+        - n2949
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-263_n1957:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1957
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1957
+    networks:
+      mewbie_network:
+        aliases:
+        - n1957
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-264_n4779:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4779
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4779
+    networks:
+      mewbie_network:
+        aliases:
+        - n4779
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-265_n3052:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3052
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3052
+    networks:
+      mewbie_network:
+        aliases:
+        - n3052
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-266_n4347:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4347
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4347
+    networks:
+      mewbie_network:
+        aliases:
+        - n4347
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-267_n4771:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4771
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4771
+    networks:
+      mewbie_network:
+        aliases:
+        - n4771
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-268_n6491:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6491
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6491
+    networks:
+      mewbie_network:
+        aliases:
+        - n6491
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-269_n3088:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3088
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3088
+    networks:
+      mewbie_network:
+        aliases:
+        - n3088
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-270_n2187:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2187
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2187
+    networks:
+      mewbie_network:
+        aliases:
+        - n2187
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-271_n627:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n627
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n627
+    networks:
+      mewbie_network:
+        aliases:
+        - n627
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-272_n215:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n215
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n215
+    networks:
+      mewbie_network:
+        aliases:
+        - n215
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-273_n326:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n326
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n326
+    networks:
+      mewbie_network:
+        aliases:
+        - n326
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-274_n192:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n192
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n192
+    networks:
+      mewbie_network:
+        aliases:
+        - n192
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-275_n178:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n178
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n178
+    networks:
+      mewbie_network:
+        aliases:
+        - n178
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-276_n976:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n976
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n976
+    networks:
+      mewbie_network:
+        aliases:
+        - n976
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-277_n31:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n31
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n31
+    networks:
+      mewbie_network:
+        aliases:
+        - n31
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-278_n7823:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7823
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7823
+    networks:
+      mewbie_network:
+        aliases:
+        - n7823
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-279_n7789:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7789
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7789
+    networks:
+      mewbie_network:
+        aliases:
+        - n7789
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-280_n1988:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1988
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1988
+    networks:
+      mewbie_network:
+        aliases:
+        - n1988
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-281_n5531:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5531
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5531
+    networks:
+      mewbie_network:
+        aliases:
+        - n5531
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-282_n2515:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2515
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2515
+    networks:
+      mewbie_network:
+        aliases:
+        - n2515
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-283_n1519:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1519
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1519
+    networks:
+      mewbie_network:
+        aliases:
+        - n1519
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-284_n6943:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6943
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6943
+    networks:
+      mewbie_network:
+        aliases:
+        - n6943
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-285_n817:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n817
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n817
+    networks:
+      mewbie_network:
+        aliases:
+        - n817
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-286_n3857:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n3857
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n3857
+    networks:
+      mewbie_network:
+        aliases:
+        - n3857
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-287_n7597:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7597
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7597
+    networks:
+      mewbie_network:
+        aliases:
+        - n7597
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-288_n7730:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7730
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7730
+    networks:
+      mewbie_network:
+        aliases:
+        - n7730
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-289_n288:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n288
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n288
+    networks:
+      mewbie_network:
+        aliases:
+        - n288
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-290_n2378:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2378
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2378
+    networks:
+      mewbie_network:
+        aliases:
+        - n2378
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-291_n7113:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7113
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7113
+    networks:
+      mewbie_network:
+        aliases:
+        - n7113
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-292_n7185:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7185
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7185
+    networks:
+      mewbie_network:
+        aliases:
+        - n7185
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-293_n5443:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5443
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5443
+    networks:
+      mewbie_network:
+        aliases:
+        - n5443
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-294_n6634:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6634
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6634
+    networks:
+      mewbie_network:
+        aliases:
+        - n6634
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-295_n516:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n516
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n516
+    networks:
+      mewbie_network:
+        aliases:
+        - n516
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-296_n2679:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2679
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2679
+    networks:
+      mewbie_network:
+        aliases:
+        - n2679
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-297_n5000:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n5000
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n5000
+    networks:
+      mewbie_network:
+        aliases:
+        - n5000
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-298_n2226:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2226
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2226
+    networks:
+      mewbie_network:
+        aliases:
+        - n2226
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-299_n301:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n301
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n301
+    networks:
+      mewbie_network:
+        aliases:
+        - n301
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-300_n4373:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4373
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4373
+    networks:
+      mewbie_network:
+        aliases:
+        - n4373
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-301_n513:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n513
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n513
+    networks:
+      mewbie_network:
+        aliases:
+        - n513
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-302_n7207:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n7207
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n7207
+    networks:
+      mewbie_network:
+        aliases:
+        - n7207
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-303_n4821:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n4821
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n4821
+    networks:
+      mewbie_network:
+        aliases:
+        - n4821
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-304_n2003:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2003
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2003
+    networks:
+      mewbie_network:
+        aliases:
+        - n2003
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-305_n6915:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6915
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6915
+    networks:
+      mewbie_network:
+        aliases:
+        - n6915
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-306_n6959:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n6959
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n6959
+    networks:
+      mewbie_network:
+        aliases:
+        - n6959
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-307_n117:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n117
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n117
+    networks:
+      mewbie_network:
+        aliases:
+        - n117
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-308_n591:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n591
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n591
+    networks:
+      mewbie_network:
+        aliases:
+        - n591
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-309_n2821:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n2821
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n2821
+    networks:
+      mewbie_network:
+        aliases:
+        - n2821
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 5G
+  Python-310_n1410:
+    image: mewbieregistry.com:5000/slp_img:latest
+    container_name: n1410
+    volumes:
+    - ritul_logs:/app/logs/
+    environment:
+    - CONTAINER_NAME=n1410
+    networks:
+      mewbie_network:
+        aliases:
+        - n1410
     deploy:
       resources:
         limits:

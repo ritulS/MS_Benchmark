@@ -174,7 +174,7 @@ func processTracePacket(tracePacketData map[string]interface{}) {
 			opType := opPkt["op_type"].(string)
 			opObjID := opPkt["op_obj_id"].(string)
 			dbName := opPkt["db"].(string)
-			kv := map[string]string{opObjID: generateRandomString(100)}
+			kv := map[string]string{opObjID: generateRandomString(500)}
 
 			if asyncFlag == 1 { // Async SF call
 				go func() {

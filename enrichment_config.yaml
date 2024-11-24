@@ -3,20 +3,23 @@
 # Make sure these add up to 100
 Databases: 
   MongoDB: 
-    percentage: 20 
+    percentage: 10 
   Redis: 
-    percentage: 20
+    percentage: 10
   Postgres: 
-    percentage: 60
+    percentage: 80
 
 WorkloadConfig:
   record_count: 1000          # eg: 1000 
   record_size_dist: 'uniform'      # eg: uniform, lognormal
   data_access_pattern: 'zipfian'    # eg: uniform, zipfian
-  rw_ratio: 1               # eg: 0.5
-  async_sync_ratio: 0.1
+  rw_ratio: 1              # eg: 0.5
+  async_sync_ratio: 1
 
-ExpWorkloadName: test_run
+ExpWorkloadName: dmix1_pg_heavy # for dmix exps keep both same
+
 ## Datastore mixtures: dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy
 ## Consistency exp: consistency_exp
 ## Testing: test_run
+# All dbmix and consistency experiements are run with async_sync_ratio = 0.1
+# Async/Sync experiments are run with dmix1_pg_heavy workload.
