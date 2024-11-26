@@ -19,12 +19,12 @@ services:
     image: mewbieregistry.com:5000/mewbie_img:latest
     container_name: mewbie_client
     volumes:
-    - ./enrichment_runs/dmix1_pg_heavy/all_trace_packets.json:/app/all_trace_packets.json
+    - ./enrichment_runs/as_dmix1_1.5/all_trace_packets.json:/app/all_trace_packets.json
     - ./deployment_files/mewbie_client/mewbie_client.go:/app/mewbie_client.go
     - ritul_logs:/app/logs/
     environment:
     - CONTAINER_NAME=mewbie_client
-    - WORKLOAD_NAME=dmix1_pg_heavy
+    - WORKLOAD_NAME=as_dmix1_1.5
     - SL_NODES=n52,n7049,n5507,n7709,n2127,n2915,n6572,n3882,n2405,n1410,n7732,n6292,n4651,n3943,n3054,n5991,n4037,n7529,n3843,n25,n298,n3496,n7028,n7699,n2054,n1010,n4895,n2687,n2841,n1702,n4818,n1063,n817,n7264,n7957,n1016,n3611,n699,n355,n1194,n5043,n326,n4760,n6091,n2609,n5122,n870,n6343,n676,n3441,n1519,n2978,n5000,n1988,n6470,n7907,n4468,n7286,n6936,n5466,n3033,n4210,n530,n1720,n7567,n5403,n8006,n4897,n6256,n6768,n3609,n1767,n5124,n84,n5038,n739,n2157,n6909,n2800,n2025,n4365,n8009,n2679,n2725,n4996,n617,n6077,n385,n3507,n6943,n4373,n7207,n1865,n7054,n1147,n1249,n32,n847,n4510,n4378,n7358,n289,n976,n7137,n3190,n6279,n7592,n6763,n492,n7420,n7753,n8,n7904,n1365,n1242,n3573,n1570,n1450,n2382,n6761,n4767,n5531,n1485,n3978,n3504,n2695,n591,n1716,n1094,n6634,n3434,n6794,n6554,n6915,n1749,n1961,n3040,n178,n4275,n7113,n2227,n4936,n301,n1394,n4400,n377,n234,n988,n5076,n4641,n7823,n964,n3442,n3976,n5661,n6890,n2518,n3894,n208,n7730,n1919,n6693,n905,n1187,n2006,n29,n2853,n841,n2839,n3428,n4997,n4406,n643,n3141,n2154,n2416,n4444,n125,n5577,n6781,n2364,n2949,n1214,n6491,n6733,n1627,n3340,n7601,n55,n3488,n7824,n6578,n4249,n3814,n2226,n5372,n6263,n5411,n7147,n5339,n516,n7036,n4934,n6499,n7789,n4707,n1069,n7822,n3089,n7921,n607,n1345,n7295,n5056,n5933,n288,n5886,n6759,n4821,n1913,n3389,n6058,n2566,n1361,n1624,n4100,n2902,n33,n6573,n7929,n3264,n3125,n13,n6456,n6260,n7614,n2635,n7477,n192,n6959,n5830,n6801,n5223,n3088,n2956,n223,n627,n1279,n2439,n1465,n4779,n1301,n624,n3599,n4282,n6493,n644,n922,n7727,n3062,n2506,n7559,n5288,n6475,n216,n5329,n7905,n5435,n6664,n4433,n7451,n1806,n2041,n3053,n6810,n4845,n2081,n5904,n1311,n816,n4175,n6621,n3715,n2780,n1523,n2212,n3836,n4393,n5565,n4900,n2821,n2617,n1791,n1122,n7006,n6970,n6624,n2269,n5024,n4478,n7197,n7674,n371,n1672,n2381,n4820,n2003,n556,n2369,n2487,n7916,n7670,n4655,n7185,n6399,n31,n5894,n796,n6278,n1957,n3052,n236,n4672,n2178,n4771,n7457,n3480,n16,n5443,n6827,n3897,n3007,n117,n3100,n6662,n4240,n6392,n1901,n4778,n1347,n3986,n2266,n5346,n4052,n6769,n6149,n5105,n805,n4332,n4347,n3064,n1472,n7635,n2996,n4226,n5620,n3274,n3856,n3158,n7074,n2954,n7361,n6684,n2636,n5146,n6438,n1967,n5913,n2464,n2257,n7597,n7381,n1098,n5469,n1408,n6818,n662,n310,n3823,n1649,n7088,n5941,n2533,n6505,n7825,n2937,n2671,n7180,n2050,n4425,n951,n6941,n2162,n3510,n6717,n5358,n1835,n6054,n3101,n2532,n127,n513,n215,n5528,n7525,n281,n5665,n5103,n3819,n4709,n7611,n2187,n1571,n2515,n3872,n3241,n3230,n2267,n350,n3302,n3124,n5977,n5027,n7883,n6924,n1039,n386,n2163,n1299,n7408,n5205,n7946,n7976,n5794,n2655,n2789,n5145,n6688,n6659,n3857,n1837,n1466,n2378,n6347,n5503,n7895
     command: sh -c "tail -f /dev/null"
     networks:
@@ -2233,7 +2233,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-1_n5503:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2249,7 +2249,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-2_n2227:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2265,7 +2265,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-3_n1472:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2281,7 +2281,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-4_n5122:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2297,7 +2297,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-5_n2518:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2313,7 +2313,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-6_n4641:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2329,7 +2329,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-7_n7976:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2345,7 +2345,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-8_n385:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2361,7 +2361,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-9_n1039:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2377,7 +2377,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-10_n2041:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2393,7 +2393,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-11_n4760:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2409,7 +2409,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-12_n1098:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2425,7 +2425,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-13_n1094:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2441,7 +2441,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-14_n6759:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2457,7 +2457,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-15_n5977:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2473,7 +2473,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-16_n676:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2489,7 +2489,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-17_n16:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2505,7 +2505,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-18_n1919:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2521,7 +2521,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-19_n3007:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2537,7 +2537,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-20_n5665:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2553,7 +2553,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-21_n5205:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2569,7 +2569,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-22_n4996:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2585,7 +2585,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-23_n3062:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2601,7 +2601,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-24_n4100:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2617,7 +2617,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-25_n699:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2633,7 +2633,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-26_n1394:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2649,7 +2649,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-27_n2636:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2665,7 +2665,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-28_n1214:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2681,7 +2681,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-29_n6659:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2697,7 +2697,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-30_n5620:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2713,7 +2713,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-31_n2178:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2729,7 +2729,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-32_n5403:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2745,7 +2745,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-33_n3976:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2761,7 +2761,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-34_n6505:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2777,7 +2777,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-35_n1720:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2793,7 +2793,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-36_n8009:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2809,7 +2809,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-37_n1345:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2825,7 +2825,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-38_n7180:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2841,7 +2841,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-39_n5056:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2857,7 +2857,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-40_n5372:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2873,7 +2873,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-41_n6662:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2889,7 +2889,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-42_n1147:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2905,7 +2905,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-43_n371:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2921,7 +2921,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-44_n7883:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2937,7 +2937,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-45_n2780:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2953,7 +2953,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-46_n7381:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2969,7 +2969,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-47_n7525:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -2985,7 +2985,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-48_n1299:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3001,7 +3001,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-49_n643:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3017,7 +3017,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-50_n7420:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3033,7 +3033,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-51_n5103:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3049,7 +3049,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-52_n5894:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3065,7 +3065,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-53_n4433:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3081,7 +3081,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-54_n4425:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3097,7 +3097,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-55_n6763:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3113,7 +3113,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-56_n4400:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3129,7 +3129,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-57_n1361:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3145,7 +3145,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-58_n7727:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3161,7 +3161,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-59_n7295:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3177,7 +3177,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-60_n52:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3193,7 +3193,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-61_n3609:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3209,7 +3209,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-62_n3389:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3225,7 +3225,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-63_n6688:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3241,7 +3241,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-64_n3302:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3257,7 +3257,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-65_n7825:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3273,7 +3273,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-66_n2257:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3289,7 +3289,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-67_n4897:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3305,7 +3305,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-68_n2853:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3321,7 +3321,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-69_n3033:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3337,7 +3337,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-70_n6493:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3353,7 +3353,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-71_n6392:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3369,7 +3369,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-72_n6624:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3385,7 +3385,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-73_n13:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3401,7 +3401,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-74_n5145:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3417,7 +3417,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-75_n7635:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3433,7 +3433,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-76_n3141:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3449,7 +3449,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-77_n7895:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3465,7 +3465,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-78_n7824:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3481,7 +3481,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-79_n5043:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3497,7 +3497,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-80_n7147:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3513,7 +3513,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-81_n4210:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3529,7 +3529,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-82_n6091:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3545,7 +3545,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-83_n3599:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3561,7 +3561,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-84_n3274:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3577,7 +3577,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-85_n2725:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3593,7 +3593,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-86_n5941:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3609,7 +3609,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-87_n2978:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3625,7 +3625,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-88_n2617:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3641,7 +3641,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-89_n127:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3657,7 +3657,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-90_n1311:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3673,7 +3673,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-91_n2439:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3689,7 +3689,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-92_n1016:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3705,7 +3705,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-93_n2487:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3721,7 +3721,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-94_n2789:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3737,7 +3737,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-95_n4175:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3753,7 +3753,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-96_n3872:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3769,7 +3769,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-97_n1466:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3785,7 +3785,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-98_n4767:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3801,7 +3801,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-99_n7753:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3817,7 +3817,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-100_n2609:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3833,7 +3833,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-101_n1571:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3849,7 +3849,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-102_n6664:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3865,7 +3865,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-103_n951:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3881,7 +3881,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-104_n4249:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3897,7 +3897,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-105_n4468:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3913,7 +3913,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-106_n2655:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3929,7 +3929,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-107_n3064:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3945,7 +3945,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-108_n4444:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3961,7 +3961,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-109_n5933:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3977,7 +3977,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-110_n7137:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -3993,7 +3993,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-111_n4900:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4009,7 +4009,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-112_n1187:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4025,7 +4025,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-113_n6054:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4041,7 +4041,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-114_n6263:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4057,7 +4057,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-115_n3089:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4073,7 +4073,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-116_n7477:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4089,7 +4089,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-117_n6077:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4105,7 +4105,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-118_n7916:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4121,7 +4121,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-119_n1716:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4137,7 +4137,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-120_n2081:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4153,7 +4153,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-121_n2266:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4169,7 +4169,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-122_n3504:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4185,7 +4185,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-123_n4332:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4201,7 +4201,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-124_n6292:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4217,7 +4217,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-125_n2381:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4233,7 +4233,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-126_n2635:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4249,7 +4249,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-127_n816:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4265,7 +4265,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-128_n1570:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4281,7 +4281,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-129_n7197:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4297,7 +4297,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-130_n2533:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4313,7 +4313,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-131_n4052:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4329,7 +4329,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-132_n6278:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4345,7 +4345,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-133_n6693:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4361,7 +4361,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-134_n5830:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4377,7 +4377,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-135_n3441:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4393,7 +4393,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-136_n1767:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4409,7 +4409,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-137_n1627:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4425,7 +4425,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-138_n298:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4441,7 +4441,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-139_n2212:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4457,7 +4457,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-140_n1249:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4473,7 +4473,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-141_n6890:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4489,7 +4489,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-142_n4478:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4505,7 +4505,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-143_n1913:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4521,7 +4521,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-144_n2364:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4537,7 +4537,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-145_n4510:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4553,7 +4553,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-146_n6970:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4569,7 +4569,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-147_n6347:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4585,7 +4585,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-148_n6279:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4601,7 +4601,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-149_n6769:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4617,7 +4617,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-150_n3943:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4633,7 +4633,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-151_n4651:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4649,7 +4649,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-152_n7054:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4665,7 +4665,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-153_n3573:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4681,7 +4681,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-154_n3480:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4697,7 +4697,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-155_n5038:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4713,7 +4713,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-156_n208:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4729,7 +4729,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-157_n6343:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4745,7 +4745,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-158_n6924:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4761,7 +4761,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-159_n2369:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4777,7 +4777,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-160_n3100:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4793,7 +4793,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-161_n3124:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4809,7 +4809,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-162_n2163:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4825,7 +4825,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-163_n4820:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4841,7 +4841,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-164_n7929:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4857,7 +4857,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-165_n5469:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4873,7 +4873,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-166_n1961:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4889,7 +4889,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-167_n5435:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4905,7 +4905,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-168_n644:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4921,7 +4921,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-169_n4709:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4937,7 +4937,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-170_n1837:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4953,7 +4953,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-171_n1901:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4969,7 +4969,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-172_n3978:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -4985,7 +4985,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-173_n3230:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5001,7 +5001,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-174_n3101:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5017,7 +5017,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-175_n2050:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5033,7 +5033,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-176_n964:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5049,7 +5049,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-177_n4406:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5065,7 +5065,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-178_n2532:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5081,7 +5081,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-179_n7408:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5097,7 +5097,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-180_n7457:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5113,7 +5113,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-181_n841:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5129,7 +5129,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-182_n2937:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5145,7 +5145,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-183_n6810:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5161,7 +5161,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-184_n6827:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5177,7 +5177,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-185_n3264:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5193,7 +5193,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-186_n2269:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5209,7 +5209,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-187_n905:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5225,7 +5225,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-188_n5105:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5241,7 +5241,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-189_n6149:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5257,7 +5257,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-190_n5346:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5273,7 +5273,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-191_n6909:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5289,7 +5289,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-192_n3507:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5305,7 +5305,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-193_n4845:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5321,7 +5321,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-194_n2956:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5337,7 +5337,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-195_n84:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5353,7 +5353,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-196_n805:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5369,7 +5369,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-197_n1967:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5385,7 +5385,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-198_n4275:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5401,7 +5401,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-199_n6573:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5417,7 +5417,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-200_n1301:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5433,7 +5433,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-201_n7611:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5449,7 +5449,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-202_n1865:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5465,7 +5465,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-203_n4240:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5481,7 +5481,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-204_n5076:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5497,7 +5497,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-205_n4778:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5513,7 +5513,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-206_n5991:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5529,7 +5529,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-207_n3241:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5545,7 +5545,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-208_n1835:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5561,7 +5561,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-209_n2464:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5577,7 +5577,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-210_n236:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5593,7 +5593,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-211_n2506:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5609,7 +5609,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-212_n3040:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5625,7 +5625,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-213_n5466:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5641,7 +5641,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-214_n3819:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5657,7 +5657,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-215_n32:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5673,7 +5673,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-216_n2157:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5689,7 +5689,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-217_n1365:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5705,7 +5705,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-218_n3488:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5721,7 +5721,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-219_n492:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5737,7 +5737,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-220_n5794:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5753,7 +5753,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-221_n5339:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5769,7 +5769,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-222_n3611:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5785,7 +5785,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-223_n739:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5801,7 +5801,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-224_n5027:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5817,7 +5817,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-225_n556:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5833,7 +5833,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-226_n2671:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5849,7 +5849,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-227_n6499:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5865,7 +5865,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-228_n7358:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5881,7 +5881,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-229_n1450:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5897,7 +5897,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-230_n223:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5913,7 +5913,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-231_n7907:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5929,7 +5929,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-232_n7559:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5945,7 +5945,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-233_n796:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5961,7 +5961,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-234_n7674:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5977,7 +5977,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-235_n7946:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -5993,7 +5993,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-236_n3986:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6009,7 +6009,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-237_n1279:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6025,7 +6025,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-238_n5886:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6041,7 +6041,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-239_n3856:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6057,7 +6057,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-240_n3434:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6073,7 +6073,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-241_n1672:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6089,7 +6089,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-242_n6768:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6105,7 +6105,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-243_n3158:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6121,7 +6121,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-244_n234:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6137,7 +6137,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-245_n2267:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6153,7 +6153,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-246_n386:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6169,7 +6169,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-247_n6936:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6185,7 +6185,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-248_n1806:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6201,7 +6201,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-249_n2902:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6217,7 +6217,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-250_n1523:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6233,7 +6233,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-251_n6058:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6249,7 +6249,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-252_n6399:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6265,7 +6265,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-253_n7670:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6281,7 +6281,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-254_n3190:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6297,7 +6297,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-255_n289:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6313,7 +6313,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-256_n5329:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6329,7 +6329,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-257_n7567:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6345,7 +6345,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-258_n1465:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6361,7 +6361,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-259_n281:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6377,7 +6377,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-260_n617:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6393,7 +6393,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-261_n3897:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6409,7 +6409,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-262_n2949:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6425,7 +6425,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-263_n1957:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6441,7 +6441,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-264_n4779:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6457,7 +6457,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-265_n3052:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6473,7 +6473,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-266_n4347:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6489,7 +6489,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-267_n4771:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6505,7 +6505,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-268_n6491:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6521,7 +6521,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-269_n3088:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6537,7 +6537,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-270_n2187:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6553,7 +6553,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-271_n627:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6569,7 +6569,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-272_n215:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6585,7 +6585,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-273_n326:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6601,7 +6601,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-274_n192:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6617,7 +6617,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-275_n178:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6633,7 +6633,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-276_n976:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6649,7 +6649,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-277_n31:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6665,7 +6665,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-278_n7823:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6681,7 +6681,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-279_n7789:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6697,7 +6697,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-280_n1988:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6713,7 +6713,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-281_n5531:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6729,7 +6729,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-282_n2515:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6745,7 +6745,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-283_n1519:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6761,7 +6761,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-284_n6943:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6777,7 +6777,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-285_n817:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6793,7 +6793,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-286_n3857:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6809,7 +6809,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-287_n7597:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6825,7 +6825,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-288_n7730:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6841,7 +6841,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-289_n288:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6857,7 +6857,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-290_n2378:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6873,7 +6873,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-291_n7113:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6889,7 +6889,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-292_n7185:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6905,7 +6905,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-293_n5443:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6921,7 +6921,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-294_n6634:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6937,7 +6937,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-295_n516:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6953,7 +6953,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-296_n2679:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6969,7 +6969,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-297_n5000:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -6985,7 +6985,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-298_n2226:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7001,7 +7001,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-299_n301:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7017,7 +7017,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-300_n4373:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7033,7 +7033,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-301_n513:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7049,7 +7049,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-302_n7207:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7065,7 +7065,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-303_n4821:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7081,7 +7081,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-304_n2003:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7097,7 +7097,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-305_n6915:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7113,7 +7113,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-306_n6959:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7129,7 +7129,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-307_n117:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7145,7 +7145,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-308_n591:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7161,7 +7161,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-309_n2821:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7177,7 +7177,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
   Python-310_n1410:
     image: mewbieregistry.com:5000/slp_img:latest
@@ -7193,7 +7193,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '4'
           memory: 5G
 networks:
   mewbie_network:

@@ -22,10 +22,11 @@ conts_to_setup = {
 
 config = read_yaml('enrichment_config.yaml')
 workload_name = config['ExpWorkloadName']
+workload_name = "test_run"
 
 # node_split_output = {'sf_split': db_split_arr, 'sl_split': sl_type_split}
 node_split = load_dict_from_json(f"./enrichment_runs/{workload_name}/node_split_output.json")
-unique_nodes = load_dict_from_json(f"./node_and_trace_details/495_100k_unique_nodes.json")
+unique_nodes = load_dict_from_json(f"./node_and_trace_details/500_100k_unique_nodes.json")
 unique_nodes_str = ",".join(unique_nodes)
 # extract sl node info: count, sl nodeids
 total_sl_count = 0

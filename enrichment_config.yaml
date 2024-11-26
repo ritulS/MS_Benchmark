@@ -14,12 +14,12 @@ WorkloadConfig:
   record_size_dist: 'uniform'      # eg: uniform, lognormal
   data_access_pattern: 'zipfian'    # eg: uniform, zipfian
   rw_ratio: 1              # eg: 0.5
-  async_sync_ratio: 1
+  async_sync_ratio: 2
 
-ExpWorkloadName: dmix1_pg_heavy # for dmix exps keep both same
+ExpWorkloadName: as_dmix1_1.5 # for dmix exps keep both same
 
 ## Datastore mixtures: dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy
 ## Consistency exp: consistency_exp
 ## Testing: test_run
-# All dbmix and consistency experiements are run with async_sync_ratio = 0.1
-# Async/Sync experiments are run with dmix1_pg_heavy workload.
+# All dbmix and consistency experiements are run with async_sync_ratio = 1
+# Async/Sync experiments are run with pg:mg:re :: 40:40:20

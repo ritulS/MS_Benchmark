@@ -174,7 +174,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         # },
                         'resources': {
                             'limits': {
-                                'cpus': '2',  # CPU limit
+                                'cpus': '4',  # CPU limit
                                 'memory': '5G'  # Memory limit, adjust as needed
                             }
                         }
