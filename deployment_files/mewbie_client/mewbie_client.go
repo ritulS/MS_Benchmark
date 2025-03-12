@@ -17,12 +17,11 @@ import (
 )
 
 var (
-	rps               = 400                                              // packets per second                            // trace packets data loaded from JSON
+	rps               = 2885                                             // packets per second                            // trace packets data loaded from JSON
 	logger            *log.Logger                                        // logger for rotating log file
 	logFileName       = "./logs/client_log.csv"                          // log file path
 	maxLogFileSize    = int64(10 * 1024 * 1024)                          // 10 MB in bytes
 	numBackupFiles    = 5                                                // number of backup files
-	executor          = make(chan func(), 20)                            // channel for managing tasks
 	statusCheckRegexp = regexp.MustCompile(`Alive request count: (\d+)`) // regex to check status
 )
 
@@ -84,6 +83,17 @@ func loadTracePackets(fileName string) (map[string]map[string]interface{}, error
 	return packets, nil
 }
 
+var transport = &http.Transport{
+	MaxIdleConns:        5000,
+	MaxIdleConnsPerHost: 2000,
+	IdleConnTimeout:     90 * time.Second,
+	DisableKeepAlives:   false,
+}
+var client = &http.Client{
+	Transport: transport,
+	Timeout:   100 * time.Second,
+}
+
 // Send data to a container
 func sendDataToContainer(containerName, contType, tid string, data map[string]interface{}) {
 	logEntry(tid, "mewbie_client", fmt.Sprint(time.Now().UnixMicro()))
@@ -101,6 +111,7 @@ func sendDataToContainer(containerName, contType, tid string, data map[string]in
 
 	url := fmt.Sprintf("http://%s:%d/", containerName, port)
 
+	// log.Printf("Sending data to %s [%s] with TID: %s\n", containerName, contType, tid)
 	// Marshal the data to JSON
 	jsonData, err := json.Marshal(data)
 	if err != nil {
@@ -116,9 +127,9 @@ func sendDataToContainer(containerName, contType, tid string, data map[string]in
 	}
 	req.Header.Set("Content-Type", "application/json")
 
-	client := &http.Client{
-		Timeout: 10 * time.Second,
-	}
+	// client := &http.Client{
+	// 	Timeout: 10 * time.Second,
+	// }
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Printf("Error sending data to container: %v", err)
@@ -126,21 +137,24 @@ func sendDataToContainer(containerName, contType, tid string, data map[string]in
 	}
 	defer resp.Body.Close()
 
+	// if resp.StatusCode != http.StatusOK {
+	// 	log.Printf("Received non-OK response: %d", resp.StatusCode)
+	// }
+	// Read the response body for debugging
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Printf("Error reading response body: %v", err)
+		return
+	}
+
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("Received non-OK response: %d", resp.StatusCode)
+		log.Printf("Received non-OK response from %s [%s]: %d - %s", containerName, contType, resp.StatusCode, string(body))
 	}
 }
 
 // Run sendDataToContainer in the background
 func sendDataInBackground(containerName, contType, tid string, data map[string]interface{}) {
-	executor <- func() { sendDataToContainer(containerName, contType, tid, data) }
-}
-
-// Handles task execution in the background
-func taskExecutor() {
-	for task := range executor {
-		task()
-	}
+	go sendDataToContainer(containerName, contType, tid, data)
 }
 
 // Query nodes for their status
@@ -175,18 +189,9 @@ func main() {
 		log.Fatalf("Failed to load trace packets: %v", err)
 	}
 	tracePacketsDict := tracePackets
-	// Start task executor
-	var wge sync.WaitGroup
-	for i := 0; i < 20; i++ {
-		wge.Add(1)
-		go func() {
-			defer wge.Done()
-			taskExecutor()
-		}()
-	}
 
 	// Define the number of goroutines
-	numGoroutines := 4
+	numGoroutines := 14
 
 	// Split tracePacketsDict into chunks for each goroutine
 	chunks := make([]map[string]map[string]interface{}, 0, numGoroutines)
@@ -229,7 +234,6 @@ func main() {
 				if !nodeTypeOk || !typeOk {
 					continue
 				}
-
 				sendDataInBackground(initialNode, initialNodeType, tid, packet)
 				atomic.AddInt64(&totalPacketsSent, 1)
 			}
@@ -247,66 +251,5 @@ func main() {
 	fmt.Printf("Average requests per second: %.2f\n", avgReqPs)
 
 	// Close executor and wait for tasks to complete
-	close(executor)
+	// close(executor)
 }
-
-// func main() {
-// 	initLogger()
-// 	tracePackets, err := loadTracePackets("./all_trace_packets.json")
-// 	if err != nil {
-// 		log.Fatalf("Failed to load trace packets: %v", err)
-// 	}
-// 	tracePacketsDict := tracePackets
-
-// // Start task executor
-// var wg sync.WaitGroup
-// for i := 0; i < 30; i++ {
-// 	wg.Add(1)
-// 	go func() {
-// 		defer wg.Done()
-// 		taskExecutor()
-// 	}()
-// }
-
-// 	fmt.Printf("Running with rps: %d\n", rps)
-// 	fmt.Printf("Sending Packets......")
-// 	totalPacketsSent := 0
-// 	startTime := time.Now()
-// 	delay := time.Second / time.Duration(rps)
-// 	fmt.Printf("Delay for given rps: %d\n", delay)
-// 	for tid, tPacket := range tracePacketsDict {
-// 		initialNode, nodeTypeOk := tPacket["initial_node"].(string)
-// 		initialNodeType, typeOk := tPacket["initial_node_type"].(string)
-
-// 		if !nodeTypeOk || !typeOk {
-// 			// fmt.Printf("Skipping packet %s due to missing initial_node or initial_node_type\n", tid)
-// 			continue
-// 		}
-// 		start := time.Now()
-// 		// fmt.Println(tPacket)
-// 		go sendDataInBackground(initialNode, initialNodeType, tid, tPacket)
-// 		totalPacketsSent++
-// 		elapsed := time.Since(start)
-// 		if elapsed < delay {
-// 			time.Sleep(delay - elapsed)
-// 		}
-// 	}
-
-// 	endTime := time.Now()
-// 	totalExpRuntime := endTime.Sub(startTime).Seconds()
-// 	avgReqPs := float64(totalPacketsSent) / totalExpRuntime
-
-// 	fmt.Println("Finished sending all packets!")
-// 	fmt.Printf("Total packets sent: %d\n", totalPacketsSent)
-// 	fmt.Printf("Total exp runtime: %.2f seconds\n", totalExpRuntime)
-// 	fmt.Printf("Average requests per second: %.2f\n", avgReqPs)
-
-// 	// Close executor and wait for tasks to complete
-// 	close(executor)
-// 	wg.Wait()
-
-// 	// Check status of each node
-// 	// nodes := os.Getenv("SL_NODES")
-// 	// nodeList := regexp.MustCompile(`,\s*`).Split(nodes, -1)
-// 	// checkNodeStatus(nodeList)
-// }

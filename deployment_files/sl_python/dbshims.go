@@ -53,6 +53,9 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 		if err != nil {
 			return nil, fmt.Errorf("failed to connect to Postgres at %s:%d: %v", ip, port, err)
 		}
+		client.SetMaxOpenConns(5)
+		client.SetMaxIdleConns(2)
+		// client.SetConnMaxLifetime(30 * time.Minute)
 		postgresClients[nodeID] = client
 		// clientMap[nodeID] = client
 		if _, err := client.Exec(`CREATE TABLE IF NOT EXISTS mewbie_table (id SERIAL PRIMARY KEY, key TEXT, value TEXT);`); err != nil {

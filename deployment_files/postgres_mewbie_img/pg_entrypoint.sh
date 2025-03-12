@@ -27,24 +27,35 @@ EOF
     echo "host replication replicator all md5" >> "$PGDATA/pg_hba.conf"
     # Start PostgreSQL to apply configurations and create the replication user
     # gosu $USER pg_ctl start -D "$PGDATA" -w
-
+    
+    #Temporarily blocking to run the container forever
+    #tail -f /dev/null
+    
     # Start PostgreSQL temporarily to create superuser (POSTGRES_USER)
     echo "Starting PostgreSQL temporarily to create superuser..."
     gosu $USER pg_ctl start -D "$PGDATA" -w
 
     # Ensure the POSTGRES_USER (superuser) exists
-    if ! gosu $USER psql -U "$POSTGRES_USER" -c '\du' | grep -qw "$POSTGRES_USER"; then
+    if ! gosu $USER psql -U postgres -c '\du' | grep -qw "$POSTGRES_USER"; then
         echo "Creating superuser $POSTGRES_USER..."
         gosu $USER psql -U postgres -c "CREATE USER $POSTGRES_USER WITH SUPERUSER PASSWORD 'pgpass';"
     fi
 
-    echo "Creating replication user..."
-    gosu $USER psql -U "$POSTGRES_USER" -c "CREATE ROLE replicator WITH REPLICATION PASSWORD 'replicator_password' LOGIN;"
+    # Ensure the POSTGRES_DB (database) exists
+    if ! gosu $USER psql -U postgres -c '\l' | grep -qw "$POSTGRES_DB"; then
+        echo "Creating database $POSTGRES_DB..."
+        gosu $USER psql -U postgres -c "CREATE DATABASE $POSTGRES_DB;"
+    fi
 
-    gosu $USER pg_ctl stop -D "$PGDATA"
+    #echo "Creating replication user..."
+    gosu $USER psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "CREATE ROLE replicator WITH REPLICATION PASSWORD 'replicator_password' LOGIN;"
 
-    exec postgres
+    #gosu $USER pg_ctl stop -D "$PGDATA"
 
+    #Start PostgreSQL with the superuser
+    #echo "Starting PostgreSQL with the superuser..."
+    #exec postgres
+    
 ############## REPLICA CONFIGURATION ##############
 else 
     echo "Configuring as replica pg container"
@@ -62,14 +73,22 @@ else
     echo "Clearing existing data directory..."
     rm -rf "$PGDATA"/*
 
+    tail -f /dev/null
+    #Sleep for 10 seconds to allow postgres to shutdown
+    sleep 5
+
     # Perform base backup from primary to initialize replication
     echo "Running pg_basebackup to replicate data from primary at $REPLICATE_FROM..."
+
+    export PGPASSWORD='replicator_password'
     pg_basebackup -h "$REPLICATE_FROM" -D "$PGDATA" -U replicator -Fp -Xs -P -R
 
     # Run delay script to simulate network delay
     ################  DELAY SIMULATION  ################################
     /home/delay.sh $DELAY_MS $JITTER_MS $CORRELATION $DISTRIBUTION
 
+    #Start postgress
+    gosu $USER pg_ctl start -D "$PGDATA" -w
 fi
 
-exec postgres
+tail -f /dev/null

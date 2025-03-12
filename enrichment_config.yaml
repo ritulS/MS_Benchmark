@@ -16,7 +16,8 @@ WorkloadConfig:
   rw_ratio: 1              # eg: 0.5
   async_sync_ratio: 2
 
-ExpWorkloadName: as_dmix1_1.5 # for dmix exps keep both same
+ExpWorkloadName: dmix1_pg_heavy
+ # for dmix exps keep both same
 
 ## Datastore mixtures: dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy
 ## Consistency exp: consistency_exp

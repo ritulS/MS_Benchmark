@@ -181,12 +181,12 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }
                 if cont_name in special_nodes:
                     docker_compose_data['services'][service_name]['deploy'] = {
-                            'replicas': 2,
-                            'placement': {
-                                'constraints': [
-                                    'node.labels.sl_node == true'
-                                ]
-                            },
+                            # 'replicas': 2,
+                            # 'placement': {
+                            #     'constraints': [
+                            #         'node.labels.sl_node == true'
+                            #     ]
+                            # },
                             'resources': {
                                 'limits': {
                                     'cpus': '3',  # CPU limit
@@ -278,7 +278,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'container_name': replica_cont_name,
                         'networks': {
                             'mewbie_network': {
-                                'aliases': [cont_name]  
+                                'aliases': [replica_cont_name]  
                             }
                         },
                         'environment': [
