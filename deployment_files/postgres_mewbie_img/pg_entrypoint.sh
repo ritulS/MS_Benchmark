@@ -23,6 +23,17 @@ max_wal_senders = 3
 wal_keep_size = 64MB
 EOF
 
+    # Configure synchronous_standby_names based on consistency mode
+    if [ "$CONSISTENCY_MODE" = "sync" ]; then
+        echo "Setting up STRONG consistency (synchronous replication)"
+        echo "synchronous_commit = on" >> "$PGDATA/postgresql.conf"
+        echo "synchronous_standby_names = '*'" >> "$PGDATA/postgresql.conf"
+    else
+        echo "Setting up EVENTUAL consistency (asynchronous replication)"
+        echo "synchronous_commit = off" >> "$PGDATA/postgresql.conf"
+        echo "synchronous_standby_names = ''" >> "$PGDATA/postgresql.conf"
+    fi
+
     # Configure pg_hba.conf to allow replication connections from any IP
     echo "host replication replicator all md5" >> "$PGDATA/pg_hba.conf"
     # Start PostgreSQL to apply configurations and create the replication user
@@ -73,7 +84,7 @@ else
     echo "Clearing existing data directory..."
     rm -rf "$PGDATA"/*
 
-    tail -f /dev/null
+    # tail -f /dev/null
     #Sleep for 10 seconds to allow postgres to shutdown
     sleep 5
 
@@ -82,10 +93,28 @@ else
 
     export PGPASSWORD='replicator_password'
     pg_basebackup -h "$REPLICATE_FROM" -D "$PGDATA" -U replicator -Fp -Xs -P -R
+    echo "Fixing permissions for PGDATA..."
+    chown -R postgres:postgres "$PGDATA"
+    chmod 700 "$PGDATA"
 
     # Run delay script to simulate network delay
     ################  DELAY SIMULATION  ################################
-    /home/delay.sh $DELAY_MS $JITTER_MS $CORRELATION $DISTRIBUTION
+    /home/pg_delay.sh 2000ms 1000ms 25% normal
+
+    # Create standby.signal file for PostgreSQL 12+
+    touch "$PGDATA/standby.signal"
+
+    # Modify recovery configuration for consistency mode
+    if [ "$CONSISTENCY_MODE" = "strong" ]; then
+        echo "Configuring STRONG consistency (synchronous replica)"
+        echo "primary_conninfo = 'host=$REPLICATE_FROM port=5432 user=replicator password=replicator_password application_name=replica'" >> "$PGDATA/postgresql.conf"
+    else
+        echo "Configuring EVENTUAL consistency (asynchronous replica)"
+        echo "primary_conninfo = 'host=$REPLICATE_FROM port=5432 user=replicator password=replicator_password application_name=replica'" >> "$PGDATA/postgresql.conf"
+    fi
+
+    # Change ownership to postgres
+    chown -R postgres:postgres "$PGDATA"
 
     #Start postgress
     gosu $USER pg_ctl start -D "$PGDATA" -w

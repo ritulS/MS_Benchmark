@@ -1,7 +1,7 @@
 FROM mongo:latest
 
-COPY delay.sh /home
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY mongo_delay.sh /home
+COPY mongo_entrypoint.sh /usr/local/bin/mongo_entrypoint.sh
 
 # install python for listener
 RUN set -ex ;\
@@ -14,6 +14,6 @@ RUN set -ex ;\
         vim \
         ;\
     rm -rf /var/lib/apt/lists/* ;\
-    chmod 777 /home/delay.sh /usr/local/bin/entrypoint.sh
+    chmod 777 /home/mongo_delay.sh /usr/local/bin/mongo_entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/mongo_entrypoint.sh"]

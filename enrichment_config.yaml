@@ -3,11 +3,13 @@
 # Make sure these add up to 100
 Databases: 
   MongoDB: 
-    percentage: 10 
+    percentage: 10
+    consistency: 'eventual'  # strong, eventual
   Redis: 
     percentage: 10
   Postgres: 
     percentage: 80
+    consistency: 'strong'  # strong, eventual
 
 WorkloadConfig:
   record_count: 1000          # eg: 1000 
@@ -16,7 +18,9 @@ WorkloadConfig:
   rw_ratio: 1              # eg: 0.5
   async_sync_ratio: 2
 
-ExpWorkloadName: dmix1_pg_heavy
+
+
+ExpWorkloadName: test_run
  # for dmix exps keep both same
 
 ## Datastore mixtures: dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy

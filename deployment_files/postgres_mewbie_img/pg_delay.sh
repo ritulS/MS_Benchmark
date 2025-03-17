@@ -1,16 +1,16 @@
 #!/bin/bash
 
-DELAY_MS=$2
-JITTER_MS=$3
-CORRELATION=$([ "$4" = "0%" ] && echo "" || echo "$4")
-DISTRIBUTION=$5
+DELAY_MS=$1
+JITTER_MS=$2
+CORRELATION=$([ "$3" = "0%" ] && echo "" || echo "$3")
+DISTRIBUTION=$4
 
 ifconfig -a | grep -e '^eth' | cut -d ':' -f 1 | while read -r INTERFACE ; do
   echo ">> Handling $INTERFACE"
   # clean existing rules
   # echo "Removing old rules ..."
   # tc qdisc del dev $INTERFACE root
-  # echo "Done!"
+  # echo "Removed Old rules!"
 
   # echo "Adding new rules ..."
   # # apply to all eth* interfaces
@@ -24,7 +24,11 @@ ifconfig -a | grep -e '^eth' | cut -d ':' -f 1 | while read -r INTERFACE ; do
 
   echo "  - Adding 'netem delay $DELAY_MS $JITTER_MS $CORRELATION $DISTRIBUTION'"
   echo "tc qdisc add dev $INTERFACE root netem delay $DELAY_MS $JITTER_MS $CORRELATION"
-  tc qdisc add dev $INTERFACE root netem delay $DELAY_MS $JITTER_MS $CORRELATION #$DISTRIBUTION
+  if [ -n "$DISTRIBUTION" ]; then
+    tc qdisc add dev $INTERFACE root netem delay $DELAY_MS $JITTER_MS $CORRELATION distribution $DISTRIBUTION
+  else
+    tc qdisc add dev $INTERFACE root netem delay $DELAY_MS $JITTER_MS $CORRELATION
+  fi
 
   # tc qdisc add dev $INTERFACE parent 1:1 handle 2: netem delay $DELAY_MS $JITTER_MS $CORRELATION $DISTRIBUTION
   echo "Done!"

@@ -321,13 +321,6 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         }
                     },
                     'cap_add': ['NET_ADMIN'],
-                    # 'command': [
-                    #     "mongod",
-                    #     "--wiredTigerConcurrentReadTransactions=256",
-                    #     "--wiredTigerConcurrentWriteTransactions=256",
-                    #     "--net.maxIncomingConnections=200000",
-                    #     "--wiredTigerCacheSizeGB=4"
-                    # ],
                     'sysctls': [
                         'net.core.somaxconn=65535',
                         'net.ipv4.tcp_max_syn_backlog=65535',
