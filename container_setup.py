@@ -379,7 +379,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                     ],
                     'command': ["postgres", 
                                 "-c", "max_connections=500",
-                                "-c", "shared_buffers=500MB"
+                                "-c", "shared_buffers=800MB"
                                 ],
                     'deploy': {
                         'resources': {

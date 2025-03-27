@@ -212,8 +212,8 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 		call := nodeCall.([]interface{})
 		dmNID := call[0].(string)
 		dataOpID := int(call[1].(float64))
-		asyncFlag := int(call[2].(float64))
-		// asyncFlag := 0 //// Hard-coding for Sync calls only
+		// asyncFlag := int(call[2].(float64))
+		asyncFlag := 0 //// Hard-coding for Sync calls only
 
 		if dataOpID != -1 {
 			// Handle Sf call
@@ -222,7 +222,6 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 			// opType = "write" // Hard-coding for write operations only
 			opObjID := opPkt["op_obj_id"].(string)
 			dbName := opPkt["db"].(string)
-			// kv := map[string]string{opObjID: generateRandomString(500)}
 			var kv map[string]string
 			if opType == "write" {
 				kv = map[string]string{opObjID: generateRandomString(500)}
@@ -239,12 +238,12 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 				}()
 				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Async", dbName)
 			} else { // Sync SF call
-				start := time.Now()
+				// start := time.Now()
 				if _, err := makeDBCall(dmNID, dbName, kv, opType, thisNID); err != nil {
 					log.Printf("Sync DB call to %s failed: %v", dmNID, err)
 					return fmt.Errorf("sync DB call to %s failed: %v", dmNID, err)
 				}
-				log.Printf("DB call to %s:%s took %v", dbName, dmNID, time.Since(start))
+				// log.Printf("DB call to %s:%s took %v", dbName, dmNID, time.Since(start))
 				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Sync", dbName)
 			}
 		} else {
