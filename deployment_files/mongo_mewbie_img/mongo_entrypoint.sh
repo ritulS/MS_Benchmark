@@ -75,7 +75,7 @@ else
 
     # Apply network delay using pg_delay.sh
     echo "Applying network delay..."
-    /home/mongo_delay.sh 2000ms 1000ms 25% normal
+    /home/mongo_delay.sh 300ms 100ms 25% normal
 
     echo "Starting MongoDB Replica..."
     mongod --replSet rs0 --bind_ip_all --port 27017 --logpath /var/log/mongodb.log

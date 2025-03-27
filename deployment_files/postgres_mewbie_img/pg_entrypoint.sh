@@ -36,6 +36,8 @@ EOF
 
     # Configure pg_hba.conf to allow replication connections from any IP
     echo "host replication replicator all md5" >> "$PGDATA/pg_hba.conf"
+    echo "host    pg_db    pguser    0.0.0.0/0       trust" >> "$PGDATA/pg_hba.conf"
+    echo "host    pg_db    pguser    ::/0            trust" >> "$PGDATA/pg_hba.conf"
     # Start PostgreSQL to apply configurations and create the replication user
     # gosu $USER pg_ctl start -D "$PGDATA" -w
     
@@ -99,7 +101,7 @@ else
 
     # Run delay script to simulate network delay
     ################  DELAY SIMULATION  ################################
-    /home/pg_delay.sh 2000ms 1000ms 25% normal
+    /home/pg_delay.sh 300ms 100ms 25% normal
 
     # Create standby.signal file for PostgreSQL 12+
     touch "$PGDATA/standby.signal"

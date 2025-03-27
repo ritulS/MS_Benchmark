@@ -17,10 +17,10 @@ import (
 )
 
 var (
-	rps               = 2885                                             // packets per second                            // trace packets data loaded from JSON
+	rps               = 800                                              // packets per second
 	logger            *log.Logger                                        // logger for rotating log file
 	logFileName       = "./logs/client_log.csv"                          // log file path
-	maxLogFileSize    = int64(10 * 1024 * 1024)                          // 10 MB in bytes
+	maxLogFileSize    = int64(25 * 1024 * 1024)                          // 10 MB in bytes
 	numBackupFiles    = 5                                                // number of backup files
 	statusCheckRegexp = regexp.MustCompile(`Alive request count: (\d+)`) // regex to check status
 )
@@ -97,7 +97,7 @@ var client = &http.Client{
 // Send data to a container
 func sendDataToContainer(containerName, contType, tid string, data map[string]interface{}) {
 	logEntry(tid, "mewbie_client", fmt.Sprint(time.Now().UnixMicro()))
-
+	// fmt.Printf("###### In sendDataToContainer: %s [%s] with TID: %s\n", containerName, contType, tid)
 	// Set the port based on container type
 	port := map[string]int{
 		"Python":   5000,
@@ -118,7 +118,7 @@ func sendDataToContainer(containerName, contType, tid string, data map[string]in
 		log.Printf("Error marshaling JSON: %v", err)
 		return
 	}
-
+	// fmt.Printf("Sending data: %s\n", string(jsonData))
 	// Create the POST request with JSON data
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
@@ -136,7 +136,7 @@ func sendDataToContainer(containerName, contType, tid string, data map[string]in
 		return
 	}
 	defer resp.Body.Close()
-
+	// fmt.Printf("Received response from %s [%s]: %d\n", containerName, contType, resp.StatusCode)
 	// if resp.StatusCode != http.StatusOK {
 	// 	log.Printf("Received non-OK response: %d", resp.StatusCode)
 	// }
@@ -154,6 +154,7 @@ func sendDataToContainer(containerName, contType, tid string, data map[string]in
 
 // Run sendDataToContainer in the background
 func sendDataInBackground(containerName, contType, tid string, data map[string]interface{}) {
+	// fmt.Printf("############## In sendDataInBackground: %s [%s] with TID: %s\n", containerName, contType, tid)
 	go sendDataToContainer(containerName, contType, tid, data)
 }
 
@@ -192,7 +193,7 @@ func main() {
 
 	// Define the number of goroutines
 	numGoroutines := 14
-
+	// fmt.Printf("################Running with %d goroutines\n", numGoroutines)
 	// Split tracePacketsDict into chunks for each goroutine
 	chunks := make([]map[string]map[string]interface{}, 0, numGoroutines)
 	for i := 0; i < numGoroutines; i++ {
@@ -201,6 +202,7 @@ func main() {
 
 	i := 0
 	for tid, packet := range tracePacketsDict {
+		// fmt.Printf("################Processing TID: %s\n", tid)
 		chunkIndex := i / ((len(tracePacketsDict) + numGoroutines - 1) / numGoroutines)
 		if chunkIndex >= numGoroutines {
 			chunkIndex = numGoroutines - 1
@@ -234,6 +236,7 @@ func main() {
 				if !nodeTypeOk || !typeOk {
 					continue
 				}
+				// fmt.Printf("##########Sending packet with TID: %s\n", tid)
 				sendDataInBackground(initialNode, initialNodeType, tid, packet)
 				atomic.AddInt64(&totalPacketsSent, 1)
 			}

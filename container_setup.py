@@ -25,8 +25,8 @@ workload_name = config['ExpWorkloadName']
 # print(workload_name)
 
 node_split = load_dict_from_json(f"./enrichment_runs/{workload_name}/node_split_output.json")
-unique_nodes = load_dict_from_json("./node_and_trace_details/500_100k_unique_nodes.json")
-unique_nodes_str = ",".join(unique_nodes)
+# unique_nodes = load_dict_from_json("./node_and_trace_details/500_100k_unique_nodes.json")
+# unique_nodes_str = ",".join(unique_nodes)
 # extract sl node info: count, sl nodeids
 total_sl_count = 0
 total_sl_nodes_list = []
@@ -200,8 +200,8 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
             ],
             'environment': [
                 'CONTAINER_NAME=mewbie_client',
-                f'WORKLOAD_NAME={workload_name}',
-                f'SL_NODES={unique_nodes_str}'
+                f'WORKLOAD_NAME={workload_name}'
+                # f'SL_NODES={unique_nodes_str}'
             ],
             'command':
             'sh -c "tail -f /dev/null"',
@@ -268,19 +268,19 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                     docker_compose_data['services'][service_name]['deploy'] = {
                             'resources': {
                                 'limits': {
-                                    'cpus': '12',  # CPU limit
-                                    'memory': '10G'  # Memory limit, adjust as needed
+                                    'cpus': '15',  # CPU limit
+                                    'memory': '15G'  # Memory limit, adjust as needed
                                 }
                             }  
                     }
         
         elif service == 'Redis':
             for j in range(service_node_count):
-                db_cpu = 1
+                db_cpu = 3
                 service_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-                if cont_name in sf_hot_nodes:
-                    db_cpu = 1
+                # if cont_name in sf_hot_nodes:
+                #     db_cpu = 1
                 docker_compose_data['services'][service_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
@@ -300,18 +300,18 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'resources': {
                             'limits': {
                                 'cpus': f'{db_cpu}',
-                                'memory': '2G'  
+                                'memory': '4G'  
                             }
                         }
                     } 
                 }           
         elif service == 'MongoDB':
             for j in range(service_node_count):
-                db_cpu = 1
+                db_cpu = 3
                 service_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-                if cont_name in sf_hot_nodes:
-                    db_cpu = 1
+                # if cont_name in sf_hot_nodes:
+                #     db_cpu = 1
                 docker_compose_data['services'][service_name] = {
                     'image': f"mongo:latest",
                     'container_name': cont_name,
@@ -326,25 +326,31 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'net.ipv4.tcp_max_syn_backlog=65535',
                         'net.ipv4.tcp_tw_reuse=1',
                         'net.ipv4.ip_local_port_range=1024 65000'
+                        # 'vm.max_map_count=16777216', ######### Temp fix by running on host
+                        # 'vm.swappiness=10'
+                    ],
+                    'volumes': [
+                        './deployment_files/mongo-init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js'
                     ],
                     'deploy': {
                         # 'replicas': 2,  # Number of replicas set to 2
                         'resources': {
                             'limits': {
                                 'cpus': f'{db_cpu}',
-                                'memory': '2G' 
+                                'memory': '16G' 
                             }
                         }
                     }
+                    # 'cap_add': ['SYS_ADMIN']
                 }
         elif service == 'Postgres':
             cpus_per_container = calc_cpus_per_container(db_cpc)
             for j in range(service_node_count):
-                db_cpu = 2
+                db_cpu = 3
                 service_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-                if cont_name in sf_hot_nodes:
-                    db_cpu = 1
+                # if cont_name in sf_hot_nodes:
+                #     db_cpu = 1
                 docker_compose_data['services'][service_name] = {
                     'image': f"postgres:latest",
                     'container_name': cont_name,
@@ -368,6 +374,9 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'net.ipv4.tcp_tw_reuse=1',
                         'net.ipv4.ip_local_port_range=1024 65000'
                     ],
+                    'volumes': [
+                        './deployment_files/pg-init/init.sql:/docker-entrypoint-initdb.d/init.sql'
+                    ],
                     'command': ["postgres", 
                                 "-c", "max_connections=500",
                                 "-c", "shared_buffers=500MB"
@@ -376,7 +385,7 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'resources': {
                             'limits': {
                                 'cpus': f'{db_cpu}',
-                                'memory': '2G'  
+                                'memory': '4G'  
                             }
                         }
                     }

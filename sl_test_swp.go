@@ -1,6 +1,6 @@
-// // ///////////////////////////////////////////////////////////
-// // // Waits for downstream tasks
-// // ///////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////
+// // Waits for downstream tasks
+// ///////////////////////////////////////////////////////////
 
 package main
 
@@ -24,7 +24,7 @@ import (
 
 var (
 	rqCounter    = 0
-	specialNodes = []string{"n2146", "n3909", "n7019", "n4467", "n2562", "n652", "n8097"}
+	specialNodes = []string{"n1865", "n2127", "n5223", "n2977", "n6292", "n52"}
 	procTimeDist []time.Duration
 )
 
@@ -73,17 +73,28 @@ func logToCSVFile(tid, thisNid, loggedTime, entryType, message string) error {
 }
 
 func makeDBCall(dmNID, dbName string, kv map[string]string, opType, thisNid string) (string, error) {
+	// log.Printf("Making DATABASE %s call to: %s", dmNID, dbName)
 	switch dbName {
 	case "MongoDB":
 		result, err := MongoShimFunc(context.Background(), kv, opType, thisNid, dmNID, 27017)
+		if err != nil {
+			log.Printf("MONGO ERROR: %v", err)
+		}
 		return result, err
 
 	case "Redis":
 		result, err := RedisShimFunc(context.Background(), kv, opType, thisNid, dmNID, 6379)
+		if err != nil {
+			log.Printf("REDIS ERROR: %v", err)
+		}
+
 		return result, err
 
 	case "Postgres":
 		result, err := PostgresShimFunc(context.Background(), kv, opType, thisNid, dmNID, 5432)
+		if err != nil {
+			log.Printf("POSTGRES ERROR: %v", err)
+		}
 		return result, err
 
 	default:
@@ -91,68 +102,43 @@ func makeDBCall(dmNID, dbName string, kv map[string]string, opType, thisNid stri
 	}
 }
 
-var httpClient = &http.Client{
-	Timeout: 80 * time.Second,
-	Transport: &http.Transport{
-		DisableKeepAlives: true,
-	},
-}
-
-// Makes an HTTP call to a SL node with retry logic
-func makeSLCall(slDmNID string, tracePacketData []byte) (string, error) {
-	url := fmt.Sprintf("http://%s:5000/", slDmNID)
-	var lastErr error
-
-	for attempt := 1; attempt <= 3; attempt++ {
-		req, err := http.NewRequestWithContext(context.Background(), "POST", url, bytes.NewBuffer(tracePacketData))
-		if err != nil {
-			return "", fmt.Errorf("failed to create request: %v", err)
-		}
-		req.Header.Set("Content-Type", "application/json")
-
-		resp, err := httpClient.Do(req)
-		if err != nil {
-			log.Printf("SL call to %s failed on attempt %d: %v", slDmNID, attempt, err)
-			lastErr = err
-		} else {
-			defer resp.Body.Close()
-			if resp.StatusCode == http.StatusOK {
-				return "SL call successful", nil
-			}
-			log.Printf("SL call to %s returned status %d on attempt %d", slDmNID, resp.StatusCode, attempt)
-			lastErr = fmt.Errorf("SL call returned status %d", resp.StatusCode)
-		}
-
-		// Wait before retrying
-		if attempt < 3 {
-			time.Sleep(2 * time.Second)
-		}
-	}
-
-	return "", fmt.Errorf("failed to perform SL call to %s after 3 attempts: %v", slDmNID, lastErr)
-}
-
-// // Makes an HTTP call to a SL node
-// func makeSLCall(slDmNID string, tracePacketData []byte) (string, error) {
-// 	url := fmt.Sprintf("http://%s:5000/", slDmNID)
-// 	req, err := http.NewRequestWithContext(context.Background(), "POST", url, bytes.NewBuffer(tracePacketData))
-// 	if err != nil {
-// 		return "", fmt.Errorf("failed to create request: %v", err)
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-
-// 	// client := &http.Client{}
-// 	resp, err := httpClient.Do(req)
-// 	if err != nil {
-// 		return "", fmt.Errorf("failed to perform SL call to %s: %v", slDmNID, err)
-// 	}
-// 	defer resp.Body.Close()
-
-// 	if resp.StatusCode != http.StatusOK {
-// 		return "", fmt.Errorf("SL call failed with status: %d", resp.StatusCode)
-// 	}
-// 	return "SL call successful", nil
+// var httpClient = &http.Client{
+// 	Timeout: 80 * time.Second,
 // }
+
+var httpClient = &http.Client{
+	Transport: &http.Transport{
+		MaxIdleConns:        100,
+		MaxIdleConnsPerHost: 10,
+		IdleConnTimeout:     10 * time.Second,
+		DisableKeepAlives:   false,
+	},
+	Timeout: 80 * time.Second, // Keeps original timeout
+}
+
+// Makes an HTTP call to a SL node
+func makeSLCall(slDmNID string, tracePacketData []byte) (string, error) {
+	// log.Printf("Making SL call to: %s", slDmNID)
+	url := fmt.Sprintf("http://%s:5000/", slDmNID)
+	req, err := http.NewRequestWithContext(context.Background(), "POST", url, bytes.NewBuffer(tracePacketData))
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %v", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	// client := &http.Client{}
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("failed to perform SL call to %s: %v", slDmNID, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("SL call failed with status: %d", resp.StatusCode)
+	}
+	// log.Printf("Completed call to: %s", slDmNID)
+	return "SL call successful", nil
+}
 
 type TracePacketResult struct {
 	Status string   `json:"status"`           // e.g. "Completed" or "Failed"
@@ -175,13 +161,12 @@ func initProcessingTimes() {
 
 func processTracePacket(tracePacketData map[string]interface{}) error {
 
-	// log.Printf("\nReceived request at node: %s\n", os.Getenv("CONTAINER_NAME"))
 	thisNID := os.Getenv("CONTAINER_NAME")
 	tid := tracePacketData["tid"].(string)
 	nodeCallsDict, _ := tracePacketData["node_calls_dict"].(map[string]interface{})
 	dataOpsDict, _ := tracePacketData["data_ops_dict"].(map[string]interface{})
 	loggerNodes, _ := tracePacketData["logger_nodes"].([]interface{})
-
+	// log.Printf("Starting processTracePacket for tid: %s on node: %s", tid, thisNID)
 	isSpecialNode := false
 	for _, node := range specialNodes {
 		if node == thisNID {
@@ -206,14 +191,13 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 	if !ok || len(dmNodesToCall) == 0 {
 		return nil
 	}
-	// log.Printf("%s making downstream calls", thisNID)
+
 	// Process each downstream node call
 	for _, nodeCall := range dmNodesToCall {
 		call := nodeCall.([]interface{})
 		dmNID := call[0].(string)
 		dataOpID := int(call[1].(float64))
-		asyncFlag := int(call[2].(float64))
-		// asyncFlag := 0 //// Hard-coding for Sync calls only
+		asyncFlag := 0 //// Hard-coding for Sync calls only
 
 		if dataOpID != -1 {
 			// Handle Sf call
@@ -222,14 +206,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 			// opType = "write" // Hard-coding for write operations only
 			opObjID := opPkt["op_obj_id"].(string)
 			dbName := opPkt["db"].(string)
-			// kv := map[string]string{opObjID: generateRandomString(500)}
-			var kv map[string]string
-			if opType == "write" {
-				kv = map[string]string{opObjID: generateRandomString(500)}
-			} else {
-				// For read, just use the key, value will be populated from DB
-				kv = map[string]string{opObjID: ""}
-			}
+			kv := map[string]string{opObjID: generateRandomString(500)}
 
 			if asyncFlag == 1 { // Async SF call
 				go func() {
@@ -239,12 +216,10 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 				}()
 				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Async", dbName)
 			} else { // Sync SF call
-				start := time.Now()
 				if _, err := makeDBCall(dmNID, dbName, kv, opType, thisNID); err != nil {
-					log.Printf("Sync DB call to %s failed: %v", dmNID, err)
+					log.Printf("\n\nSync DB call to %s failed: %v, TracePacketData:\n %v\n\n", dmNID, err, tracePacketData)
 					return fmt.Errorf("sync DB call to %s failed: %v", dmNID, err)
 				}
-				log.Printf("DB call to %s:%s took %v", dbName, dmNID, time.Since(start))
 				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Sync", dbName)
 			}
 		} else {
@@ -253,16 +228,16 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 			if asyncFlag == 1 {
 				go func() {
 					if _, err := makeSLCall(dmNID, tracePacketDataBytes); err != nil {
+						// log.Printf("Async SL call to %s failed: %v, TracePacketData: %v", dmNID, err, tracePacketData)
 						log.Printf("Async SL call to %s failed: %v", dmNID, err)
 					}
 				}()
 			} else {
-				// start := time.Now()
 				if _, err := makeSLCall(dmNID, tracePacketDataBytes); err != nil {
-					log.Printf("Sync SL call to %s failed: %v", dmNID, err)
+					log.Printf("\nSync SL call to %s failed: %v\n", dmNID, err)
+					// return fmt.Errorf("sync SL call to %s failed: %v, TracePacketData: %v", dmNID, err, tracePacketData)
 					return fmt.Errorf("sync SL call to %s failed: %v", dmNID, err)
 				}
-				// log.Printf("SL call to %s took %s", dmNID, time.Since(start))
 			}
 		}
 
@@ -272,7 +247,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 
 // Call handler function
 func callHandler(w http.ResponseWriter, r *http.Request) {
-	// log.Printf("Call being handled!")
+	// log.Println("Call being handled!")
 	var tracePacketData map[string]interface{}
 	if err := json.NewDecoder(r.Body).Decode(&tracePacketData); err != nil {
 		http.Error(w, "invalid request", http.StatusBadRequest)
@@ -285,18 +260,7 @@ func callHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// If no error, send OK response
-	// w.WriteHeader(http.StatusOK)
-	// fmt.Fprintln(w, "ok")
-
-	// w.WriteHeader(http.StatusOK)
-	fmt.Fprintln(w, "ok")
-	// if f, ok := w.(http.Flusher); ok {
-	// 	f.Flush()
-	// }
-
-	// fmt.Fprintln(w, "Request processed")
-	// log.Println("Sending response back to client")
-
+	w.WriteHeader(http.StatusOK)
 }
 
 // Status handler function
@@ -316,8 +280,9 @@ func main() {
 		Addr:         "0.0.0.0:5000",
 		WriteTimeout: 60 * time.Second,
 		ReadTimeout:  60 * time.Second,
+		IdleTimeout:  30 * time.Second, // Helps reuse connections
 	}
-	// srv.SetKeepAlivesEnabled(false)
+
 	fmt.Println("Server started on port 5000")
 	if err := srv.ListenAndServe(); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
