@@ -55,17 +55,14 @@ def build_images():
     subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/slp_img", path], check=True)
     subprocess.run(["docker","push","mewbieregistry.com:5000/slp_img:latest"])
     # Mongo Mewbie
-    path = "./deployment_files/mongo_mewbie_img/"
-    subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/mongo_mewbie_img", path], check=True)
-    subprocess.run(["docker","push","mewbieregistry.com:5000/mongo_mewbie_img:latest"])
-    # # Redis Mewbie
-    # path = "./deployment_files/redis_mewbie_img/"
-    # subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/redis_mewbie_img", path], check=True)
-    # subprocess.run(["docker","push","mewbieregistry.com:5000/redis_mewbie_img:latest"])
+    path = "./deployment_files/mongo_dmix_img/"
+    subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/mongo_dmix_img", path], check=True)
+    subprocess.run(["docker","push","mewbieregistry.com:5000/mongo_dmix_img:latest"])
+
     # # Postgres Mewbie
-    # path = "./deployment_files/postgres_mewbie_img/"
-    # subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/postgres_mewbie_img", path], check=True)
-    # subprocess.run(["docker","push","mewbieregistry.com:5000/postgres_mewbie_img:latest"])
+    path = "./deployment_files/postgres_dmix_img/"
+    subprocess.run(["docker", "build", "-t", "mewbieregistry.com:5000/postgres_dmix_img", path], check=True)
+    subprocess.run(["docker","push","mewbieregistry.com:5000/postgres_dmix_img:latest"])
 
 def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
     docker_compose_data = {
@@ -220,21 +217,22 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 ]
     }
     
-    def calc_cpus_per_container(cpc):
-        return 1.0/cpc
+    # def calc_cpus_per_container(cpc):
+    #     return 1.0/cpc
 
-    special_nodes = ["n1865", "n5223", "n2127", "n530", "n4210", "n6292"]
-    sf_hot_nodes = ["n4037", "n7049", "n3882", "n2127", "n6572", "n2405", "n7709"]
+    special_nodes = ["n2146", "n3909", "n7019", "n2562", "n652", "n8097", "n4467"]
+    sf_hot_nodes = ["n1082", "n744", "n750", "n4576", "n103", "n9555", "n3184", "n4835"]
     
     for service in conts_to_setup:
         service_node_count = conts_to_setup[service]['count']
         nodes_for_service = conts_to_setup[service]['nodes_list']
         if service == 'Python':
-            cpus_per_cont = calc_cpus_per_container(python_cpc)
+            # cpus_per_cont = calc_cpus_per_container(python_cpc)
             for j in range(service_node_count):
                 service_name = f"Python-{j}_{nodes_for_service[j]}"  # e.g., Python-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-               
+                slot_index = j % 4
+                slot_label = f"slot{slot_index}"
                 docker_compose_data['services'][service_name] = {
                         'image': f"mewbieregistry.com:5000/slp_img:latest",
                     'container_name': cont_name,
@@ -250,11 +248,15 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         }
                     },
                     'deploy': {
-
+                        'placement': {
+                            'constraints': [
+                                f'node.labels.slot == {slot_label}'
+                            ]
+                        },
                         'resources': {
                             'limits': {
-                                'cpus': '15',  # CPU limit
-                                'memory': '15G'  # Memory limit, adjust as needed
+                                'cpus': '6',  # CPU limit
+                                'memory': '6G'  # Memory limit, adjust as needed
                             }
                         }
                     },
@@ -265,22 +267,20 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                     ]
                 }
                 if cont_name in special_nodes:
-                    docker_compose_data['services'][service_name]['deploy'] = {
-                            'resources': {
+                    docker_compose_data['services'][service_name]['deploy']['resources'] = {
                                 'limits': {
-                                    'cpus': '15',  # CPU limit
-                                    'memory': '15G'  # Memory limit, adjust as needed
+                                    'cpus': '8',  # CPU limit
+                                    'memory': '8G'  # Memory limit, adjust as needed
                                 }
-                            }  
                     }
         
         elif service == 'Redis':
             for j in range(service_node_count):
-                db_cpu = 3
+                db_cpu = 1
                 service_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-                # if cont_name in sf_hot_nodes:
-                #     db_cpu = 1
+                slot_index = j % 4
+                slot_label = f"slot{slot_index}"
                 docker_compose_data['services'][service_name] = {
                     'image': f"redis:latest",
                     'container_name': cont_name,
@@ -296,7 +296,11 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'net.ipv4.ip_local_port_range=1024 65000'
                     ],
                     'deploy': {
-                        # 'replicas': 2,
+                        'placement': {
+                            'constraints': [
+                                f'node.labels.slot == {slot_label}'
+                            ]
+                        },
                         'resources': {
                             'limits': {
                                 'cpus': f'{db_cpu}',
@@ -307,13 +311,15 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }           
         elif service == 'MongoDB':
             for j in range(service_node_count):
-                db_cpu = 3
+                db_cpu = 1.5
                 service_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-                # if cont_name in sf_hot_nodes:
-                #     db_cpu = 1
+                if cont_name in sf_hot_nodes:
+                    db_cpu = 2
+                slot_index = j % 4
+                slot_label = f"slot{slot_index}"
                 docker_compose_data['services'][service_name] = {
-                    'image': f"mongo:latest",
+                    'image': f"mewbieregistry.com:5000/mongo_dmix_img:latest",
                     'container_name': cont_name,
                     'networks': {
                         'mewbie_network': {
@@ -329,30 +335,37 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         # 'vm.max_map_count=16777216', ######### Temp fix by running on host
                         # 'vm.swappiness=10'
                     ],
-                    'volumes': [
-                        './deployment_files/mongo-init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js'
-                    ],
+                    # 'volumes': [
+                    #     './deployment_files/mongo-init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js'
+                    # ],
                     'deploy': {
-                        # 'replicas': 2,  # Number of replicas set to 2
+                        'placement': {
+                            'constraints': [
+                                f'node.labels.slot == {slot_label}'
+                            ]
+                        },
                         'resources': {
                             'limits': {
                                 'cpus': f'{db_cpu}',
-                                'memory': '16G' 
+                                'memory': '4G' 
                             }
                         }
                     }
                     # 'cap_add': ['SYS_ADMIN']
                 }
         elif service == 'Postgres':
-            cpus_per_container = calc_cpus_per_container(db_cpc)
+            # cpus_per_container = calc_cpus_per_container(db_cpc)
             for j in range(service_node_count):
-                db_cpu = 3
+                db_cpu = 1.5
                 service_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
-                # if cont_name in sf_hot_nodes:
-                #     db_cpu = 1
+                if cont_name in sf_hot_nodes:
+                    db_cpu = 2
+                slot_index = j % 4
+                slot_label = f"slot{slot_index}"
+
                 docker_compose_data['services'][service_name] = {
-                    'image': f"postgres:latest",
+                    'image': f"mewbieregistry.com:5000/postgres_dmix_img:latest",
                     'container_name': cont_name,
                     'networks': {
                         'mewbie_network': {
@@ -363,10 +376,10 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'POSTGRES_USER=pguser',
                         'POSTGRES_PASSWORD=pgpass',
                         'POSTGRES_DB=pg_db',
-                        'POSTGRES_HOST_AUTH_METHOD=trust',
-                        'PG_SHARED_BUFFERS=2GB',  # Increased shared buffers
-                        'PG_WORK_MEM=16MB',  # More memory per query
-                        'PG_EFFECTIVE_CACHE_SIZE=6GB',  # Optimize cache size
+                        'POSTGRES_HOST_AUTH_METHOD=trust'
+                        # 'PG_SHARED_BUFFERS=2GB',  # Increased shared buffers
+                        # 'PG_WORK_MEM=16MB',  # More memory per query
+                        # 'PG_EFFECTIVE_CACHE_SIZE=6GB'  # Optimize cache size
                     ],
                     'sysctls': [
                         'net.core.somaxconn=65535',
@@ -374,14 +387,16 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'net.ipv4.tcp_tw_reuse=1',
                         'net.ipv4.ip_local_port_range=1024 65000'
                     ],
-                    'volumes': [
-                        './deployment_files/pg-init/init.sql:/docker-entrypoint-initdb.d/init.sql'
-                    ],
                     'command': ["postgres", 
-                                "-c", "max_connections=500",
-                                "-c", "shared_buffers=800MB"
+                                "-c", "max_connections=500"
+                                # "-c", "shared_buffers=800MB"
                                 ],
                     'deploy': {
+                        'placement': {
+                            'constraints': [
+                                f'node.labels.slot == {slot_label}'
+                            ]
+                        },
                         'resources': {
                             'limits': {
                                 'cpus': f'{db_cpu}',

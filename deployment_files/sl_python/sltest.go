@@ -24,7 +24,7 @@ import (
 
 var (
 	rqCounter    = 0
-	specialNodes = []string{"n2146", "n3909", "n7019", "n4467", "n2562", "n652", "n8097"}
+	specialNodes = []string{"n2146", "n3909", "n7019"} //"n2562", "n652", "n8097", "n4467"
 	procTimeDist []time.Duration
 )
 
@@ -224,7 +224,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 			dbName := opPkt["db"].(string)
 			var kv map[string]string
 			if opType == "write" {
-				kv = map[string]string{opObjID: generateRandomString(500)}
+				kv = map[string]string{opObjID: generateRandomString(1000)}
 			} else {
 				// For read, just use the key, value will be populated from DB
 				kv = map[string]string{opObjID: ""}
@@ -238,10 +238,14 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 				}()
 				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Async", dbName)
 			} else { // Sync SF call
-				// start := time.Now()
+				start := time.Now()
 				if _, err := makeDBCall(dmNID, dbName, kv, opType, thisNID); err != nil {
 					log.Printf("Sync DB call to %s failed: %v", dmNID, err)
 					return fmt.Errorf("sync DB call to %s failed: %v", dmNID, err)
+				}
+				elapsed := time.Since(start)
+				if elapsed > 20*time.Millisecond {
+					log.Printf("SLOW DB call to %s:%s took %v", dbName, dmNID, elapsed)
 				}
 				// log.Printf("DB call to %s:%s took %v", dbName, dmNID, time.Since(start))
 				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Sync", dbName)
@@ -261,6 +265,10 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 					log.Printf("Sync SL call to %s failed: %v", dmNID, err)
 					return fmt.Errorf("sync SL call to %s failed: %v", dmNID, err)
 				}
+				// elapsed := time.Since(start)
+				// if elapsed > 300*time.Millisecond {
+				// 	log.Printf("SLOW SL call to %s took %v", dmNID, elapsed)
+				// }
 				// log.Printf("SL call to %s took %s", dmNID, time.Since(start))
 			}
 		}

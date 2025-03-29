@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	rps               = 800                                              // packets per second
+	rps               = 1200                                             // packets per second
 	logger            *log.Logger                                        // logger for rotating log file
 	logFileName       = "./logs/client_log.csv"                          // log file path
 	maxLogFileSize    = int64(25 * 1024 * 1024)                          // 10 MB in bytes
@@ -192,7 +192,7 @@ func main() {
 	tracePacketsDict := tracePackets
 
 	// Define the number of goroutines
-	numGoroutines := 14
+	numGoroutines := 16
 	// fmt.Printf("################Running with %d goroutines\n", numGoroutines)
 	// Split tracePacketsDict into chunks for each goroutine
 	chunks := make([]map[string]map[string]interface{}, 0, numGoroutines)

@@ -58,8 +58,8 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 		if err != nil {
 			return nil, fmt.Errorf("failed to connect to Postgres at %s:%d: %v", ip, port, err)
 		}
-		client.SetMaxOpenConns(20)
-		client.SetMaxIdleConns(20)
+		client.SetMaxOpenConns(25)
+		client.SetMaxIdleConns(5)
 		postgresClients[nodeID] = client
 
 		// // Check if the table already exists
@@ -251,6 +251,13 @@ func PostgresShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip 
 		if err != nil {
 			return "", fmt.Errorf("failed to write key '%s': %v", key, err)
 		}
+		// Read-after-write
+		readQuery := `SELECT value FROM mewbie_table WHERE key = $1`
+		var dummy string
+		err = db.QueryRowContext(ctx, readQuery, key).Scan(&dummy)
+		if err != nil && err != sql.ErrNoRows {
+			return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
+		}
 		return fmt.Sprintf("KV pair %s:%s inserted or updated", key, value), nil
 
 	case "read":
@@ -267,51 +274,3 @@ func PostgresShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip 
 		return "", fmt.Errorf("unsupported operation: %s", op)
 	}
 }
-
-// // PostgreSQL shim function
-// func PostgresShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip string, port int) (string, error) {
-// 	client, err := dbConInitializer("Postgres", nodeID, ip, port)
-// 	if err != nil {
-// 		return "", err
-// 	}
-// 	db, ok := client.(*sql.DB)
-// 	if !ok {
-// 		return "", fmt.Errorf("unexpected client type: expected *sql.DB, got %T for nodeID %s", client, nodeID)
-// 	}
-
-// 	key, value := "", ""
-// 	for k, v := range kv {
-// 		key, value = k, v
-// 		break
-// 	}
-
-// 	switch op {
-// 	case "write":
-// 		query := `INSERT INTO mewbie_table (key, value) VALUES ($1, $2)
-// 		          ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;`
-// 		_, err := db.ExecContext(ctx, query, key, value)
-// 		if err != nil {
-// 			return "", err
-// 		}
-// 		return fmt.Sprintf("KV pair %s:%s inserted or updated", key, value), nil
-// 		// _, err := db.ExecContext(ctx, "INSERT INTO mewbie_table (key, value) VALUES ($1, $2)", key, value)
-// 		// if err != nil {
-// 		// 	return "", err
-// 		// }
-// 		// return fmt.Sprintf("KV pair %s:%s inserted", key, value), nil
-
-// 	case "read":
-// 		row := db.QueryRowContext(ctx, "SELECT value FROM mewbie_table WHERE key = $1", key)
-// 		err := row.Scan(&value)
-// 		if err == sql.ErrNoRows {
-// 			// No rows found, return a message without an error
-// 			return "", nil
-// 		} else if err != nil {
-// 			return "", fmt.Errorf("error reading KV pair %s: %v", key, err)
-// 		}
-// 		return fmt.Sprintf("KV pair %s:%s read successfully", key, value), nil
-
-// 	default:
-// 		return "", fmt.Errorf("unsupported operation: %s", op)
-// 	}
-// }
