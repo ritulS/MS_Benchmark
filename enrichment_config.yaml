@@ -3,10 +3,10 @@
 # Make sure these add up to 100
 Databases: 
   MongoDB: 
-    percentage: 70
+    percentage: 15
     consistency: 'eventual'  # strong, eventual
   Redis: 
-    percentage: 15
+    percentage: 70
   Postgres: 
     percentage: 15
     consistency: 'eventual'  # strong, eventual
@@ -20,7 +20,7 @@ WorkloadConfig:
 
 
 
-ExpWorkloadName: 'dmix2_mongo_heavy'  # dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy, cons_exp, test_run
+ExpWorkloadName: 'dmix1_pg_heavy'  # dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy, cons_exp, test_run
 TraceGraphName: ''
  # for dmix exps keep both same
 

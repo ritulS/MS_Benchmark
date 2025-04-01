@@ -28,13 +28,9 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 	mu.Lock()
 	defer mu.Unlock()
 
-	// if client, ok := clientMap[nodeID]; ok {
-	// 	return client, nil
-	// }
-
 	switch dbName {
 	case "MongoDB":
-		if client, ok := mongoClients[nodeID]; ok {
+		if client, ok := mongoClients[ip]; ok {
 			return client, nil
 		}
 		// client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%d", ip, port)))
@@ -46,11 +42,11 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 		if err != nil {
 			return nil, fmt.Errorf("failed to connect to MongoDB at %s:%d: %v", ip, port, err)
 		}
-		mongoClients[nodeID] = client
+		mongoClients[ip] = client
 		return client, nil
 
 	case "Postgres":
-		if client, ok := postgresClients[nodeID]; ok {
+		if client, ok := postgresClients[ip]; ok {
 			return client, nil
 		}
 		dsn := fmt.Sprintf("postgres://pguser:pgpass@%s:%d/pg_db?sslmode=disable", ip, port)
@@ -59,55 +55,13 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 			return nil, fmt.Errorf("failed to connect to Postgres at %s:%d: %v", ip, port, err)
 		}
 		client.SetMaxOpenConns(25)
-		client.SetMaxIdleConns(5)
-		postgresClients[nodeID] = client
-
-		// // Check if the table already exists
-		// var exists bool
-		// err = client.QueryRow(`
-		// 	SELECT EXISTS (
-		// 		SELECT FROM information_schema.tables
-		// 		WHERE table_schema = 'public' AND table_name = 'mewbie_table'
-		// 	);
-		// `).Scan(&exists)
-
-		// if err != nil {
-		// 	return nil, fmt.Errorf("failed to check if mewbie_table exists: %v", err)
-		// }
-
-		// // Create table only if it doesn't exist
-		// if !exists {
-		// 	_, err = client.Exec(`
-		// 		CREATE TABLE mewbie_table (
-		// 			key TEXT PRIMARY KEY,
-		// 			value TEXT
-		// 		);
-		// 	`)
-		// 	if err != nil {
-		// 		return nil, fmt.Errorf("failed to create table mewbie_table: %v", err)
-		// 	}
-		// }
+		client.SetMaxIdleConns(25)
+		postgresClients[ip] = client
 
 		return client, nil
 
-		// client.SetConnMaxLifetime(30 * time.Minute)
-		// postgresClients[nodeID] = client
-		// _, err = client.Exec(`
-		// 	CREATE TABLE IF NOT EXISTS mewbie_table (
-		// 		key TEXT PRIMARY KEY,
-		// 		value TEXT
-		// 	);
-		// `)
-		// if err != nil {
-		// 	return nil, fmt.Errorf("failed to create table mewbie_table: %v", err)
-		// }
-		// // if _, err := client.Exec(`CREATE TABLE IF NOT EXISTS mewbie_table (id SERIAL PRIMARY KEY, key TEXT, value TEXT);`); err != nil {
-		// // 	return nil, err
-		// // }
-		// return client, nil
-
 	case "Redis":
-		if client, ok := redisClients[nodeID]; ok {
+		if client, ok := redisClients[ip]; ok {
 			return client, nil
 		}
 		client := redis.NewClient(&redis.Options{
@@ -116,13 +70,11 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 			ReadTimeout:  30 * time.Second,
 			WriteTimeout: 30 * time.Second,
 		})
-		// client := redis.NewClient(&redis.Options{
-		// 	Addr: fmt.Sprintf("%s:%d", ip, port),
-		// })
+
 		if _, err := client.Ping(context.Background()).Result(); err != nil {
 			return nil, fmt.Errorf("failed to connect to Redis at %s:%d: %v", ip, port, err)
 		}
-		redisClients[nodeID] = client
+		redisClients[ip] = client
 		return client, nil
 
 	default:
@@ -131,53 +83,55 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 }
 
 func MongoShimFunc(ctx context.Context, kv map[string]string, opType, nodeID, dmNID string, port int) (string, error) {
-
-	client, err := dbConInitializer("MongoDB", nodeID, dmNID, port)
+	client, err := dbConInitializer("MongoDB", dmNID, dmNID, port) // cache key = dmNID
 	if err != nil {
 		return "", err
 	}
+
 	mongoClient, ok := client.(*mongo.Client)
 	if !ok {
 		return "", fmt.Errorf("unexpected client type: expected *mongo.Client, got %T for nodeID %s", client, nodeID)
 	}
+
 	collection := mongoClient.Database("mewbie_db").Collection("mycollection")
+
+	var key, value string
+	for k, v := range kv {
+		key, value = k, v
+		break
+	}
 
 	switch opType {
 	case "write":
-		for k, v := range kv {
-			// 🔧 Normalize the document shape for indexing
-			doc := bson.M{"key": k, "value": v}
-			result, err := collection.InsertOne(ctx, doc)
-			if err != nil {
-				return "", err
-			}
-			return fmt.Sprintf("Payload inserted with id %v", result.InsertedID), nil
+		// Upsert: insert if not exists, else update
+		filter := bson.M{"key": key}
+		update := bson.M{"$set": bson.M{"value": value}}
+		opts := options.Update().SetUpsert(true)
+
+		_, err := collection.UpdateOne(ctx, filter, update, opts)
+		if err != nil {
+			return "", fmt.Errorf("failed to upsert key '%s': %v", key, err)
 		}
-		return "", fmt.Errorf("no key-value pair provided for write")
-		// result, err := collection.InsertOne(ctx, kv)
-		// if err != nil {
-		// 	return "", err
-		// }
-		// return fmt.Sprintf("Payload inserted with id %v", result.InsertedID), nil
+
+		// Read-after-write verification
+		var result bson.M
+		err = collection.FindOne(ctx, filter).Decode(&result)
+		if err != nil {
+			return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
+		}
+		return fmt.Sprintf("KV pair %s:%s inserted or updated", key, value), nil
 
 	case "read":
-		for k := range kv {
-			// 🔧 Use normalized key field for indexed lookup
-			filter := bson.M{"key": k}
-			var result bson.M
-			err := collection.FindOne(ctx, filter).Decode(&result)
-			if err != nil {
-				return "No entry matching the query", nil
-			}
-			return fmt.Sprintf("Document found: %v", result), nil
+		filter := bson.M{"key": key}
+		var result bson.M
+		err := collection.FindOne(ctx, filter).Decode(&result)
+		if err == mongo.ErrNoDocuments {
+			return "", nil
+		} else if err != nil {
+			return "", fmt.Errorf("error reading key '%s': %v", key, err)
 		}
-		return "", fmt.Errorf("no key provided for read")
-		// var result bson.M
-		// err := collection.FindOne(ctx, kv).Decode(&result)
-		// if err != nil {
-		// 	return "No entry matching the query", nil
-		// }
-		// return fmt.Sprintf("Document found: %v", result), nil
+		val := result["value"]
+		return fmt.Sprintf("KV pair %s:%v read successfully", key, val), nil
 
 	default:
 		return "", fmt.Errorf("unsupported operation: %s", opType)
@@ -206,7 +160,14 @@ func RedisShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip str
 		if err := redisClient.Set(ctx, key, value, 0).Err(); err != nil {
 			return "", err
 		}
-		return fmt.Sprintf("KV pair %s:%s inserted", key, value), nil
+		// Read-after-write
+		readVal, err := redisClient.Get(ctx, key).Result()
+		if err == redis.Nil {
+			return "", fmt.Errorf("read-after-write failed, key '%s' not found", key)
+		} else if err != nil {
+			return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
+		}
+		return fmt.Sprintf("KV pair %s:%s inserted or updated", key, readVal), nil
 
 	case "read":
 		value, err := redisClient.Get(ctx, key).Result()

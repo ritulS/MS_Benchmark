@@ -210,6 +210,12 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                     ]
                 }
             },
+            'ulimits': {
+                        'nofile': {
+                            'soft': 65535,
+                            'hard': 65535
+                        }
+                    },
             'sysctls': [  # Added sysctls for port range
                 'net.ipv4.ip_local_port_range=1024 65000',
                 'net.core.somaxconn=65535',  # Increase TCP backlog
@@ -217,17 +223,14 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 ]
     }
     
-    # def calc_cpus_per_container(cpc):
-    #     return 1.0/cpc
 
     special_nodes = ["n2146", "n3909", "n7019", "n2562", "n652", "n8097", "n4467"]
-    sf_hot_nodes = ["n1082", "n744", "n750", "n4576", "n103", "n9555", "n3184", "n4835"]
+    sf_hot_nodes = ["n4576", "n103", "n1082"] # "n744", "n9555", "n3184", "n4835", "n750"
     
     for service in conts_to_setup:
         service_node_count = conts_to_setup[service]['count']
         nodes_for_service = conts_to_setup[service]['nodes_list']
         if service == 'Python':
-            # cpus_per_cont = calc_cpus_per_container(python_cpc)
             for j in range(service_node_count):
                 service_name = f"Python-{j}_{nodes_for_service[j]}"  # e.g., Python-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
@@ -260,6 +263,12 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                             }
                         }
                     },
+                    'ulimits': {
+                        'nofile': {
+                            'soft': 65535,
+                            'hard': 65535
+                        }
+                    },
                     'sysctls': [  # Added sysctls for port range
                     'net.ipv4.ip_local_port_range=1024 65000',
                     'net.core.somaxconn=65535',  # Increase TCP backlog
@@ -270,15 +279,17 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                     docker_compose_data['services'][service_name]['deploy']['resources'] = {
                                 'limits': {
                                     'cpus': '8',  # CPU limit
-                                    'memory': '8G'  # Memory limit, adjust as needed
+                                    'memory': '8G'  # Memory limit
                                 }
                     }
         
         elif service == 'Redis':
             for j in range(service_node_count):
-                db_cpu = 1
+                db_cpu = 0.5
                 service_name = f"Redis-{j}_{nodes_for_service[j]}" # eg: Redis-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
+                if cont_name in sf_hot_nodes:
+                    db_cpu = 1
                 slot_index = j % 4
                 slot_label = f"slot{slot_index}"
                 docker_compose_data['services'][service_name] = {
@@ -311,11 +322,11 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                 }           
         elif service == 'MongoDB':
             for j in range(service_node_count):
-                db_cpu = 1.5
+                db_cpu = 0.5
                 service_name = f"MongoDB-{j}_{nodes_for_service[j]}" # eg: MongoDB-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
                 if cont_name in sf_hot_nodes:
-                    db_cpu = 2
+                    db_cpu = 1
                 slot_index = j % 4
                 slot_label = f"slot{slot_index}"
                 docker_compose_data['services'][service_name] = {
@@ -335,9 +346,6 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         # 'vm.max_map_count=16777216', ######### Temp fix by running on host
                         # 'vm.swappiness=10'
                     ],
-                    # 'volumes': [
-                    #     './deployment_files/mongo-init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js'
-                    # ],
                     'deploy': {
                         'placement': {
                             'constraints': [
@@ -356,11 +364,11 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
         elif service == 'Postgres':
             # cpus_per_container = calc_cpus_per_container(db_cpc)
             for j in range(service_node_count):
-                db_cpu = 1.5
+                db_cpu = 0.5
                 service_name = f"Postgres-{j}_{nodes_for_service[j]}" # eg: Postgres-0_(nodeid)
                 cont_name = f"{nodes_for_service[j]}"
                 if cont_name in sf_hot_nodes:
-                    db_cpu = 2
+                    db_cpu = 1
                 slot_index = j % 4
                 slot_label = f"slot{slot_index}"
 

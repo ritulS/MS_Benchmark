@@ -94,7 +94,10 @@ func makeDBCall(dmNID, dbName string, kv map[string]string, opType, thisNid stri
 var httpClient = &http.Client{
 	Timeout: 80 * time.Second,
 	Transport: &http.Transport{
-		DisableKeepAlives: true,
+		// DisableKeepAlives: true,
+		MaxIdleConns:        4000,
+		MaxIdleConnsPerHost: 1000,
+		IdleConnTimeout:     60 * time.Second,
 	},
 }
 
@@ -131,28 +134,6 @@ func makeSLCall(slDmNID string, tracePacketData []byte) (string, error) {
 
 	return "", fmt.Errorf("failed to perform SL call to %s after 3 attempts: %v", slDmNID, lastErr)
 }
-
-// // Makes an HTTP call to a SL node
-// func makeSLCall(slDmNID string, tracePacketData []byte) (string, error) {
-// 	url := fmt.Sprintf("http://%s:5000/", slDmNID)
-// 	req, err := http.NewRequestWithContext(context.Background(), "POST", url, bytes.NewBuffer(tracePacketData))
-// 	if err != nil {
-// 		return "", fmt.Errorf("failed to create request: %v", err)
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-
-// 	// client := &http.Client{}
-// 	resp, err := httpClient.Do(req)
-// 	if err != nil {
-// 		return "", fmt.Errorf("failed to perform SL call to %s: %v", slDmNID, err)
-// 	}
-// 	defer resp.Body.Close()
-
-// 	if resp.StatusCode != http.StatusOK {
-// 		return "", fmt.Errorf("SL call failed with status: %d", resp.StatusCode)
-// 	}
-// 	return "SL call successful", nil
-// }
 
 type TracePacketResult struct {
 	Status string   `json:"status"`           // e.g. "Completed" or "Failed"
@@ -224,7 +205,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 			dbName := opPkt["db"].(string)
 			var kv map[string]string
 			if opType == "write" {
-				kv = map[string]string{opObjID: generateRandomString(1000)}
+				kv = map[string]string{opObjID: generateRandomString(15000)}
 			} else {
 				// For read, just use the key, value will be populated from DB
 				kv = map[string]string{opObjID: ""}
@@ -244,7 +225,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 					return fmt.Errorf("sync DB call to %s failed: %v", dmNID, err)
 				}
 				elapsed := time.Since(start)
-				if elapsed > 20*time.Millisecond {
+				if elapsed > 50*time.Millisecond {
 					log.Printf("SLOW DB call to %s:%s took %v", dbName, dmNID, elapsed)
 				}
 				// log.Printf("DB call to %s:%s took %v", dbName, dmNID, time.Since(start))
@@ -321,8 +302,9 @@ func main() {
 	srv := &http.Server{
 		Handler:      r,
 		Addr:         "0.0.0.0:5000",
-		WriteTimeout: 60 * time.Second,
-		ReadTimeout:  60 * time.Second,
+		WriteTimeout: 20 * time.Second,
+		ReadTimeout:  20 * time.Second,
+		IdleTimeout:  60 * time.Second,
 	}
 	// srv.SetKeepAlivesEnabled(false)
 	fmt.Println("Server started on port 5000")

@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	rps               = 1200                                             // packets per second
+	rps               = 2840                                             // packets per second
 	logger            *log.Logger                                        // logger for rotating log file
 	logFileName       = "./logs/client_log.csv"                          // log file path
 	maxLogFileSize    = int64(25 * 1024 * 1024)                          // 10 MB in bytes
