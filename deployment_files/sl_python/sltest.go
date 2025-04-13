@@ -19,7 +19,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	_ "github.com/lib/pq"
+	// _ "github.com/lib/pq"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 var (
@@ -36,7 +37,7 @@ func generateRandomString(length int) string {
 	return base64.StdEncoding.EncodeToString(bytes)
 }
 
-func logToCSVFile(tid, thisNid, loggedTime, entryType, message string) error {
+func logToCSVFile(tid, thisNid, loggedTime, syncType, serviceName, dmNID, elapsed string) error {
 
 	logDirectory := "./logs"
 	logFile := filepath.Join(logDirectory, fmt.Sprintf("%s_log.csv", thisNid))
@@ -62,7 +63,7 @@ func logToCSVFile(tid, thisNid, loggedTime, entryType, message string) error {
 	defer writer.Flush()
 
 	// Write the log entry to the CSV file
-	entry := []string{tid, thisNid, loggedTime, entryType, message}
+	entry := []string{tid, thisNid, loggedTime, syncType, serviceName, dmNID, elapsed}
 	if err := writer.Write(entry); err != nil {
 		log.Printf("Failed to write log entry: %v", err)
 		return err
@@ -97,7 +98,7 @@ var httpClient = &http.Client{
 		// DisableKeepAlives: true,
 		MaxIdleConns:        4000,
 		MaxIdleConnsPerHost: 1000,
-		IdleConnTimeout:     60 * time.Second,
+		IdleConnTimeout:     15 * time.Second,
 	},
 }
 
@@ -178,7 +179,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 	// Log entry if node is a logger node
 	for _, node := range loggerNodes {
 		if node == thisNID {
-			logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Leaf", "")
+			logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Leaf", "", "", "")
 		}
 	}
 
@@ -205,7 +206,8 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 			dbName := opPkt["db"].(string)
 			var kv map[string]string
 			if opType == "write" {
-				kv = map[string]string{opObjID: generateRandomString(15000)}
+				// kv = map[string]string{opObjID: generateRandomString(15000)} // FOR DMIX EXP
+				kv = map[string]string{opObjID: generateRandomString(10000)} // FOR CONSISTENCY EXP
 			} else {
 				// For read, just use the key, value will be populated from DB
 				kv = map[string]string{opObjID: ""}
@@ -217,7 +219,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 						log.Printf("Async DB call to %s failed: %v", dmNID, err)
 					}
 				}()
-				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Async", dbName)
+				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Async", dbName, dmNID, "")
 			} else { // Sync SF call
 				start := time.Now()
 				if _, err := makeDBCall(dmNID, dbName, kv, opType, thisNID); err != nil {
@@ -229,7 +231,7 @@ func processTracePacket(tracePacketData map[string]interface{}) error {
 					log.Printf("SLOW DB call to %s:%s took %v", dbName, dmNID, elapsed)
 				}
 				// log.Printf("DB call to %s:%s took %v", dbName, dmNID, time.Since(start))
-				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Sync", dbName)
+				logToCSVFile(tid, thisNID, fmt.Sprint(time.Now().UnixMicro()), "Sync", dbName, dmNID, elapsed.String())
 			}
 		} else {
 			// Handle SL call

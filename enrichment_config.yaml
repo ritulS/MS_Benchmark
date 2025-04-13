@@ -3,13 +3,13 @@
 # Make sure these add up to 100
 Databases: 
   MongoDB: 
-    percentage: 15
-    consistency: 'eventual'  # strong, eventual
+    percentage: 40
+    consistency: 'strong'  # strong, eventual
   Redis: 
-    percentage: 70
+    percentage: 20
   Postgres: 
-    percentage: 15
-    consistency: 'eventual'  # strong, eventual
+    percentage: 40
+    consistency: 'strong'  # strong, eventual
 
 WorkloadConfig:
   record_count: 1000          # eg: 1000 
@@ -20,7 +20,7 @@ WorkloadConfig:
 
 
 
-ExpWorkloadName: 'dmix1_pg_heavy'  # dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy, cons_exp, test_run
+ExpWorkloadName: 'cons_exp'  # dmix1_pg_heavy, dmix2_mongo_heavy, dmix3_redis_heavy, cons_exp, test_run
 TraceGraphName: ''
  # for dmix exps keep both same
 
@@ -29,3 +29,5 @@ TraceGraphName: ''
 ## Testing: test_run
 # All dbmix and consistency experiements are run with async_sync_ratio = 1
 # Async/Sync experiments are run with pg:mg:re :: 40:40:20
+
+# When running dmix: turn on read-after-write

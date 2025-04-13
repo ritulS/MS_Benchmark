@@ -9,6 +9,8 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/stdlib"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -49,16 +51,35 @@ func dbConInitializer(dbName, nodeID, ip string, port int) (interface{}, error) 
 		if client, ok := postgresClients[ip]; ok {
 			return client, nil
 		}
-		dsn := fmt.Sprintf("postgres://pguser:pgpass@%s:%d/pg_db?sslmode=disable", ip, port)
-		client, err := sql.Open("postgres", dsn)
-		if err != nil {
-			return nil, fmt.Errorf("failed to connect to Postgres at %s:%d: %v", ip, port, err)
-		}
-		client.SetMaxOpenConns(25)
-		client.SetMaxIdleConns(25)
-		postgresClients[ip] = client
 
-		return client, nil
+		dsn := fmt.Sprintf("postgres://pguser:pgpass@%s:%d/pg_db?sslmode=disable", ip, port)
+		// Parse config and enable simple protocol
+		cfg, err := pgx.ParseConfig(dsn)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse pgx config: %v", err)
+		}
+		cfg.DefaultQueryExecMode = pgx.QueryExecModeSimpleProtocol
+
+		// Open sql.DB directly (no need to register driver)
+		db := stdlib.OpenDB(*cfg)
+
+		// Optional pool tuning
+		db.SetMaxOpenConns(25)
+		db.SetMaxIdleConns(25)
+
+		postgresClients[ip] = db
+		return db, nil
+		// // dsn := fmt.Sprintf("postgres://pguser:pgpass@%s:%d/pg_db?sslmode=disable&prefer_simple_protocol=true", ip, port)
+		// dsn := fmt.Sprintf("postgres://pguser:pgpass@%s:%d/pg_db?sslmode=disable", ip, port)
+		// client, err := sql.Open("postgres", dsn)
+		// if err != nil {
+		// 	return nil, fmt.Errorf("failed to connect to Postgres at %s:%d: %v", ip, port, err)
+		// }
+		// client.SetMaxOpenConns(25)
+		// client.SetMaxIdleConns(25)
+		// postgresClients[ip] = client
+
+		// return client, nil
 
 	case "Redis":
 		if client, ok := redisClients[ip]; ok {
@@ -113,12 +134,12 @@ func MongoShimFunc(ctx context.Context, kv map[string]string, opType, nodeID, dm
 			return "", fmt.Errorf("failed to upsert key '%s': %v", key, err)
 		}
 
-		// Read-after-write verification
-		var result bson.M
-		err = collection.FindOne(ctx, filter).Decode(&result)
-		if err != nil {
-			return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
-		}
+		// // Read-after-write verification
+		// var result bson.M
+		// err = collection.FindOne(ctx, filter).Decode(&result)
+		// if err != nil {
+		// 	return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
+		// }
 		return fmt.Sprintf("KV pair %s:%s inserted or updated", key, value), nil
 
 	case "read":
@@ -160,14 +181,14 @@ func RedisShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip str
 		if err := redisClient.Set(ctx, key, value, 0).Err(); err != nil {
 			return "", err
 		}
-		// Read-after-write
-		readVal, err := redisClient.Get(ctx, key).Result()
-		if err == redis.Nil {
-			return "", fmt.Errorf("read-after-write failed, key '%s' not found", key)
-		} else if err != nil {
-			return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
-		}
-		return fmt.Sprintf("KV pair %s:%s inserted or updated", key, readVal), nil
+		// // Read-after-write
+		// readVal, err := redisClient.Get(ctx, key).Result()
+		// if err == redis.Nil {
+		// 	return "", fmt.Errorf("read-after-write failed, key '%s' not found", key)
+		// } else if err != nil {
+		// 	return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
+		// }
+		return fmt.Sprintf("KV pair %s inserted or updated", key), nil
 
 	case "read":
 		value, err := redisClient.Get(ctx, key).Result()
@@ -212,13 +233,13 @@ func PostgresShimFunc(ctx context.Context, kv map[string]string, op, nodeID, ip 
 		if err != nil {
 			return "", fmt.Errorf("failed to write key '%s': %v", key, err)
 		}
-		// Read-after-write
-		readQuery := `SELECT value FROM mewbie_table WHERE key = $1`
-		var dummy string
-		err = db.QueryRowContext(ctx, readQuery, key).Scan(&dummy)
-		if err != nil && err != sql.ErrNoRows {
-			return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
-		}
+		// // Read-after-write
+		// readQuery := `SELECT value FROM mewbie_table WHERE key = $1`
+		// var dummy string
+		// err = db.QueryRowContext(ctx, readQuery, key).Scan(&dummy)
+		// if err != nil && err != sql.ErrNoRows {
+		// 	return "", fmt.Errorf("read-after-write failed for key '%s': %v", key, err)
+		// }
 		return fmt.Sprintf("KV pair %s:%s inserted or updated", key, value), nil
 
 	case "read":

@@ -1,8 +1,4 @@
 #!/bin/bash
-
-set -e
-
-#!/bin/bash
 set -e
 
 ############## PRIMARY CONFIGURATION ##############
@@ -38,6 +34,12 @@ if [ "$IS_REPLICA" = false ]; then
         echo "Setting Eventual Consistency Mode (w: 1, ReadPreference: nearest)"
         mongosh --eval "db.adminCommand({ setDefaultRWConcern: 1, defaultWriteConcern: { w: 1 }, defaultReadConcern: { level: 'local' } })"
     fi
+
+    echo "Running MongoDB initialization logic: create index"
+    mongosh <<EOF
+db = db.getSiblingDB("mewbie_db")
+db.mycollection.createIndex({ key: 1 })
+EOF
 
     echo "MongoDB Primary setup complete."
 
@@ -75,7 +77,7 @@ else
 
     # Apply network delay using pg_delay.sh
     echo "Applying network delay..."
-    /home/mongo_delay.sh 300ms 100ms 25% normal
+    /home/mongo_delay.sh 100ms 50ms 25% normal
 
     echo "Starting MongoDB Replica..."
     mongod --replSet rs0 --bind_ip_all --port 27017 --logpath /var/log/mongodb.log

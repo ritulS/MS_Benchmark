@@ -385,9 +385,6 @@ def gen_docker_compose_data(conts_to_setup, python_cpc, db_cpc, workload_name):
                         'POSTGRES_PASSWORD=pgpass',
                         'POSTGRES_DB=pg_db',
                         'POSTGRES_HOST_AUTH_METHOD=trust'
-                        # 'PG_SHARED_BUFFERS=2GB',  # Increased shared buffers
-                        # 'PG_WORK_MEM=16MB',  # More memory per query
-                        # 'PG_EFFECTIVE_CACHE_SIZE=6GB'  # Optimize cache size
                     ],
                     'sysctls': [
                         'net.core.somaxconn=65535',
